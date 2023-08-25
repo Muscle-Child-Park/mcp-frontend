@@ -1,11 +1,8 @@
-import React from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
-
+import React from 'react';
+import {StyleSheet, View, Dimensions} from 'react-native';
 
 const MainCard = () => {
-    return (
-    <View style={styles.card}/>
-  );
+  return <View style={styles.card} />;
 };
 
 const deviceWidth = Math.round(Dimensions.get('window').width);
@@ -23,7 +20,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 8,
   },
-
 });
 
 export default MainCard;
