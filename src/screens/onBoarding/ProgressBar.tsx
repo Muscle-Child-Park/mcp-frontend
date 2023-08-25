@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
+import {colors} from 'src/constants/colors';
 import data from 'src/constants/survey';
 
 interface Props {
@@ -21,7 +22,7 @@ const ProgressBar = ({progress}: Props) => {
           {
             height: 5,
             borderRadius: 5,
-            backgroundColor: '#4B4B4B',
+            backgroundColor: colors.primary,
           },
           {
             width: progressAnim,

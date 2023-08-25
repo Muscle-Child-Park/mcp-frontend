@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     // position: 'relative',
   },
   subContainer: {
-    borderWidth: 1,
-    borderColor: 'red',
+    // borderWidth: 1,
+    // borderColor: 'red',
     // marginVertical: 10,
     // padding: 40,
     // borderTopRightRadius: 40,

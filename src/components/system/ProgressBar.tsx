@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated, useWindowDimensions, StyleSheet, View} from 'react-native';
+import {colors} from 'src/constants/colors';
 
 const ProgressBar = ({percent = 0}) => {
   const layout = useWindowDimensions();
@@ -28,11 +29,11 @@ const ProgressBar = ({percent = 0}) => {
       width: layout.width - 72,
       height: 12,
       flexDirection: 'row',
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#F4F4F4',
       borderRadius: 10,
     },
     ProgressBar: {
-      backgroundColor: '#717171',
+      backgroundColor: colors.primary,
       borderRadius: percent,
       width,
     },

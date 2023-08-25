@@ -43,7 +43,7 @@ const CustomButton = ({
       // elevation: 6,
       backgroundColor:
         variant === 'fill' || variant === 'big' || isActive
-          ? colors.test
+          ? colors.primary
           : 'white',
       borderWidth: variant === 'stroke' ? 2 : 0,
       borderColor:

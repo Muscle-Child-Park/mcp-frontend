@@ -78,6 +78,7 @@ const MyTabs = () => {
           lineHeight: 22,
           color: '#FFFFFF',
         },
+        headerShown: false,
       })}>
       <Tab.Screen name="홈" component={Home} />
       <Tab.Screen name="예약" component={Reservation} />
