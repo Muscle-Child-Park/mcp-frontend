@@ -55,7 +55,9 @@ const CustomHeader = ({
         {hasLeftIcon && <View style={styles.icon} />}
         <Text style={styles.text}>{headerText}</Text>
       </View>
-      {hasRightIcon && <RightArrow style={{width: 24, height: 24}} />}
+      {hasRightIcon && (
+        <RightArrow style={{width: 24, height: 24}} fill="#404040" />
+      )}
     </View>
   );
 };
