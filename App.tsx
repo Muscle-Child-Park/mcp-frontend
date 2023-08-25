@@ -16,7 +16,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import MainCard from './components/MainCard';
+import MainCard from './src/components/MainCard';
 
 import {
   Colors,
@@ -26,14 +26,12 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
 function App(): JSX.Element {
-
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.mainBackground}>
-          <MainCard/>
+          <MainCard />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -42,7 +40,7 @@ function App(): JSX.Element {
 
 const styles = StyleSheet.create({
   mainBackground: {
-    backgroundColor:"#F5F7F9",
+    backgroundColor: '#F5F7F9',
   },
 });
 
