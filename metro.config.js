@@ -19,4 +19,12 @@ const config = {
   },
 };
 
-module.exports = mergeConfig(defaultConfig, config);
+const config2 = {
+  transformer: {
+    babelTransformerPath: require.resolve(
+      'react-native-typescript-transformer',
+    ),
+  },
+};
+
+module.exports = mergeConfig(defaultConfig, config, config2);
