@@ -24,7 +24,6 @@ const CustomHeader = ({
   headerText,
 }: Props) => {
   const deviceWidth = getDeviceWidth();
-  console.log(deviceWidth);
 
   const styles = StyleSheet.create({
     wrapper: {

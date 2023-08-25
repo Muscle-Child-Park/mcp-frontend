@@ -1,6 +1,9 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  NativeStackScreenProps,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from 'src/screens/Home';
 import My from 'src/screens/My';
@@ -12,9 +15,8 @@ import {
   ChattingIcon,
   SettingIcon,
 } from 'src/assets/images';
-
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+import {Button, View} from 'react-native';
+import FirstOnBoarding from 'src/screens/onBoarding/FirstOnBoarding';
 
 const iconMap = {
   홈: HomeIcon,
@@ -24,6 +26,24 @@ const iconMap = {
 } as const;
 
 type TabIcons = keyof typeof iconMap;
+type RootStackParamList = {
+  TestScreen: undefined;
+  HomeScreen: undefined;
+  OnboardingScreen: undefined;
+  Onboarding1: undefined;
+};
+
+type BottomTabNavigatorParamList = {
+  홈: undefined;
+  예약: undefined;
+  채팅: undefined;
+  MY: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
+
+type Props = NativeStackScreenProps<RootStackParamList, 'TestScreen'>;
 
 const MyTabs = () => {
   return (
@@ -71,12 +91,43 @@ const MyTabs = () => {
   );
 };
 
+const MyScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Onboarding1" component={FirstOnBoarding} />
+    </Stack.Navigator>
+  );
+};
+
+const TestScreen = ({navigation}: Props) => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10,
+      }}>
+      <Button
+        title="Go to Onboarding"
+        onPress={() => navigation.navigate('OnboardingScreen')}
+      />
+      <Button
+        title="Go to Home"
+        onPress={() => navigation.navigate('HomeScreen')}
+      />
+    </View>
+  );
+};
+
 const MainStackNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="홈"
+        initialRouteName="TestScreen"
         screenOptions={{headerShown: false}}>
+        <Stack.Screen name="TestScreen" component={TestScreen} />
+        <Stack.Screen name="OnboardingScreen" component={MyScreen} />
         <Stack.Screen name="HomeScreen" component={MyTabs} />
       </Stack.Navigator>
     </NavigationContainer>

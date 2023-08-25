@@ -18,7 +18,6 @@ interface Props {
 const CustomButton = ({title, layoutmode, variant}: Props) => {
   // const [isPressed, setIsPressed] = useState(false);
   const deviceWidth = getDeviceWidth();
-  // console.log(deviceWidth);
   const buttonStyles = StyleSheet.create({
     button: {
       // flex: 1,
