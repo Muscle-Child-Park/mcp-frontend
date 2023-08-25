@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {
   Alert,
-  Dimensions,
   Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
 } from 'react-native';
 import {colors} from '../../constants/colors';
+import getDeviceWidth from '../../utils/getDeviceWidth';
 
 interface Props {
   title: string;
@@ -17,7 +17,7 @@ interface Props {
 
 const CustomButton = ({title, layoutmode, variant}: Props) => {
   // const [isPressed, setIsPressed] = useState(false);
-  const deviceWidth = Math.round(Dimensions.get('window').width);
+  const deviceWidth = getDeviceWidth();
   // console.log(deviceWidth);
   const buttonStyles = StyleSheet.create({
     button: {
@@ -32,7 +32,7 @@ const CustomButton = ({title, layoutmode, variant}: Props) => {
       paddingBottom: 15,
       paddingLeft: 29,
       borderRadius: 4,
-      elevation: 22,
+      // elevation: 6,
       backgroundColor:
         variant === 'fill' || variant === 'big' ? colors.test : 'white',
       borderWidth: variant === 'stroke' ? 2 : 0,

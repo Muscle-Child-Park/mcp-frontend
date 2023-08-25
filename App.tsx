@@ -27,13 +27,15 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import CustomButton from './src/components/system/CustomButton';
 import HorizonLine from './src/components/system/HorizonLine';
+import SmallBox from './src/components/system/SmallBox';
+import {colors} from './src/constants/colors';
+import CustomHeader from './src/components/system/CustomHeader';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.mainBackground}>
-          <MainCard />
           <View style={styles.buttonContainer}>
             <CustomButton
               title="Text"
@@ -52,6 +54,17 @@ function App(): JSX.Element {
             <CustomButton title="Text" layoutmode="inline" variant="fill" />
             <CustomButton title="Text2" layoutmode="inline" variant="big" />
             <CustomButton title="Text" layoutmode="inline" variant="whiteBig" />
+            <HorizonLine text="AND" />
+            <MainCard>
+              <CustomHeader />
+              <SmallBox />
+              <SmallBox />
+              <CustomButton
+                title="수업 예약하기"
+                layoutmode="inline"
+                variant="fill"
+              />
+            </MainCard>
           </View>
         </View>
       </ScrollView>
@@ -61,7 +74,7 @@ function App(): JSX.Element {
 
 const styles = StyleSheet.create({
   mainBackground: {
-    backgroundColor: '#F5F7F9',
+    backgroundColor: colors.background,
     gap: 10,
   },
   buttonContainer: {

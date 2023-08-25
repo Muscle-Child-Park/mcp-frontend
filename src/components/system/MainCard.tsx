@@ -1,8 +1,12 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
 
-const MainCard = () => {
-  return <View style={styles.card} />;
+interface Props {
+  children: React.ReactNode;
+}
+
+const MainCard = ({children}: Props) => {
+  return <View style={styles.card}>{children}</View>;
 };
 
 const deviceWidth = Math.round(Dimensions.get('window').width);
@@ -18,7 +22,8 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     flexDirection: 'column',
     alignItems: 'flex-start',
-    gap: 8,
+    gap: 10,
+    elevation: 8,
   },
 });
 
