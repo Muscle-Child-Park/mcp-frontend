@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {colors} from '../../constants/colors';
-import getDeviceWidth from '../../utils/getDeviceWidth';
+import getDeviceWidth from '@/utils/getDeviceWidth';
+import {RightArrow} from '@/assets/images';
+import {colors} from '@/constants/colors';
 
 interface Props {
   hasLeftIcon?: boolean;
@@ -46,11 +47,6 @@ const CustomHeader = ({
       fontWeight: '600',
       lineHeight: 22,
     },
-    right: {
-      backgroundColor: colors.gray1,
-      width: 20,
-      height: 20,
-    },
   });
 
   return (
@@ -59,7 +55,7 @@ const CustomHeader = ({
         {hasLeftIcon && <View style={styles.icon} />}
         <Text style={styles.text}>{headerText}</Text>
       </View>
-      {hasRightIcon && <View style={styles.right} />}
+      {hasRightIcon && <RightArrow style={{width: 24, height: 24}} />}
     </View>
   );
 };

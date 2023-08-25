@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated, useWindowDimensions, StyleSheet, View} from 'react-native';
 
-const ProgressBar = ({percent = 80}) => {
+const ProgressBar = ({percent = 0}) => {
   const layout = useWindowDimensions();
   const counter = useRef(new Animated.Value(0)).current;
 
@@ -26,7 +26,7 @@ const ProgressBar = ({percent = 80}) => {
   const styles = StyleSheet.create({
     progressBarBlock: {
       width: layout.width - 72,
-      height: 8,
+      height: 12,
       flexDirection: 'row',
       backgroundColor: '#D9D9D9',
       borderRadius: 10,

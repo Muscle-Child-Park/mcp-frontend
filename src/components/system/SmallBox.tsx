@@ -1,7 +1,7 @@
+import {colors} from '@/constants/colors';
+import getDeviceWidth from '@/utils/getDeviceWidth';
 import React from 'react';
-import getDeviceWidth from '../../utils/getDeviceWidth';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {colors} from '../../constants/colors';
 
 const SmallBox = () => {
   return (

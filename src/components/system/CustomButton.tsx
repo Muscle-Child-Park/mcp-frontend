@@ -1,3 +1,5 @@
+import {colors} from '@/constants/colors';
+import getDeviceWidth from '@/utils/getDeviceWidth';
 import React, {useState} from 'react';
 import {
   Alert,
@@ -6,8 +8,6 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {colors} from '../../constants/colors';
-import getDeviceWidth from '../../utils/getDeviceWidth';
 
 interface Props {
   title: string;

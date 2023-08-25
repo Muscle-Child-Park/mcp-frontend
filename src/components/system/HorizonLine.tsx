@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 
 interface Props {
-  text: string;
+  text?: string;
 }
 
 const HorizonLine = ({text}: Props) => {
