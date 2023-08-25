@@ -2,6 +2,7 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 
 const defaultConfig = getDefaultConfig(__dirname);
 const {assetExts, sourceExts} = defaultConfig.resolver;
+const path = require('path');
 
 /**
  * Metro configuration
@@ -20,10 +21,18 @@ const config = {
 };
 
 const config2 = {
+  resolver: {
+    extraNodeModules: {
+      src: path.resolve(__dirname, 'src'),
+    },
+  },
   transformer: {
-    babelTransformerPath: require.resolve(
-      'react-native-typescript-transformer',
-    ),
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: false,
+      },
+    }),
   },
 };
 

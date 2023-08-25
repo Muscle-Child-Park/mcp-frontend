@@ -24,14 +24,14 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import CustomButton from '@/components/system/CustomButton';
-import HorizonLine from '@/components/system/HorizonLine';
-import SmallBox from '@/components/system/SmallBox';
-import {colors} from '@/constants/colors';
-import CustomHeader from '@/components/system/CustomHeader';
-import ProgressBar from '@/components/system/ProgressBar';
-import {RightArrow} from '@/assets/images';
-import MainCard from '@/components/system/MainCard';
+import HorizonLine from 'src/components/system/HorizonLine';
+import SmallBox from 'src/components/system/SmallBox';
+import {colors} from 'src/constants/colors';
+import CustomHeader from 'src/components/system/CustomHeader';
+import ProgressBar from 'src/components/system/ProgressBar';
+import {RightArrow} from 'src/assets/images';
+import MainCard from 'src/components/system/MainCard';
+import CustomButton from 'src/components/system/CustomButton';
 
 function App(): JSX.Element {
   return (
@@ -99,7 +99,7 @@ function App(): JSX.Element {
                     }}>
                     Paragraph
                   </Text>
-                  <RightArrow style={{width: 24, height: 24}} />
+                  <RightArrow style={{width: 22, height: 22}} />
                 </View>
                 <Text
                   style={{

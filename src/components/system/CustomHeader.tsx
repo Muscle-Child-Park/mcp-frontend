@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import getDeviceWidth from '@/utils/getDeviceWidth';
-import {RightArrow} from '@/assets/images';
-import {colors} from '@/constants/colors';
+import getDeviceWidth from 'src/utils/getDeviceWidth';
+import {RightArrow} from 'src/assets/images';
+import {colors} from 'src/constants/colors';
 
 interface Props {
   hasLeftIcon?: boolean;

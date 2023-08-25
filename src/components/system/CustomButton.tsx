@@ -1,5 +1,5 @@
-import {colors} from '@/constants/colors';
-import getDeviceWidth from '@/utils/getDeviceWidth';
+import {colors} from 'src/constants/colors';
+import getDeviceWidth from 'src/utils/getDeviceWidth';
 import React, {useState} from 'react';
 import {
   Alert,
