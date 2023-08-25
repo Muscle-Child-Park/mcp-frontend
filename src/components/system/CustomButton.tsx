@@ -1,22 +1,30 @@
 import {colors} from 'src/constants/colors';
 import getDeviceWidth from 'src/utils/getDeviceWidth';
-import React, {useState} from 'react';
 import {
-  Alert,
-  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableOpacityProps,
 } from 'react-native';
 
-interface Props {
+interface CustomButtonProps {
   title: string;
   layoutmode: 'inline' | 'fullWidth';
   variant: 'stroke' | 'fill' | 'big' | 'whiteBig';
+  className?: string;
+  isActive?: boolean;
 }
 
-const CustomButton = ({title, layoutmode, variant}: Props) => {
-  // const [isPressed, setIsPressed] = useState(false);
+interface Props extends TouchableOpacityProps, CustomButtonProps {}
+
+const CustomButton = ({
+  title,
+  layoutmode,
+  variant,
+  className,
+  isActive = false,
+  ...rest
+}: Props) => {
   const deviceWidth = getDeviceWidth();
   const buttonStyles = StyleSheet.create({
     button: {
@@ -31,37 +39,44 @@ const CustomButton = ({title, layoutmode, variant}: Props) => {
       paddingBottom: 15,
       paddingLeft: 29,
       borderRadius: 4,
+      opacity: variant === 'fill' && !isActive ? 0.4 : 1, // for Survey's Next Btn
       // elevation: 6,
       backgroundColor:
-        variant === 'fill' || variant === 'big' ? colors.test : 'white',
+        variant === 'fill' || variant === 'big' || isActive
+          ? colors.test
+          : 'white',
       borderWidth: variant === 'stroke' ? 2 : 0,
-      borderColor: variant === 'stroke' ? colors.testBorder : 'none',
+      borderColor:
+        variant === 'stroke' && !isActive ? colors.testBorder : 'transparent',
+      // shadowColor: '#171717',
+      // shadowOffset: {width: -3, height: 3},
+      // shadowOpacity: 0.2,
+      // shadowRadius: 3,
     },
+    // active: {
+    //   backgroundColor: '#404040',
+    //   borderColor: 'transparent',
+    // },
     text: {
-      fontSize: variant === 'big' || variant === 'whiteBig' ? 20 : 16,
-      lineHeight: variant === 'big' || variant === 'whiteBig' ? 28 : 21,
+      fontSize: variant === 'stroke' ? 15 : 18,
+      lineHeight: 21.48,
       fontWeight: 'bold',
       letterSpacing: 0.25,
-      color: variant === 'whiteBig' || variant === 'stroke' ? 'black' : 'white',
+      color:
+        variant === 'whiteBig' || (variant === 'stroke' && !isActive)
+          ? 'black'
+          : 'white',
+      // textAlign: 'center',
     },
   });
 
-  const handlePress = () => {
-    // setIsPressed(true);
-    Alert.alert('Button pressed');
-  };
+  type styleKeys = keyof typeof buttonStyles;
 
-  // const handlePressOut = () => {
-  //   setIsPressed(false);
-  // };
+  const selectedStyles = className ? buttonStyles[className as styleKeys] : {};
 
   return (
     // <Pressable
-    <TouchableOpacity
-      onPress={handlePress}
-      style={buttonStyles.button}
-      // onPressOut={handlePressOut}
-    >
+    <TouchableOpacity style={[buttonStyles.button, selectedStyles]} {...rest}>
       <Text style={buttonStyles.text}>{title}</Text>
     </TouchableOpacity>
   );

@@ -92,6 +92,7 @@ const Home = () => {
               title="수업 예약하기"
               layoutmode="inline"
               variant="fill"
+              onPress={() => {}}
             />
           </MainCard>
           <MainCard>

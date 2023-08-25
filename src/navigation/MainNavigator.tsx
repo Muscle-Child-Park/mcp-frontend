@@ -9,24 +9,20 @@ import Home from 'src/screens/Home';
 import My from 'src/screens/My';
 import Chatting from 'src/screens/Chatting';
 import Reservation from 'src/screens/Reservation';
-import {
-  HomeIcon,
-  ReservationIcon,
-  ChattingIcon,
-  SettingIcon,
-} from 'src/assets/images';
+import {HomeIcon, ScheduleIcon, ChatIcon, UserIcon} from 'src/assets/images';
 import {Button, View} from 'react-native';
 import FirstOnBoarding from 'src/screens/onBoarding/FirstOnBoarding';
+import {colors} from 'src/constants/colors';
 
 const iconMap = {
   홈: HomeIcon,
-  예약: ReservationIcon,
-  채팅: ChattingIcon,
-  MY: SettingIcon,
+  예약: ScheduleIcon,
+  채팅: ChatIcon,
+  MY: UserIcon,
 } as const;
 
 type TabIcons = keyof typeof iconMap;
-type RootStackParamList = {
+export type RootStackParamList = {
   TestScreen: undefined;
   HomeScreen: undefined;
   OnboardingScreen: undefined;
@@ -57,7 +53,7 @@ const MyTabs = () => {
             <IconComponent style={{width: size, height: size}} fill={color} />
           );
         },
-        tabBarActiveTintColor: 'red',
+        tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: '#949494',
         tabBarStyle: {
           height: 80,
@@ -72,7 +68,7 @@ const MyTabs = () => {
           borderBottomRightRadius: 20,
           borderBottomLeftRadius: 20,
         },
-        headerTitle: '지현님, 좋은 아침이에요!',
+        headerTitle: '지현님, 오늘도 힘내볼까요?',
         headerTitleStyle: {
           fontSize: 22,
           // fontWeight: 600,
@@ -93,7 +89,7 @@ const MyTabs = () => {
 
 const MyScreen = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Onboarding1" component={FirstOnBoarding} />
     </Stack.Navigator>
   );

@@ -6,5 +6,6 @@ export const colors = {
   gray5: '#000000',
   test: '#4B4B4B',
   testBorder: '#ACACAC',
-  background: '#F5F7F9',
+  background: '#F2F3F5',
+  primary: '#4263F6',
 };
