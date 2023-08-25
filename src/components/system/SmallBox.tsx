@@ -3,12 +3,17 @@ import getDeviceWidth from 'src/utils/getDeviceWidth';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-const SmallBox = () => {
+interface Props {
+  header: string;
+  body: string;
+}
+
+const SmallBox = ({header, body}: Props) => {
   return (
     <View style={styles.boxWrapper}>
       <View style={styles.textWrapper}>
-        <Text style={[styles.text, styles.header]}>Paragraph</Text>
-        <Text style={[styles.text, styles.body]}>Paragraph Small</Text>
+        <Text style={[styles.text, styles.header]}>{header}</Text>
+        <Text style={[styles.text, styles.body]}>{body}</Text>
       </View>
       <TouchableOpacity style={styles.button}></TouchableOpacity>
     </View>
@@ -18,7 +23,7 @@ const SmallBox = () => {
 const deviceWidth = getDeviceWidth();
 const styles = StyleSheet.create({
   boxWrapper: {
-    backgroundColor: '#E6E6E6',
+    backgroundColor: '#F1F1F1',
     borderRadius: 4,
     flexDirection: 'row',
     width: deviceWidth - 71,

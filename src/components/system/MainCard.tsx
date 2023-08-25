@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'white',
     width: deviceWidth - 40,
-    margin: 20,
+    marginHorizontal: 20,
     paddingTop: 24,
     paddingBottom: 24,
     paddingLeft: 16,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: 10,
-    elevation: 8,
+    elevation: 1,
   },
 });
 

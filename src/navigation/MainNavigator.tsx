@@ -46,6 +46,22 @@ const MyTabs = () => {
           paddingBottom: 22,
         },
         // tabBarIconStyle: {},
+        headerStyle: {
+          height: 108,
+          backgroundColor: '#ACACAC',
+          borderBottomRightRadius: 20,
+          borderBottomLeftRadius: 20,
+        },
+        headerTitle: '지현님, 좋은 아침이에요!',
+        headerTitleStyle: {
+          fontSize: 22,
+          // fontWeight: 600,
+          position: 'absolute',
+          left: 4,
+          bottom: 15,
+          lineHeight: 22,
+          color: '#FFFFFF',
+        },
       })}>
       <Tab.Screen name="홈" component={Home} />
       <Tab.Screen name="예약" component={Reservation} />
