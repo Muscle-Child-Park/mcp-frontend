@@ -41,9 +41,8 @@ const NextReservationStep = () => {
         <View style={styles.footer}>
           <CustomButton
             layoutmode="fullWidth"
-            title="예약하기"
-            variant="big"
-            bgColor={colors.primary}
+            text="예약하기"
+            variant="fillPrimary"
             disabled={!isChecked}
             onPress={() => {
               if (!isChecked) return;

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {colors} from 'src/constants/colors';
 import data from 'src/constants/survey';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 
 const Questions = ({index, question}: Props) => {
   return (
-    <View style={{marginVertical: 35}}>
+    <View style={{paddingVertical: 32}}>
       {/* Question Counter */}
       <View
         style={{
@@ -28,11 +29,11 @@ const Questions = ({index, question}: Props) => {
       {/* Question */}
       <Text
         style={{
-          color: 'black',
-          fontSize: 22,
+          color: colors.gray100,
+          fontSize: 24,
           fontWeight: '600',
-          lineHeight: 26.25,
-          textAlign: 'center',
+          lineHeight: 28.8,
+          // textAlign: 'center',
         }}>
         {question}
       </Text>

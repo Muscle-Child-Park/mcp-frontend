@@ -1,12 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Animated,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, Animated, Text} from 'react-native';
 import data from 'src/constants/survey';
 import ProgressBar from './ProgressBar';
 import Questions from './Questions';
@@ -14,6 +7,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from 'src/navigation/MainNavigator';
 import CustomButton from 'src/components/system/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {colors} from 'src/constants/colors';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -50,18 +44,18 @@ const FirstOnBoarding = ({navigation}: Props) => {
     Animated.parallel([
       Animated.timing(progress, {
         toValue: currentQuestionIndex + 2,
-        duration: 2000,
+        duration: 1000,
         useNativeDriver: false,
       }),
       Animated.sequence([
         Animated.timing(fadeAnim, {
           toValue: 0,
-          duration: 100,
+          duration: 50,
           useNativeDriver: false,
         }),
         Animated.timing(fadeAnim, {
           toValue: 1,
-          duration: 1900,
+          duration: 950,
           useNativeDriver: false,
         }),
       ]),
@@ -86,15 +80,16 @@ const FirstOnBoarding = ({navigation}: Props) => {
               ],
             }}>
             <CustomButton
-              title={option}
+              text={option}
               layoutmode="fullWidth"
-              variant="stroke"
-              key={index}
-              onPress={() => validateAnswer(index)}
-              isActive={
+              variant={
                 currentAnswerSelected !== null &&
                 currentAnswerSelected - 1 === index
+                  ? 'fillPrimary'
+                  : undefined
               }
+              key={index}
+              onPress={() => validateAnswer(index)}
             />
           </Animated.View>
         ))}
@@ -109,31 +104,32 @@ const FirstOnBoarding = ({navigation}: Props) => {
           <View style={styles.subContainer}>
             <Text
               style={{
-                color: 'black',
-                fontSize: 22,
+                color: colors.gray100,
+                fontSize: 18,
                 fontWeight: '600',
-                lineHeight: 26.25,
+                lineHeight: 21.6,
                 textAlign: 'center',
-                paddingBottom: 24,
+                paddingTop: 23,
+                paddingBottom: 37,
               }}>
               {allQuestions[currentQuestionIndex]?.subject}
             </Text>
             <ProgressBar progress={progress} />
+            <Questions
+              index={currentQuestionIndex}
+              question={allQuestions[currentQuestionIndex]?.question}
+            />
           </View>
-          <Questions
-            index={currentQuestionIndex}
-            question={allQuestions[currentQuestionIndex]?.question}
-          />
           {renderOptions()}
           {/* 분명, scrollView의 크기는 헤더를 제외한 전체화면인데, 왜 bottom: 0일때, 아래에서 더 위로 잡히지? > 최상단 View컴포넌트가 ScrollView 컴포넌트일 때, 발생.. */}
           {/* <View style={{position: 'absolute', bottom: 20, right: 20}}> */}
           <View style={styles.btnNext}>
             <CustomButton
               layoutmode="fullWidth"
-              variant="fill"
-              title="다음으로"
+              variant="fillPrimary"
+              text="다음으로"
               onPress={() => handleNext()}
-              isActive={currentAnswerSelected !== null}
+              disabled={currentAnswerSelected === null}
             />
           </View>
         </View>
@@ -156,18 +152,7 @@ const styles = StyleSheet.create({
     // position: 'relative',
   },
   subContainer: {
-    // borderWidth: 1,
-    // borderColor: 'red',
-    // marginVertical: 10,
-    // padding: 40,
-    // borderTopRightRadius: 40,
-    // borderRadius: 10,
-    // backgroundColor: 'white',
-    alignItems: 'center',
-    // shadowColor: '#171717',
-    // shadowOffset: {width: -6, height: 6},
-    // shadowOpacity: 0.2,
-    // shadowRadius: 3,
+    // alignItems: 'center',
   },
   optionsText: {
     borderRadius: 5,

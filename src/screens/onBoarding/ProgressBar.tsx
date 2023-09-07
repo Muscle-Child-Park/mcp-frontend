@@ -20,8 +20,8 @@ const ProgressBar = ({progress}: Props) => {
       <Animated.View
         style={[
           {
-            height: 5,
-            borderRadius: 5,
+            height: 6,
+            borderRadius: 20,
             backgroundColor: colors.primary,
           },
           {
@@ -35,9 +35,9 @@ const ProgressBar = ({progress}: Props) => {
 const styles = StyleSheet.create({
   progressBarContainer: {
     width: '100%',
-    height: 5,
-    borderRadius: 5,
-    backgroundColor: '#D9D9D9',
+    height: 6,
+    borderRadius: 20,
+    backgroundColor: colors.background,
     // marginBottom: 10,
   },
 });

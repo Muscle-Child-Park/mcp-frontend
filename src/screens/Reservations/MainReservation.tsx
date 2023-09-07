@@ -64,10 +64,9 @@ const Reservation = ({navigation}: Props) => {
           <View style={styles.buttonContainer}>
             <CustomButton
               layoutmode="fullWidth"
-              title="선택완료"
-              variant="big"
+              text="선택완료"
+              variant="fillPrimary"
               disabled={!selectedDate || !selectedTime}
-              bgColor={colors.primary}
               onPress={() => {
                 // TODO: disabled가 안먹히는 버그 해결하기
                 if (!selectedDate || !selectedTime) return;

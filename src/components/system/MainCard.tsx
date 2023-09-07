@@ -1,12 +1,15 @@
 import React from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions, ViewStyle} from 'react-native';
 
 interface Props {
+  paddingTop?: number;
+  paddingBottom?: number;
   children: React.ReactNode;
+  style?: ViewStyle;
 }
 
-const MainCard = ({children}: Props) => {
-  return <View style={styles.card}>{children}</View>;
+const MainCard = ({children, style}: Props) => {
+  return <View style={[styles.card, style]}>{children}</View>;
 };
 
 const deviceWidth = Math.round(Dimensions.get('window').width);

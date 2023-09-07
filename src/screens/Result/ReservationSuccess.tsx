@@ -41,9 +41,8 @@ const ReservationSuccess = () => {
         <View style={style.footer}>
           <CustomButton
             layoutmode="fullWidth"
-            title="홈으로"
-            variant="big"
-            bgColor="#333333"
+            text="홈으로"
+            variant="fillPrimary"
             onPress={() => {
               /* navigation.popToTop(); > MinaReservation에 Screen내부에 있을 때, 적용 
               현재, mainNavigator에 있으므로 ReservationSuccess 컴포넌트로 오기 전 적용
@@ -53,9 +52,8 @@ const ReservationSuccess = () => {
           />
           <CustomButton
             layoutmode="fullWidth"
-            title="예약 보러가기"
+            text="예약 보러가기"
             variant="stroke"
-            bgColor="#333333"
             onPress={() => {
               // navigation.popToTop();
               navigation.navigate('나의예약');

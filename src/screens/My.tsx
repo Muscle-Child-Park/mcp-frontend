@@ -9,7 +9,6 @@ import CustomHeader from 'src/components/system/CustomHeader';
 import ProgressBar from 'src/components/system/ProgressBar';
 import {RightArrow} from 'src/assets/images';
 import MainCard from 'src/components/system/MainCard';
-import CustomButton from 'src/components/system/CustomButton';
 
 const My = () => {
   return (
@@ -17,24 +16,6 @@ const My = () => {
       <ScrollView>
         <View style={styles.mainBackground}>
           <View style={styles.buttonContainer}>
-            <CustomButton
-              title="Text"
-              layoutmode="fullWidth"
-              variant="stroke"
-            />
-            <CustomButton title="Text" layoutmode="fullWidth" variant="fill" />
-            <CustomButton title="Text2" layoutmode="fullWidth" variant="big" />
-            <CustomButton
-              title="Text"
-              layoutmode="fullWidth"
-              variant="whiteBig"
-            />
-            <HorizonLine text="AND" />
-            <CustomButton title="Text" layoutmode="inline" variant="stroke" />
-            <CustomButton title="Text" layoutmode="inline" variant="fill" />
-            <CustomButton title="Text2" layoutmode="inline" variant="big" />
-            <CustomButton title="Text" layoutmode="inline" variant="whiteBig" />
-            <HorizonLine text="AND" />
             <MainCard>
               <CustomHeader
                 hasLeftIcon={true}
@@ -44,11 +25,6 @@ const My = () => {
               />
               <SmallBox header="Paragraph" body="Paragraph Small" />
               <SmallBox header="Paragraph" body="Paragraph Small" />
-              <CustomButton
-                title="Big/Fill/Default"
-                layoutmode="inline"
-                variant="fill"
-              />
             </MainCard>
             <HorizonLine text="AND" />
             <MainCard>

@@ -114,9 +114,8 @@ const Home = () => {
             <SmallBox header="하체, 유산소" body="5일 (토) 오전 10:00" />
             <SmallBox header="코어" body="5일 (토) 오전 10:00" />
             <CustomButton
-              title="수업 예약하기"
-              layoutmode="inline"
-              variant="big"
+              text="수업 예약하기"
+              variant="fillPrimary"
               onPress={() => {}}
             />
           </MainCard>
