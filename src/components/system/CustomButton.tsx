@@ -13,6 +13,7 @@ interface CustomButtonProps {
   variant: 'stroke' | 'fill' | 'big' | 'whiteBig';
   className?: string;
   isActive?: boolean;
+  bgColor?: string;
 }
 
 interface Props extends TouchableOpacityProps, CustomButtonProps {}
@@ -23,6 +24,7 @@ const CustomButton = ({
   variant,
   className,
   isActive = false,
+  bgColor = colors.primary,
   ...rest
 }: Props) => {
   const deviceWidth = getDeviceWidth();
@@ -42,9 +44,7 @@ const CustomButton = ({
       opacity: variant === 'fill' && !isActive ? 0.4 : 1, // for Survey's Next Btn
       // elevation: 6,
       backgroundColor:
-        variant === 'fill' || variant === 'big' || isActive
-          ? colors.primary
-          : 'white',
+        variant === 'fill' || variant === 'big' || isActive ? bgColor : 'white',
       borderWidth: variant === 'stroke' ? 2 : 0,
       borderColor:
         variant === 'stroke' && !isActive ? colors.testBorder : 'transparent',
