@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import DateButton from './DateButton';
 import {add, format, getWeek} from 'date-fns';
@@ -24,6 +24,7 @@ const Calendar = ({onSelectDate, selected}: Props) => {
       new Date(),
     )}주차`,
   );
+  const scrollViewRef = useRef<ScrollView | null>(null);
 
   // get the dates from today to 10 days from now, format them as strings and store them in state
   const getDates = () => {
@@ -54,14 +55,22 @@ const Calendar = ({onSelectDate, selected}: Props) => {
     getCurrentMonth();
   }, [scrollPosition]);
 
+  const leftBtnHandler = () => {
+    scrollViewRef.current?.scrollTo({x: scrollPosition - 340});
+  };
+
+  const rightBtnHandler = () => {
+    scrollViewRef.current?.scrollTo({x: scrollPosition + 340});
+  };
+
   return (
     <>
       <View style={styles.centered}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={leftBtnHandler}>
           <Prev style={{width: 24, height: 24}} fill={colors.dark1} />
         </TouchableOpacity>
         <Text style={styles.title}>{`${currentMonth}`}</Text>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={rightBtnHandler}>
           <Next style={{width: 24, height: 24}} fill={colors.dark1} />
         </TouchableOpacity>
       </View>
@@ -70,7 +79,8 @@ const Calendar = ({onSelectDate, selected}: Props) => {
           horizontal
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={16}
-          onScroll={e => setScrollPosition(e.nativeEvent.contentOffset.x)}>
+          onScroll={e => setScrollPosition(e.nativeEvent.contentOffset.x)}
+          ref={scrollViewRef}>
           {dates.map((date, index) => (
             <DateButton
               key={index}
