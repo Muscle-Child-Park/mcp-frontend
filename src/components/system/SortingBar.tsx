@@ -1,6 +1,5 @@
-import React from 'react';
+import {useState} from 'react';
 import {
-  Pressable,
   StyleSheet,
   View,
   Text,
@@ -10,9 +9,17 @@ import {
 import Tag from './Tag';
 import {colors} from 'src/constants/colors';
 import {SortDown} from 'src/assets/images';
+import BottomSheet from './BottomSheet';
+
+export const sortTypes = ['최근 추가순', '최근 수업순', '가나다순'];
 
 const SortingBar = () => {
   const {width} = useWindowDimensions();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selected, setSelected] = useState(0); // [0, 1, 2]
+  const pressButton = () => {
+    setModalVisible(true);
+  };
   return (
     <View style={[styles.container, {width: width - 40}]}>
       <View style={styles.left}>
@@ -20,10 +27,16 @@ const SortingBar = () => {
         <Tag text="수업내용" />
         <Tag text="취소내용" />
       </View>
-      <TouchableOpacity style={styles.right} onPress={() => {}}>
-        <Text style={styles.text}>최근 추가순</Text>
+      <TouchableOpacity style={styles.right} onPress={pressButton}>
+        <Text style={styles.text}>{sortTypes[selected]}</Text>
         <SortDown style={{width: 24, height: 24}} fill={'black'} />
       </TouchableOpacity>
+      <BottomSheet
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        selected={selected}
+        setSelected={setSelected}
+      />
     </View>
   );
 };
