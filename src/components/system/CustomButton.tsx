@@ -35,14 +35,12 @@ const CustomButton = ({
       // flex: 1,
       // marginHorizontal: 16,
       width: layoutmode === 'fullWidth' ? deviceWidth - 40 : deviceWidth - 75, // 레이아웃 모드에 따라 width 조절
+      minHeight: 52,
       maring: 'auto',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: 15,
-      paddingRight: 29,
-      paddingBottom: 15,
-      paddingLeft: 29,
-      borderRadius: 4,
+      paddingHorizontal: 20,
+      borderRadius: 8,
       opacity: variant === 'fill' && !isActive ? 0.4 : 1, // for Survey's Next Btn
       // elevation: 6,
       backgroundColor:

@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import TimeButton from './TimeButton';
 import {afternoon, morning} from 'src/constants/time';
+import {colors} from 'src/constants/colors';
 
 type timeType = '오전' | '오후';
 
@@ -13,14 +14,15 @@ interface Props {
 
 const TimeSelection = ({title, onSelectTime, selected}: Props) => {
   const timeList = title === '오전' ? morning : afternoon;
-  const Time3x3List = Array.from(
-    {length: Math.ceil(timeList.length / 3)},
-    (_, i) => timeList.slice(i * 3, i * 3 + 3),
+  const Time4x4List = Array.from(
+    {length: Math.ceil(timeList.length / 4)},
+    (_, i) => timeList.slice(i * 4, i * 4 + 4),
   );
+
   return (
-    <View>
+    <>
       <Text style={styles.title}>{title}</Text>
-      {Time3x3List.map((time, index) => (
+      {Time4x4List.map((time, index) => (
         <View style={styles.row} key={index}>
           {time.map(({time, isActive, id}) => (
             <TimeButton
@@ -33,25 +35,24 @@ const TimeSelection = ({title, onSelectTime, selected}: Props) => {
           ))}
         </View>
       ))}
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
   title: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '500',
-    lineHeight: 17,
+    lineHeight: 21.6,
     letterSpacing: 0,
-    textAlign: 'left',
-    marginBottom: 7,
-    color: 'black',
+    // textAlign: 'left',
+    marginBottom: 8,
+    color: colors.gray100,
   },
   row: {
     flexDirection: 'row',
-    gap: 7,
-    marginBottom: 8,
+    gap: 5,
+    paddingBottom: 4,
   },
 });
 

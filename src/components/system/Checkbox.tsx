@@ -9,6 +9,8 @@ interface Props {
   text: string;
   style?: ViewStyle;
   size?: 'small' | 'medium' | 'large';
+  textColor?: string;
+  checkBoxColor?: string;
 }
 
 const SIZE = {
@@ -23,6 +25,8 @@ const Checkbox = ({
   disabled,
   onValueChangeHandler,
   style,
+  textColor,
+  checkBoxColor,
   size = 'medium',
 }: Props) => {
   const onPressedHandler = () => {
@@ -48,11 +52,17 @@ const Checkbox = ({
             height: SIZE[size],
           },
           isChecked && styles.checked,
+          {borderColor: checkBoxColor},
+          isChecked && {backgroundColor: checkBoxColor},
         ]}>
-        <Check width={13} height={13} fill={isChecked ? 'white' : '#555555'} />
+        <Check
+          width={16}
+          height={16}
+          fill={isChecked ? 'white' : 'transparent'}
+        />
       </Pressable>
-      <Pressable style={styles.label} onPress={triggerCheckbox}>
-        <Text style={styles.text}>{text}</Text>
+      <Pressable style={styles.textContainer} onPress={triggerCheckbox}>
+        <Text style={{color: textColor ?? '#555555'}}>{text}</Text>
       </Pressable>
     </View>
   );
@@ -76,14 +86,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#555555',
     borderColor: '#555555',
   },
-  label: {
-    marginLeft: 6,
-    fontWeight: '400',
+  textContainer: {
+    margin: 0,
+    fontWeight: '500',
     fontSize: 16,
-    lineHeight: 24,
-  },
-  text: {
-    color: 'black',
+    lineHeight: 19.2,
   },
 });
 

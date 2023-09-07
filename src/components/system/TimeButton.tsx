@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {colors} from 'src/constants/colors';
 
 interface Props {
   time: string;
@@ -58,18 +59,19 @@ const TimeButton = ({time, onSelectTime, selected, isActive}: Props) => {
 
 const styles = StyleSheet.create({
   box: {
-    width: 107,
-    paddingHorizontal: 32,
-    paddingVertical: 16,
+    width: 80,
+    // paddingHorizontal: 20.5,
+    paddingVertical: 12.5,
     borderWidth: 1,
     borderColor: '#EBECEC',
     borderRadius: 4,
   },
   text: {
-    color: 'black',
-    fontWeight: '400',
+    color: colors.gray100,
+    fontWeight: '500',
     fontSize: 16,
     lineHeight: 19.09,
+    textAlign: 'center',
   },
 });
 
