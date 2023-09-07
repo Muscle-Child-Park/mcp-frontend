@@ -1,7 +1,7 @@
 import {colors} from 'src/constants/colors';
 import getDeviceWidth from 'src/utils/getDeviceWidth';
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 interface Props {
   header: string;
@@ -12,10 +12,10 @@ const SmallBox = ({header, body}: Props) => {
   return (
     <View style={styles.boxWrapper}>
       <View style={styles.textWrapper}>
-        <Text style={[styles.text, styles.header]}>{header}</Text>
-        <Text style={[styles.text, styles.body]}>{body}</Text>
+        <Text style={[styles.header]}>{header}</Text>
+        <Text style={[styles.body]}>{body}</Text>
       </View>
-      <TouchableOpacity style={styles.button}></TouchableOpacity>
+      {/* <TouchableOpacity style={styles.button}></TouchableOpacity> */}
     </View>
   );
 };
@@ -23,31 +23,29 @@ const SmallBox = ({header, body}: Props) => {
 const deviceWidth = getDeviceWidth();
 const styles = StyleSheet.create({
   boxWrapper: {
-    backgroundColor: '#F1F1F1',
+    backgroundColor: colors.background,
     borderRadius: 4,
     flexDirection: 'row',
     width: deviceWidth - 71,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    padding: 16,
   },
   textWrapper: {
     flexDirection: 'column',
     gap: 8,
   },
-  text: {
-    color: colors.gray5,
-  },
   header: {
-    fontSize: 14,
-    fontWeight: '600',
-    lineHeight: 22,
+    color: colors.gray100,
+    fontSize: 16,
+    fontWeight: '500',
+    lineHeight: 19.2,
   },
   body: {
-    fontSize: 12,
+    color: colors.gray50,
+    fontSize: 14,
     fontWeight: '400',
-    lineHeight: 14,
+    lineHeight: 16.8,
   },
 
   button: {

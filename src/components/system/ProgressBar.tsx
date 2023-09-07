@@ -27,9 +27,9 @@ const ProgressBar = ({percent = 0}) => {
   const styles = StyleSheet.create({
     progressBarBlock: {
       width: layout.width - 72,
-      height: 12,
+      height: 8,
       flexDirection: 'row',
-      backgroundColor: '#F4F4F4',
+      backgroundColor: colors.background,
       borderRadius: 10,
     },
     ProgressBar: {
