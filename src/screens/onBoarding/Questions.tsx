@@ -9,7 +9,7 @@ interface Props {
 
 const Questions = ({index, question}: Props) => {
   return (
-    <View style={{marginVertical: 94}}>
+    <View style={{marginVertical: 35}}>
       {/* Question Counter */}
       <View
         style={{

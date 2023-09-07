@@ -116,7 +116,7 @@ const Home = () => {
             <CustomButton
               title="수업 예약하기"
               layoutmode="inline"
-              variant="fill"
+              variant="big"
               onPress={() => {}}
             />
           </MainCard>

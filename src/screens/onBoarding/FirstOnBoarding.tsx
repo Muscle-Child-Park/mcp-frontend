@@ -114,7 +114,7 @@ const FirstOnBoarding = ({navigation}: Props) => {
                 fontWeight: '600',
                 lineHeight: 26.25,
                 textAlign: 'center',
-                paddingBottom: 45,
+                paddingBottom: 24,
               }}>
               {allQuestions[currentQuestionIndex]?.subject}
             </Text>
