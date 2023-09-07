@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ReservationCard from 'src/components/system/ReservationCard';
 import SortingBar from 'src/components/system/SortingBar';
+import {sortTags} from 'src/constants/common';
 
 const MyReservation = () => {
+  const [currentTag, setCurrentTag] = useState(sortTags[0]);
   return (
     <View
       style={{
@@ -18,7 +20,7 @@ const MyReservation = () => {
         mode="today"
       />
       <View style={styles.sortingBar}>
-        <SortingBar />
+        <SortingBar currentTag={currentTag} setCurrentTag={setCurrentTag} />
       </View>
       <View style={styles.history}>
         <ReservationCard

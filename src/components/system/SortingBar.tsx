@@ -10,9 +10,14 @@ import Tag from './Tag';
 import {colors} from 'src/constants/colors';
 import {SortDown} from 'src/assets/images';
 import BottomSheet from './BottomSheet';
-import {sortTypes} from 'src/constants/common';
+import {sortTags, sortTypes} from 'src/constants/common';
 
-const SortingBar = () => {
+interface Props {
+  currentTag: string;
+  setCurrentTag: (tag: string) => void;
+}
+
+const SortingBar = ({currentTag, setCurrentTag}: Props) => {
   const {width} = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selected, setSelected] = useState(0); // [0, 1, 2]
@@ -22,9 +27,14 @@ const SortingBar = () => {
   return (
     <View style={[styles.container, {width: width - 40}]}>
       <View style={styles.left}>
-        <Tag text="전체" isSelected />
-        <Tag text="수업내용" />
-        <Tag text="취소내용" />
+        {sortTags.map((tagName, idx) => (
+          <Tag
+            text={tagName}
+            isSelected={tagName === currentTag}
+            onClick={() => setCurrentTag(tagName)}
+            key={idx}
+          />
+        ))}
       </View>
       <TouchableOpacity style={styles.right} onPress={pressButton}>
         <Text style={styles.text}>{sortTypes[selected]}</Text>

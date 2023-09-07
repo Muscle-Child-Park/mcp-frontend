@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'white',
     width: deviceWidth - 40,
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     paddingVertical: 24,
     paddingHorizontal: 16,
     flexDirection: 'column',

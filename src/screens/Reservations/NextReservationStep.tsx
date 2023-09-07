@@ -23,7 +23,7 @@ const NextReservationStep = () => {
               marginBottom: 64,
             }}
           />
-          <View style={styles.titleContainer}>
+          <View style={styles.textContainer}>
             <Text style={styles.time}>8월 9일 오후 9:00시</Text>
             <Text style={styles.title}>수업을 예약하시겠어요?</Text>
           </View>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   body: {alignItems: 'center'},
-  titleContainer: {
+  textContainer: {
     gap: 5,
     marginBottom: 20,
   },

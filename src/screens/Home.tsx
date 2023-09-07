@@ -26,6 +26,8 @@ import ProgressBar from 'src/components/system/ProgressBar';
 import MainCard from 'src/components/system/MainCard';
 import CustomButton from 'src/components/system/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
+import {HomeTabProps} from 'src/navigation/MainNavigator';
 
 /**
 background: linear-gradient(180deg, #57AEFF -30.67%, rgba(255, 255, 255, 0.0885417) 40.64%),
@@ -35,6 +37,7 @@ linear-gradient(0deg, #F2F3F5, #F2F3F5);
 const Home = () => {
   const {width} = useWindowDimensions();
   const safeInsets = useContext(SafeAreaInsetsContext);
+  const navigation = useNavigation<HomeTabProps>();
   return (
     <SafeAreaView>
       <StatusBar
@@ -76,7 +79,9 @@ const Home = () => {
             <View style={styles.buttonContainer}>
               <CustomButton
                 text="수업 예약하기"
-                onPress={() => {}}
+                onPress={() => {
+                  navigation.navigate('예약');
+                }}
                 variant="fillPrimary"
               />
             </View>

@@ -1,7 +1,7 @@
 export const morning = [
-  {id: 0, time: '07:00', isActive: true},
-  {id: 1, time: '08:00', isActive: true},
-  {id: 2, time: '09:00', isActive: true},
+  {id: 0, time: '7:00', isActive: true},
+  {id: 1, time: '8:00', isActive: true},
+  {id: 2, time: '9:00', isActive: true},
   {id: 3, time: '10:00', isActive: true},
   {id: 4, time: '11:00', isActive: false},
 ];

@@ -20,18 +20,20 @@ const SmallBox = ({header, body}: Props) => {
   );
 };
 
-const deviceWidth = getDeviceWidth();
+// const deviceWidth = getDeviceWidth();
 const styles = StyleSheet.create({
   boxWrapper: {
+    // width: deviceWidth - 71,
+    width: '100%',
     backgroundColor: colors.background,
     borderRadius: 4,
     flexDirection: 'row',
-    width: deviceWidth - 71,
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
   },
   textWrapper: {
+    width: '100%',
     flexDirection: 'column',
     gap: 8,
   },
