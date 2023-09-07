@@ -63,22 +63,16 @@ const MyTabs = () => {
         },
         // tabBarIconStyle: {},
         headerStyle: {
-          height: 108,
-          backgroundColor: '#ACACAC',
-          borderBottomRightRadius: 20,
-          borderBottomLeftRadius: 20,
+          height: 62,
         },
-        headerTitle: '지현님, 오늘도 힘내볼까요?',
+        headerTitle: route.name,
         headerTitleStyle: {
           fontSize: 22,
           // fontWeight: 600,
-          position: 'absolute',
-          left: 4,
-          bottom: 15,
-          lineHeight: 22,
-          color: '#FFFFFF',
+          color: 'black',
         },
-        headerShown: false,
+        headerTitleAlign: 'center',
+        headerShown: route.name !== '홈',
       })}>
       <Tab.Screen name="홈" component={Home} />
       <Tab.Screen name="예약" component={Reservation} />
