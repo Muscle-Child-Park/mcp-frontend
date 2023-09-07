@@ -8,7 +8,7 @@ import {HomeTabProps} from 'src/navigation/MainNavigator';
 
 type ReservationScreenProp = CompositeNavigationProp<HomeTabProps, TopTabProps>;
 
-const SuccessReservationStep = () => {
+const ReservationSuccess = () => {
   const navigation = useNavigation<ReservationScreenProp>();
   return (
     <View style={style.container}>
@@ -45,7 +45,9 @@ const SuccessReservationStep = () => {
             variant="big"
             bgColor="#333333"
             onPress={() => {
-              navigation.popToTop();
+              /* navigation.popToTop(); > MinaReservation에 Screen내부에 있을 때, 적용 
+              현재, mainNavigator에 있으므로 ReservationSuccess 컴포넌트로 오기 전 적용
+              */
               navigation.navigate('홈');
             }}
           />
@@ -55,7 +57,7 @@ const SuccessReservationStep = () => {
             variant="stroke"
             bgColor="#333333"
             onPress={() => {
-              navigation.popToTop();
+              // navigation.popToTop();
               navigation.navigate('나의예약');
             }}
           />
@@ -82,4 +84,4 @@ const style = StyleSheet.create({
   footer: {alignItems: 'center', gap: 8},
 });
 
-export default SuccessReservationStep;
+export default ReservationSuccess;

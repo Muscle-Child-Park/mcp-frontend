@@ -14,6 +14,7 @@ import {HomeIcon, ScheduleIcon, ChatIcon, UserIcon} from 'src/assets/images';
 import {Button, View} from 'react-native';
 import FirstOnBoarding from 'src/screens/onBoarding/FirstOnBoarding';
 import {colors} from 'src/constants/colors';
+import ReservationSuccess from 'src/screens/Result/ReservationSuccess';
 
 const iconMap = {
   홈: HomeIcon,
@@ -28,6 +29,7 @@ export type RootStackParamList = {
   HomeScreen: undefined;
   OnboardingScreen: undefined;
   Onboarding1: undefined;
+  ReservationResult: undefined;
 };
 
 type BottomTabNavigatorParamList = {
@@ -41,6 +43,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TestScreen'>;
+export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
 
 export type HomeTabProps =
   NativeStackNavigationProp<BottomTabNavigatorParamList>;
@@ -124,6 +127,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="OnboardingScreen" component={MyScreen} />
         <Stack.Screen name="HomeScreen" component={MyTabs} />
+        <Stack.Screen name="ReservationResult" component={ReservationSuccess} />
       </Stack.Navigator>
     </NavigationContainer>
   );

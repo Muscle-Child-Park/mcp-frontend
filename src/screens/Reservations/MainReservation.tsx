@@ -9,7 +9,7 @@ import CustomButton from 'src/components/system/CustomButton';
 import HorizonLine from 'src/components/system/HorizonLine';
 import TimeSelection from 'src/components/system/TimeSelector';
 import NextReservationStep from './NextReservationStep';
-import SuccessReservationStep from './SuccessReservationStep';
+import {colors} from 'src/constants/colors';
 
 type ReservationStackParamList = {
   MainScreen: undefined;
@@ -18,10 +18,10 @@ type ReservationStackParamList = {
 };
 const Stack = createNativeStackNavigator<ReservationStackParamList>();
 type Props = NativeStackScreenProps<ReservationStackParamList, 'MainScreen'>;
-export type NextProps = NativeStackScreenProps<
-  ReservationStackParamList,
-  'NextScreen'
->;
+// export type NextProps = NativeStackScreenProps<
+//   ReservationStackParamList,
+//   'NextScreen'
+// >;
 // export type SuccessProps = NativeStackScreenProps<
 //   ReservationStackParamList,
 //   'SuccessScreen'
@@ -34,14 +34,15 @@ const MainReservation = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="MainScreen" component={Reservation} />
       <Stack.Screen name="NextScreen" component={NextReservationStep} />
-      <Stack.Screen name="SuccessScreen" component={SuccessReservationStep} />
     </Stack.Navigator>
   );
 };
 
 const Reservation = ({navigation}: Props) => {
+  // Context로 만들기
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  console.log(!selectedDate || !selectedTime, selectedDate, selectedTime);
   return (
     <SafeAreaView style={styles.wrapper}>
       <ScrollView style={styles.box}>
@@ -54,21 +55,26 @@ const Reservation = ({navigation}: Props) => {
             onSelectTime={setSelectedTime}
             selected={selectedTime}
           />
-          <View style={{height: 14}} />
+          <View style={{height: 8}} />
           <TimeSelection
             title="오후"
             onSelectTime={setSelectedTime}
             selected={selectedTime}
           />
-          <CustomButton
-            layoutmode="fullWidth"
-            title="다음으로"
-            variant="big"
-            bgColor="#333333"
-            onPress={() => {
-              navigation.navigate('NextScreen');
-            }}
-          />
+          <View style={styles.buttonContainer}>
+            <CustomButton
+              layoutmode="fullWidth"
+              title="선택완료"
+              variant="big"
+              disabled={!selectedDate || !selectedTime}
+              bgColor={colors.primary}
+              onPress={() => {
+                // TODO: disabled가 안먹히는 버그 해결하기
+                if (!selectedDate || !selectedTime) return;
+                navigation.navigate('NextScreen');
+              }}
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -83,7 +89,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginRight: 20,
     marginLeft: 20,
-    marginBottom: 16.34,
+    marginBottom: 22,
+    flex: 1,
   },
   box: {
     flex: 1,
@@ -92,13 +99,16 @@ const styles = StyleSheet.create({
     // borderColor: '#b6c1cd',
   },
   semiTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    lineHeight: 21,
-    color: 'black',
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 16.71,
+    color: colors.gray100,
     marginBottom: 13,
     letterSpacing: 0,
     textAlign: 'left',
+  },
+  buttonContainer: {
+    marginTop: 24,
   },
 });
 

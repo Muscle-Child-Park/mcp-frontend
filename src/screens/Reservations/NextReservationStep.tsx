@@ -1,63 +1,56 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Checkbox from 'src/components/system/Checkbox';
 import CustomButton from 'src/components/system/CustomButton';
-import {NextProps} from './MainReservation';
+import {colors} from 'src/constants/colors';
+import {BasicProps} from 'src/navigation/MainNavigator';
 
-const NextReservationStep = ({navigation}: NextProps) => {
+const NextReservationStep = () => {
+  // Context로 만들기
   const [isChecked, setIsChecked] = useState(false);
+  const navigation = useNavigation<BasicProps>();
   return (
-    <View style={style.container}>
-      <View style={style.innerContainer}>
-        <View style={style.body}>
+    <View style={styles.container}>
+      <View style={styles.innerContainer}>
+        <View style={styles.body}>
           <TouchableOpacity
             style={{
               width: 110,
               height: 110,
               borderRadius: 50,
               backgroundColor: '#D9D9D9',
-              marginBottom: 28.5,
+              marginBottom: 64,
             }}
           />
-          <Text
-            style={{
-              width: 204,
-              color: 'black',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              fontWeight: '600',
-              fontSize: 22,
-              lineHeight: 33,
-              textAlign: 'center',
-              marginBottom: 25.96,
-            }}>
-            8월 9일 오전 9:00시 수업으로 예약할까요?
-          </Text>
-          <Text
-            style={{
-              fontWeight: '400',
-              fontSize: 16,
-              lineHeight: 24,
-              color: 'black',
-              marginBottom: 5,
-            }}>
-            당일 취소는 불가하니 시간을 꼭 확인해주세요!
-          </Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.time}>8월 9일 오후 9:00시</Text>
+            <Text style={styles.title}>수업을 예약하시겠어요?</Text>
+          </View>
+          <Text style={styles.description}>수업 취소는 전날까지 가능해요!</Text>
           <Checkbox
             isChecked={isChecked}
             onValueChangeHandler={setIsChecked}
-            text="확인했어요!"
+            text="네, 확인했어요!"
             size="small"
+            style={{gap: 8}}
+            textColor={colors.gray100}
+            checkBoxColor={colors.primary}
           />
         </View>
-        <View style={style.footer}>
+        <View style={styles.footer}>
           <CustomButton
             layoutmode="fullWidth"
             title="예약하기"
             variant="big"
-            bgColor="#333333"
-            onPress={() => navigation.navigate('SuccessScreen')}
+            bgColor={colors.primary}
             disabled={!isChecked}
+            onPress={() => {
+              if (!isChecked) return;
+              // 이걸로 화면 뮤테이션이 있는데, 이는 잠깐의 로딩을 주어서 처리하자
+              navigation.popToTop();
+              navigation.navigate('ReservationResult');
+            }}
           />
         </View>
       </View>
@@ -65,7 +58,7 @@ const NextReservationStep = ({navigation}: NextProps) => {
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -74,11 +67,36 @@ const style = StyleSheet.create({
     marginTop: 70,
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 36.34,
+    marginBottom: 56,
     flex: 1,
     justifyContent: 'space-between',
   },
   body: {alignItems: 'center'},
+  titleContainer: {
+    gap: 5,
+    marginBottom: 20,
+  },
+  time: {
+    color: colors.primary,
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 24,
+    lineHeight: 36,
+  },
+  title: {
+    color: colors.gray100,
+    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 24,
+    lineHeight: 28.8,
+  },
+  description: {
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 19.2,
+    color: colors.gray100,
+    marginBottom: 8,
+  },
   footer: {alignItems: 'center'},
 });
 
