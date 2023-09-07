@@ -9,7 +9,7 @@ import {
   PanResponder,
 } from 'react-native';
 import DropdownBox from './DropdownBox';
-import {sortTypes} from './SortingBar';
+import {sortTypes} from 'src/constants/common';
 
 interface Props {
   modalVisible: boolean;

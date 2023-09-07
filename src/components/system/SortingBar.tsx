@@ -10,8 +10,7 @@ import Tag from './Tag';
 import {colors} from 'src/constants/colors';
 import {SortDown} from 'src/assets/images';
 import BottomSheet from './BottomSheet';
-
-export const sortTypes = ['최근 추가순', '최근 수업순', '가나다순'];
+import {sortTypes} from 'src/constants/common';
 
 const SortingBar = () => {
   const {width} = useWindowDimensions();
