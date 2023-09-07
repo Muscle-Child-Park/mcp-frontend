@@ -14,6 +14,7 @@ interface CustomButtonProps {
   className?: string;
   isActive?: boolean;
   bgColor?: string;
+  disabled?: boolean;
 }
 
 interface Props extends TouchableOpacityProps, CustomButtonProps {}
@@ -25,6 +26,7 @@ const CustomButton = ({
   className,
   isActive = false,
   bgColor = colors.primary,
+  disabled,
   ...rest
 }: Props) => {
   const deviceWidth = getDeviceWidth();
@@ -76,7 +78,9 @@ const CustomButton = ({
 
   return (
     // <Pressable
-    <TouchableOpacity style={[buttonStyles.button, selectedStyles]} {...rest}>
+    <TouchableOpacity
+      style={[buttonStyles.button, selectedStyles, disabled && {opacity: 0.7}]}
+      {...rest}>
       <Text style={buttonStyles.text}>{title}</Text>
     </TouchableOpacity>
   );

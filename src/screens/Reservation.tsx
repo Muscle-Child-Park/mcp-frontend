@@ -8,6 +8,7 @@ type TopTabNavigatorParamList = {
   예약하기: undefined;
   나의예약: undefined;
 };
+
 const TopTab = createMaterialTopTabNavigator<TopTabNavigatorParamList>();
 
 const TopTabNavigator = () => {

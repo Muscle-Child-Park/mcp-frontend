@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import TimeButton from './TimeButton';
 import {afternoon, morning} from 'src/constants/time';
 
@@ -33,22 +33,6 @@ const TimeSelection = ({title, onSelectTime, selected}: Props) => {
           ))}
         </View>
       ))}
-      {/* <FlatList
-        data={title === '오전' ? morning : afternoon}
-        keyExtractor={item => String(item.id)}
-        renderItem={({item: {time, isActive}}) => (
-          <TimeButton
-            time={time}
-            onSelectTime={onSelectTime}
-            selected={selected}
-            isActive={isActive}
-          />
-        )}
-        numColumns={3}
-        columnWrapperStyle={{
-          justifyContent: 'space-between',
-        }}
-      /> */}
     </View>
   );
 };
