@@ -1,6 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {StyleSheet} from 'react-native';
+import {
+  createMaterialTopTabNavigator,
+  MaterialTopTabNavigationProp,
+} from '@react-navigation/material-top-tabs';
 import MainReservation from 'src/screens/Reservations/MainReservation';
 import MyReservation from 'src/screens/Reservations/MyReservation';
 
@@ -10,6 +13,8 @@ type TopTabNavigatorParamList = {
 };
 
 const TopTab = createMaterialTopTabNavigator<TopTabNavigatorParamList>();
+export type TopTabProps =
+  MaterialTopTabNavigationProp<TopTabNavigatorParamList>;
 
 const TopTabNavigator = () => {
   return (

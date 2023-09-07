@@ -22,10 +22,10 @@ export type NextProps = NativeStackScreenProps<
   ReservationStackParamList,
   'NextScreen'
 >;
-export type SuccessProps = NativeStackScreenProps<
-  ReservationStackParamList,
-  'SuccessScreen'
->;
+// export type SuccessProps = NativeStackScreenProps<
+//   ReservationStackParamList,
+//   'SuccessScreen'
+// >;
 
 const MainReservation = () => {
   return (

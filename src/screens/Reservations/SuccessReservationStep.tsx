@@ -1,9 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CustomButton from 'src/components/system/CustomButton';
-import {SuccessProps} from './MainReservation';
+import {useNavigation} from '@react-navigation/native';
+import type {CompositeNavigationProp} from '@react-navigation/native';
+import {TopTabProps} from '../Reservation';
+import {HomeTabProps} from 'src/navigation/MainNavigator';
 
-const SuccessReservationStep = ({navigation}: SuccessProps) => {
+type ReservationScreenProp = CompositeNavigationProp<HomeTabProps, TopTabProps>;
+
+const SuccessReservationStep = () => {
+  const navigation = useNavigation<ReservationScreenProp>();
   return (
     <View style={style.container}>
       <View style={style.innerContainer}>
@@ -38,14 +44,20 @@ const SuccessReservationStep = ({navigation}: SuccessProps) => {
             title="홈으로"
             variant="big"
             bgColor="#333333"
-            onPress={() => navigation.navigate('MainScreen')} // 홈으로 가야한다... 흠...
+            onPress={() => {
+              navigation.popToTop();
+              navigation.navigate('홈');
+            }}
           />
           <CustomButton
             layoutmode="fullWidth"
             title="예약 보러가기"
             variant="stroke"
             bgColor="#333333"
-            onPress={() => navigation.navigate('MainScreen')} // 예약바로 가기으로 가야한다... 흠...
+            onPress={() => {
+              navigation.popToTop();
+              navigation.navigate('나의예약');
+            }}
           />
         </View>
       </View>

@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {
   NativeStackScreenProps,
   createNativeStackNavigator,
+  NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from 'src/screens/Home';
@@ -40,6 +41,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TestScreen'>;
+
+export type HomeTabProps =
+  NativeStackNavigationProp<BottomTabNavigatorParamList>;
 
 const MyTabs = () => {
   return (
