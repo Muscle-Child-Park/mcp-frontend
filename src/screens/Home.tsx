@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import type {PropsWithChildren} from 'react';
+import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,6 +8,7 @@ import {
   Text,
   useColorScheme,
   useWindowDimensions,
+  StatusBar,
   View,
 } from 'react-native';
 
@@ -32,15 +34,24 @@ linear-gradient(0deg, #F2F3F5, #F2F3F5);
 
 const Home = () => {
   const {width} = useWindowDimensions();
+  const safeInsets = useContext(SafeAreaInsetsContext);
   return (
     <SafeAreaView>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={'dark-content'}
+      />
       <ScrollView>
         <LinearGradient
           start={{x: 0.5, y: -0.5067}}
           end={{x: 0.5, y: 0.3064}}
           // locations={[-0.367, 0.464]}
           colors={['#57AEFF', '#FFFFFF17']}
-          style={styles.mainBackground}>
+          style={[
+            styles.mainBackground,
+            safeInsets && {paddingTop: safeInsets.top},
+          ]}>
           <Text style={[styles.title, {width: width - 40}]}>
             지현님, {'\n'}오늘도 힘내볼까요?
           </Text>
@@ -88,10 +99,11 @@ const styles = StyleSheet.create({
   mainBackground: {
     flex: 1,
     backgroundColor: colors.background,
+    paddingHorizontal: 20,
+    paddingBottom: 32,
     gap: 8,
   },
   title: {
-    marginHorizontal: 20,
     height: 68,
     fontSize: 28,
     fontWeight: '300',
