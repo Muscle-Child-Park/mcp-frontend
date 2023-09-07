@@ -1,44 +1,44 @@
-import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useContext} from 'react';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from 'react-native';
 import CustomButton from 'src/components/system/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import type {CompositeNavigationProp} from '@react-navigation/native';
 import {TopTabProps} from '../Reservation';
 import {HomeTabProps} from 'src/navigation/MainNavigator';
+import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
+import {colors} from 'src/constants/colors';
 
 type ReservationScreenProp = CompositeNavigationProp<HomeTabProps, TopTabProps>;
 
 const ReservationSuccess = () => {
   const navigation = useNavigation<ReservationScreenProp>();
+  const safeInsets = useContext(SafeAreaInsetsContext);
   return (
-    <View style={style.container}>
-      <View style={style.innerContainer}>
-        <View style={style.body}>
+    <SafeAreaView style={{flex: 1}}>
+      <View
+        style={[styles.container, {paddingTop: 99 + (safeInsets?.top ?? 0)}]}>
+        <View style={styles.body}>
           <TouchableOpacity
             style={{
-              width: 110,
-              height: 110,
-              borderRadius: 50,
-              backgroundColor: '#D9D9D9',
-              marginBottom: 28.5,
+              width: 259,
+              height: 259,
+              borderRadius: 259 / 2,
+              backgroundColor: colors.background,
+              marginBottom: 93.03,
             }}
           />
-          <Text
-            style={{
-              width: 204,
-              color: 'black',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              fontWeight: '600',
-              fontSize: 22,
-              lineHeight: 33,
-              textAlign: 'center',
-              marginBottom: 25.96,
-            }}>
-            8월 9일 오전 9:00시 수업이 예약되었어요!
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.time}>8월 9일 오후 9:00시</Text>
+            <Text style={styles.title}>수업이 예약되었어요</Text>
+          </View>
         </View>
-        <View style={style.footer}>
+        <View style={styles.footer}>
           <CustomButton
             layoutmode="fullWidth"
             text="홈으로"
@@ -61,25 +61,40 @@ const ReservationSuccess = () => {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderWidth: 1,
+    borderColor: 'red',
     backgroundColor: 'white',
-  },
-  innerContainer: {
-    marginTop: 70,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 36.34,
-    flex: 1,
     justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingBottom: 40 + 34,
   },
   body: {alignItems: 'center'},
   footer: {alignItems: 'center', gap: 8},
+  textContainer: {
+    gap: 5,
+    marginBottom: 54,
+  },
+  time: {
+    color: colors.primary,
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 24,
+    lineHeight: 36,
+  },
+  title: {
+    color: colors.gray100,
+    textAlign: 'center',
+    fontWeight: '400',
+    fontSize: 24,
+    lineHeight: 28.8,
+  },
 });
 
 export default ReservationSuccess;

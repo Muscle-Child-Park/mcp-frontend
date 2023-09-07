@@ -1,5 +1,13 @@
 import React, {useRef, useState} from 'react';
-import {View, StyleSheet, ScrollView, Animated, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Animated,
+  Text,
+  StatusBar,
+  Pressable,
+} from 'react-native';
 import data from 'src/constants/survey';
 import ProgressBar from './ProgressBar';
 import Questions from './Questions';
@@ -8,6 +16,7 @@ import {RootStackParamList} from 'src/navigation/MainNavigator';
 import CustomButton from 'src/components/system/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from 'src/constants/colors';
+import {Next, Prev} from 'src/assets/images';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -19,27 +28,64 @@ const FirstOnBoarding = ({navigation}: Props) => {
   const allQuestions = data;
   const progress = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
-
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentAnswerSelected, setCurrentAnswerSelected] = useState<
-    number | null
-  >(null);
-  const [items, setItems] = useState<Array<string>>([]);
+  const [savedIndex, setSavedIndex] = useState(0); // 뒤로가기 눌렀을 때, ux를 위함
+  const [currentAnswerSelected, setCurrentAnswerSelected] = useState<number[]>(
+    [],
+  );
+  const [items, setItems] = useState<number[][]>(
+    Array.from({length: data.length}, () => []),
+  );
+  // const safeInsets = useContext(SafeAreaInsetsContext);
+  // console.log(progress);
   const validateAnswer = (buttonIndex: number) => {
-    setCurrentAnswerSelected(buttonIndex + 1);
+    if (currentAnswerSelected.includes(buttonIndex)) {
+      const newArray = currentAnswerSelected.filter(n => n !== buttonIndex);
+      setCurrentAnswerSelected(newArray);
+      return;
+    }
+    setCurrentAnswerSelected([...currentAnswerSelected, buttonIndex]);
   };
+  const handlePrev = () => {
+    if (currentQuestionIndex === 0) {
+      navigation.goBack();
+    } else {
+      // 뒤로 가기 눌렀을 때, 이전 했던 행위 저장
+      setItems(prev => {
+        const next = [...prev];
+        return next.map((selectedResults, i) => {
+          if (currentQuestionIndex === i) {
+            return [...currentAnswerSelected];
+          }
+          return selectedResults;
+        });
+      });
+      // 이전 값 복원
+      setCurrentAnswerSelected(items[currentQuestionIndex - 1]);
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+
   const handleNext = () => {
-    if (!currentAnswerSelected) return;
-    const answer =
-      allQuestions[currentQuestionIndex].options[currentAnswerSelected - 1];
-    setItems([...items, answer]);
+    if (!currentAnswerSelected.length) return;
+    setItems(prev => {
+      const next = [...prev];
+      return next.map((selectedResults, i) => {
+        if (currentQuestionIndex === i) {
+          return [...currentAnswerSelected];
+        }
+        return selectedResults;
+      });
+    });
     if (currentQuestionIndex == allQuestions.length - 1) {
       // TODO: 선택한 이전 값(items)들을 한꺼번에 서버에 보내기 > 마지막 값은 따로 합쳐서 보내줘야할듯
-      console.log(...items, answer);
+      items.pop();
       navigation.navigate('TestScreen');
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setCurrentAnswerSelected(null);
+      setCurrentAnswerSelected(items[currentQuestionIndex + 1]);
+      if (currentQuestionIndex < savedIndex) return;
+      setSavedIndex(currentQuestionIndex + 1);
     }
     Animated.parallel([
       Animated.timing(progress, {
@@ -83,9 +129,8 @@ const FirstOnBoarding = ({navigation}: Props) => {
               text={option}
               layoutmode="fullWidth"
               variant={
-                currentAnswerSelected !== null &&
-                currentAnswerSelected - 1 === index
-                  ? 'fillPrimary'
+                currentAnswerSelected.includes(index)
+                  ? 'fillSecondary'
                   : undefined
               }
               key={index}
@@ -99,21 +144,35 @@ const FirstOnBoarding = ({navigation}: Props) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+      {/* TODO: tab이후 로직은 적용되는데, 왜 여기는 statusbar는 적용되고 자동적으로 그 아래에 렌더될까????? */}
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={'dark-content'}
+      />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.container}>
+        <View
+          style={[
+            styles.container,
+            // safeInsets && {paddingTop: safeInsets.top},
+          ]}>
           <View style={styles.subContainer}>
-            <Text
-              style={{
-                color: colors.gray100,
-                fontSize: 18,
-                fontWeight: '600',
-                lineHeight: 21.6,
-                textAlign: 'center',
-                paddingTop: 23,
-                paddingBottom: 37,
-              }}>
-              {allQuestions[currentQuestionIndex]?.subject}
-            </Text>
+            <View style={styles.header}>
+              <Pressable onPress={handlePrev}>
+                <Prev style={{width: 24, height: 24}} fill={colors.gray100} />
+              </Pressable>
+              <Text
+                style={{
+                  color: colors.gray100,
+                  fontSize: 18,
+                  fontWeight: '600',
+                  lineHeight: 21.6,
+                  // textAlign: 'center',
+                }}>
+                {allQuestions[currentQuestionIndex]?.subject}
+              </Text>
+              <Next style={{width: 24, height: 24}} />
+            </View>
             <ProgressBar progress={progress} />
             <Questions
               index={currentQuestionIndex}
@@ -129,7 +188,7 @@ const FirstOnBoarding = ({navigation}: Props) => {
               variant="fillPrimary"
               text="다음으로"
               onPress={() => handleNext()}
-              disabled={currentAnswerSelected === null}
+              disabled={!currentAnswerSelected.length}
             />
           </View>
         </View>
@@ -138,21 +197,24 @@ const FirstOnBoarding = ({navigation}: Props) => {
   );
 };
 const styles = StyleSheet.create({
-  // scrollView 의 세로가 꽈안참 > contentContainerStyle > flexGrow : 1
-  // scrollView: {
-  //   flex: 1,
-  //   backgroundColor: '#ffffff',
-  // },
   container: {
     flex: 1,
+    // borderWidth: 1,
+    // borderColor: 'red',
     height: '100%',
-    paddingVertical: 20,
+    paddingBottom: 20,
     paddingHorizontal: 20,
     justifyContent: 'space-between',
-    // position: 'relative',
   },
   subContainer: {
     // alignItems: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 22,
+    paddingBottom: 36,
   },
   optionsText: {
     borderRadius: 5,

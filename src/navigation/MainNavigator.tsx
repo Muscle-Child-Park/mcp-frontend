@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   NativeStackScreenProps,
@@ -15,6 +15,7 @@ import {Button, View} from 'react-native';
 import FirstOnBoarding from 'src/screens/onBoarding/FirstOnBoarding';
 import {colors} from 'src/constants/colors';
 import ReservationSuccess from 'src/screens/Result/ReservationSuccess';
+import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
 
 const iconMap = {
   홈: HomeIcon,
@@ -49,6 +50,7 @@ export type HomeTabProps =
   NativeStackNavigationProp<BottomTabNavigatorParamList>;
 
 const MyTabs = () => {
+  const safeInsets = useContext(SafeAreaInsetsContext);
   return (
     // <Tab.Navigator screenOptions={{headerShown: false}} >
     <Tab.Navigator
@@ -70,7 +72,9 @@ const MyTabs = () => {
         },
         // tabBarIconStyle: {},
         headerStyle: {
-          height: 62,
+          // borderWidth: 1,
+          // borderColor: 'red',
+          height: 62 + (safeInsets?.top ?? 0),
         },
         headerTitle: route.name,
         headerTitleStyle: {
