@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {colors} from 'src/constants/colors';
 
-const SwitchButton = () => {
-  const [selectedTab, isSelectedTab] = useState(0);
+interface Props {
+  selectedTab: 0 | 1;
+  isSelectedTab: (selectedTab: 0 | 1) => void;
+}
+
+const SwitchButton = ({selectedTab, isSelectedTab}: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity

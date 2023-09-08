@@ -16,6 +16,7 @@ import FirstOnBoarding from 'src/screens/onBoarding/FirstOnBoarding';
 import {colors} from 'src/constants/colors';
 import ReservationSuccess from 'src/screens/Result/ReservationSuccess';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
+import MainJournal from 'src/screens/journal/MainJournal';
 
 const iconMap = {
   홈: HomeIcon,
@@ -31,6 +32,7 @@ export type RootStackParamList = {
   OnboardingScreen: undefined;
   Onboarding1: undefined;
   ReservationResult: undefined;
+  JournalScreen: undefined;
 };
 
 type BottomTabNavigatorParamList = {
@@ -132,6 +134,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="OnboardingScreen" component={MyScreen} />
         <Stack.Screen name="HomeScreen" component={MyTabs} />
         <Stack.Screen name="ReservationResult" component={ReservationSuccess} />
+        <Stack.Screen name="JournalScreen" component={MainJournal} />
       </Stack.Navigator>
     </NavigationContainer>
   );

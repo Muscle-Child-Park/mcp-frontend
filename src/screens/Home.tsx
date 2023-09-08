@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
   StatusBar,
   View,
+  Pressable,
 } from 'react-native';
 
 import {
@@ -26,18 +27,19 @@ import ProgressBar from 'src/components/system/ProgressBar';
 import MainCard from 'src/components/system/MainCard';
 import CustomButton from 'src/components/system/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
-import {HomeTabProps} from 'src/navigation/MainNavigator';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
+import {BasicProps, HomeTabProps} from 'src/navigation/MainNavigator';
 
 /**
 background: linear-gradient(180deg, #57AEFF -30.67%, rgba(255, 255, 255, 0.0885417) 40.64%),
 linear-gradient(0deg, #F2F3F5, #F2F3F5);
 */
+type HomeScreenProp = CompositeNavigationProp<HomeTabProps, BasicProps>;
 
 const Home = () => {
   const {width} = useWindowDimensions();
   const safeInsets = useContext(SafeAreaInsetsContext);
-  const navigation = useNavigation<HomeTabProps>();
+  const navigation = useNavigation<HomeScreenProp>();
   return (
     <SafeAreaView>
       <StatusBar
@@ -86,14 +88,20 @@ const Home = () => {
               />
             </View>
           </MainCard>
-          <MainCard>
-            <View style={{gap: 8}}>
-              <CustomHeader headerSize="h4" headerText="운동일지" />
-              <Text style={styles.text}>
-                PT 수업부터 개인운동까지 운동기록을 확인해보세요
-              </Text>
-            </View>
-          </MainCard>
+          {/* TODO: button 으로 만들어야할듯.. > onPress(() => {navigation.navigate('JournalScreen')}) */}
+          <Pressable
+            onPress={() => {
+              navigation.navigate('JournalScreen');
+            }}>
+            <MainCard>
+              <View style={{gap: 8}}>
+                <CustomHeader headerSize="h4" headerText="운동일지" />
+                <Text style={styles.text}>
+                  PT 수업부터 개인운동까지 운동기록을 확인해보세요
+                </Text>
+              </View>
+            </MainCard>
+          </Pressable>
         </LinearGradient>
       </ScrollView>
     </SafeAreaView>
