@@ -1,11 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import Checkbox from 'src/components/system/Checkbox';
 import CustomButton from 'src/components/system/CustomButton';
 import {colors} from 'src/constants/colors';
 import {BasicProps} from 'src/navigation/MainNavigator';
 
+let ImagePath = require('src/assets/images/schedule.png');
+console.log(ImagePath);
 const NextReservationStep = () => {
   // Context로 만들기
   const [isChecked, setIsChecked] = useState(false);
@@ -14,13 +16,12 @@ const NextReservationStep = () => {
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.body}>
-          <TouchableOpacity
+          <Image
+            source={ImagePath}
             style={{
-              width: 110,
-              height: 110,
-              borderRadius: 50,
-              backgroundColor: '#D9D9D9',
-              marginBottom: 64,
+              width: 160,
+              height: 160,
+              marginBottom: 20,
             }}
           />
           <View style={styles.textContainer}>
