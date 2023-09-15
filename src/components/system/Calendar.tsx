@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, useCallback} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import DateButton from './DateButton';
 import {add, format, getWeek} from 'date-fns';
@@ -27,14 +27,15 @@ const Calendar = ({onSelectDate, selected}: Props) => {
   const scrollViewRef = useRef<ScrollView | null>(null);
 
   // get the dates from today to 10 days from now, format them as strings and store them in state
-  const getDates = () => {
+  const getDates = useCallback(() => {
     const _dates = [];
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 30; i++) {
+      // 데이터가 많아 질수록 렌더링 저하
       const date = add(new Date(), {days: i});
       _dates.push(date);
     }
     setDates(_dates);
-  };
+  }, []);
 
   useEffect(() => {
     getDates();

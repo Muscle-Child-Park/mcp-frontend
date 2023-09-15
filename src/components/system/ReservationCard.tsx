@@ -29,6 +29,8 @@ const ReservationCard = ({text, time, mode}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    maxHeight: 108,
     paddingTop: 20,
     paddingBottom: 20,
     flexDirection: 'row',
