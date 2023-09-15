@@ -7,6 +7,7 @@ import {
   Text,
   StatusBar,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import data from 'src/constants/survey';
 import ProgressBar from './ProgressBar';
@@ -29,7 +30,6 @@ const FirstOnBoarding = ({navigation}: Props) => {
   const progress = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [savedIndex, setSavedIndex] = useState(0); // 뒤로가기 눌렀을 때, ux를 위함
   const [currentAnswerSelected, setCurrentAnswerSelected] = useState<number[]>(
     [],
   );
@@ -37,7 +37,6 @@ const FirstOnBoarding = ({navigation}: Props) => {
     Array.from({length: data.length}, () => []),
   );
   // const safeInsets = useContext(SafeAreaInsetsContext);
-  // console.log(progress);
   const validateAnswer = (buttonIndex: number) => {
     if (currentAnswerSelected.includes(buttonIndex)) {
       const newArray = currentAnswerSelected.filter(n => n !== buttonIndex);
@@ -50,6 +49,11 @@ const FirstOnBoarding = ({navigation}: Props) => {
     if (currentQuestionIndex === 0) {
       navigation.goBack();
     } else {
+      Animated.timing(progress, {
+        toValue: currentQuestionIndex, // 현재 질문 인덱스로 설정
+        duration: 1000,
+        useNativeDriver: false,
+      }).start();
       // 뒤로 가기 눌렀을 때, 이전 했던 행위 저장
       setItems(prev => {
         const next = [...prev];
@@ -67,6 +71,7 @@ const FirstOnBoarding = ({navigation}: Props) => {
   };
 
   const handleNext = () => {
+    console.log(currentAnswerSelected);
     if (!currentAnswerSelected.length) return;
     setItems(prev => {
       const next = [...prev];
@@ -84,27 +89,26 @@ const FirstOnBoarding = ({navigation}: Props) => {
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setCurrentAnswerSelected(items[currentQuestionIndex + 1]);
-      if (currentQuestionIndex < savedIndex) return;
-      setSavedIndex(currentQuestionIndex + 1);
     }
+    console.log('handleNext', currentQuestionIndex);
     Animated.parallel([
       Animated.timing(progress, {
         toValue: currentQuestionIndex + 2,
         duration: 1000,
         useNativeDriver: false,
       }),
-      Animated.sequence([
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 50,
-          useNativeDriver: false,
-        }),
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 950,
-          useNativeDriver: false,
-        }),
-      ]),
+      // Animated.sequence([
+      //   Animated.timing(fadeAnim, {
+      //     toValue: 0,
+      //     duration: 50,
+      //     useNativeDriver: false,
+      //   }),
+      //   Animated.timing(fadeAnim, {
+      //     toValue: 1,
+      //     duration: 950,
+      //     useNativeDriver: false,
+      //   }),
+      // ]),
     ]).start();
   };
 
@@ -158,9 +162,9 @@ const FirstOnBoarding = ({navigation}: Props) => {
           ]}>
           <View style={styles.subContainer}>
             <View style={styles.header}>
-              <Pressable onPress={handlePrev}>
+              <TouchableOpacity onPress={handlePrev}>
                 <Prev style={{width: 24, height: 24}} fill={colors.gray100} />
-              </Pressable>
+              </TouchableOpacity>
               <Text
                 style={{
                   color: colors.gray100,
