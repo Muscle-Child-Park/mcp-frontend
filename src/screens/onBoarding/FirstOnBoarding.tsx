@@ -71,7 +71,6 @@ const FirstOnBoarding = ({navigation}: Props) => {
   };
 
   const handleNext = () => {
-    console.log(currentAnswerSelected);
     if (!currentAnswerSelected.length) return;
     setItems(prev => {
       const next = [...prev];
@@ -90,7 +89,6 @@ const FirstOnBoarding = ({navigation}: Props) => {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setCurrentAnswerSelected(items[currentQuestionIndex + 1]);
     }
-    console.log('handleNext', currentQuestionIndex);
     Animated.parallel([
       Animated.timing(progress, {
         toValue: currentQuestionIndex + 2,
