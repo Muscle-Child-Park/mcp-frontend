@@ -6,9 +6,9 @@ import CustomButton from 'src/components/system/CustomButton';
 import {colors} from 'src/constants/colors';
 import {BasicProps} from 'src/navigation/MainNavigator';
 
-let ImagePath = require('src/assets/images/schedule.png');
-console.log(ImagePath);
-const NextReservationStep = () => {
+const ImagePath = require('src/assets/images/schedule.png');
+
+export default function NextReservationStep() {
   // Context로 만들기
   const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation<BasicProps>();
@@ -16,14 +16,9 @@ const NextReservationStep = () => {
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.body}>
-          <Image
-            source={ImagePath}
-            style={{
-              width: 160,
-              height: 160,
-              marginBottom: 20,
-            }}
-          />
+          <View style={styles.imageContainer}>
+            <Image source={ImagePath} style={styles.image} />
+          </View>
           <View style={styles.textContainer}>
             <Text style={styles.time}>8월 9일 오후 9:00시</Text>
             <Text style={styles.title}>수업을 예약하시겠어요?</Text>
@@ -56,7 +51,7 @@ const NextReservationStep = () => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -72,6 +67,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   body: {alignItems: 'center'},
+  imageContainer: {
+    width: 200,
+    height: 200,
+    borderRadius: 100, // 반지름을 반이 되도록 설정하여 원 모양이 됨
+    backgroundColor: colors.blueLighten2, // 원의 배경색을 설정할 수 있습니다
+    marginBottom: 20,
+    alignItems: 'center', // 내부 컨텐츠를 가운데 정렬
+    justifyContent: 'center', // 내부 컨텐츠를 가운데 정렬
+  },
+  image: {
+    marginLeft: 5,
+    width: 180,
+    height: 180,
+  },
   textContainer: {
     gap: 5,
     marginBottom: 20,
@@ -99,5 +108,3 @@ const styles = StyleSheet.create({
   },
   footer: {alignItems: 'center'},
 });
-
-export default NextReservationStep;

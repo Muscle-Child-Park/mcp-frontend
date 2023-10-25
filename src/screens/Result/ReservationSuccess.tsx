@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  Image,
 } from 'react-native';
 import CustomButton from 'src/components/system/CustomButton';
 import {useNavigation} from '@react-navigation/native';
@@ -16,21 +17,25 @@ import {colors} from 'src/constants/colors';
 
 type ReservationScreenProp = CompositeNavigationProp<HomeTabProps, TopTabProps>;
 
-const ReservationSuccess = () => {
+const ImagePath = require('src/assets/images/logo.png');
+
+export default function ReservationSuccess() {
   const navigation = useNavigation<ReservationScreenProp>();
   const safeInsets = useContext(SafeAreaInsetsContext);
   return (
     <SafeAreaView style={{flex: 1}}>
       <View
-        style={[styles.container, {paddingTop: 99 + (safeInsets?.top ?? 0)}]}>
+        style={[
+          styles.container,
+          {paddingTop: 152.49 + (safeInsets?.top ?? 0)},
+        ]}>
         <View style={styles.body}>
-          <TouchableOpacity
+          <Image
+            source={ImagePath}
             style={{
-              width: 259,
-              height: 259,
-              borderRadius: 259 / 2,
-              backgroundColor: colors.background,
-              marginBottom: 93.03,
+              width: 229,
+              height: 235,
+              marginBottom: 65.36,
             }}
           />
           <View style={styles.textContainer}>
@@ -63,13 +68,12 @@ const ReservationSuccess = () => {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderWidth: 1,
-    borderColor: 'red',
     backgroundColor: 'white',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
@@ -96,5 +100,3 @@ const styles = StyleSheet.create({
     lineHeight: 28.8,
   },
 });
-
-export default ReservationSuccess;
