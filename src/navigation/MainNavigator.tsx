@@ -22,7 +22,7 @@ const iconMap = {
   홈: HomeIcon,
   예약: ScheduleIcon,
   채팅: ChatIcon,
-  MY: UserIcon,
+  마이: UserIcon,
 } as const;
 
 type TabIcons = keyof typeof iconMap;
@@ -39,7 +39,7 @@ type BottomTabNavigatorParamList = {
   홈: undefined;
   예약: undefined;
   채팅: undefined;
-  MY: undefined;
+  마이: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -77,8 +77,9 @@ const MyTabs = () => {
           // borderWidth: 1,
           // borderColor: 'red',
           height: 62 + (safeInsets?.top ?? 0),
+          borderBottomWidth: route.name === '마이' ? 0.33 : 0,
         },
-        headerTitle: route.name,
+        headerTitle: route.name === '마이' ? '마이페이지' : route.name,
         headerTitleStyle: {
           fontSize: 22,
           // fontWeight: 600,
@@ -90,7 +91,7 @@ const MyTabs = () => {
       <Tab.Screen name="홈" component={Home} />
       <Tab.Screen name="예약" component={Reservation} />
       <Tab.Screen name="채팅" component={Chatting} />
-      <Tab.Screen name="MY" component={My} />
+      <Tab.Screen name="마이" component={My} />
     </Tab.Navigator>
   );
 };
