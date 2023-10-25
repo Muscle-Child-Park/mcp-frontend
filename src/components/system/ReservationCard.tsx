@@ -8,27 +8,30 @@ interface Props {
   text: string;
   time: string;
   mode: ExcerciseChipsType;
+  handlePress?: () => void;
 }
 
-const ReservationCard = ({text, time, mode}: Props) => {
+const ReservationCard = ({text, time, mode, handlePress}: Props) => {
   return (
-    <MainCard style={styles.container}>
-      <View style={styles.innerWrapper}>
-        <ExcerciseChips mode={mode} />
-        <Text style={styles.title}>{text}</Text>
-        <Text style={styles.time}>{time}</Text>
-      </View>
-      {mode === 'reservationSuccess' && (
-        <Pressable onPress={() => {}}>
-          <Text style={styles.cancelText}>예약 취소</Text>
-        </Pressable>
-      )}
-    </MainCard>
+    <Pressable style={styles.pressableContainer} onPress={handlePress}>
+      <MainCard>
+        <View style={styles.innerWrapper}>
+          <ExcerciseChips mode={mode} />
+          <Text style={styles.title}>{text}</Text>
+          <Text style={styles.time}>{time}</Text>
+        </View>
+        {mode === 'reservationSuccess' && (
+          <Pressable onPress={() => {}}>
+            <Text style={styles.cancelText}>예약 취소</Text>
+          </Pressable>
+        )}
+      </MainCard>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  pressableContainer: {
     flex: 1,
     maxHeight: 108,
     paddingTop: 20,
