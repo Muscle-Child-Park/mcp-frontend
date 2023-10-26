@@ -15,9 +15,9 @@ import {
   Pressable,
 } from 'react-native';
 import {colors} from 'src/constants/colors';
-import {Props} from './MainJournal';
+import {Props} from '../../navigation/JournalNavigator';
 
-export function ExerciseJournal() {
+export default function ExerciseJournal() {
   const [selectedTab, isSelectedTab] = useState<0 | 1>(0);
   const [selectedDate, setSelectedDate] = useState<string>(
     format(new Date(), 'yyyy-MM-dd'),

@@ -6,26 +6,18 @@ import {
   Animated,
   Text,
   StatusBar,
-  Pressable,
   TouchableOpacity,
 } from 'react-native';
 import data from 'src/constants/survey';
-import ProgressBar from './ProgressBar';
-import Questions from './Questions';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from 'src/navigation/MainNavigator';
+import ProgressBar from 'src/components/screens/OnBoarding/ProgressBar';
+import Questions from 'src/components/screens/OnBoarding/Questions';
+import {Props} from 'src/navigation/MainNavigator';
 import CustomButton from 'src/components/system/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from 'src/constants/colors';
 import {Next, Prev} from 'src/assets/images';
 
-type Props = NativeStackScreenProps<
-  RootStackParamList,
-  'Onboarding1',
-  'TestScreen'
->;
-
-const FirstOnBoarding = ({navigation}: Props) => {
+export default function FirstOnBoarding({navigation}: Props) {
   const allQuestions = data;
   const progress = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -197,7 +189,7 @@ const FirstOnBoarding = ({navigation}: Props) => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -234,4 +226,3 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-export default FirstOnBoarding;

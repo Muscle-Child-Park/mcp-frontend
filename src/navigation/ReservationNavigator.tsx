@@ -8,8 +8,8 @@ import Calendar from 'src/components/system/Calendar';
 import CustomButton from 'src/components/system/CustomButton';
 import HorizonLine from 'src/components/system/HorizonLine';
 import TimeSelection from 'src/components/system/TimeSelector';
-import NextReservationStep from './NextReservationStep';
 import {colors} from 'src/constants/colors';
+import {NextReservationStep} from 'src/screens/Reservations';
 
 type ReservationStackParamList = {
   MainScreen: undefined;
@@ -27,7 +27,7 @@ type Props = NativeStackScreenProps<ReservationStackParamList, 'MainScreen'>;
 //   'SuccessScreen'
 // >;
 
-const MainReservation = () => {
+export default function ReservationNavigator() {
   return (
     <Stack.Navigator
       initialRouteName="MainScreen"
@@ -36,7 +36,7 @@ const MainReservation = () => {
       <Stack.Screen name="NextScreen" component={NextReservationStep} />
     </Stack.Navigator>
   );
-};
+}
 
 const Reservation = ({navigation}: Props) => {
   // Context로 만들기
@@ -110,5 +110,3 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
 });
-
-export default MainReservation;

@@ -4,7 +4,7 @@ import ReservationCard from 'src/components/system/ReservationCard';
 import SortingBar from 'src/components/system/SortingBar';
 import {sortTags} from 'src/constants/common';
 
-const MyReservation = () => {
+export default function MyReservation() {
   const [currentTag, setCurrentTag] = useState(sortTags[0]);
   return (
     <View
@@ -41,7 +41,7 @@ const MyReservation = () => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   history: {
@@ -51,4 +51,3 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
 });
-export default MyReservation;

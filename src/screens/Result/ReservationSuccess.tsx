@@ -10,10 +10,10 @@ import {
 import CustomButton from 'src/components/system/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import type {CompositeNavigationProp} from '@react-navigation/native';
-import {TopTabProps} from '../Reservation';
-import {HomeTabProps} from 'src/navigation/MainNavigator';
+import {TopTabProps} from '../Home/Reservation';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
 import {colors} from 'src/constants/colors';
+import {HomeTabProps} from 'src/navigation/HomeNavigator';
 
 type ReservationScreenProp = CompositeNavigationProp<HomeTabProps, TopTabProps>;
 

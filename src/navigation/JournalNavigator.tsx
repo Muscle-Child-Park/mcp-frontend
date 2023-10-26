@@ -1,23 +1,17 @@
 import {
   NativeStackNavigationProp,
-  NativeStackScreenProps,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import React, {useContext, useMemo, useState} from 'react';
-import {
-  Pressable,
-  SafeAreaView,
-  View,
-  StatusBar,
-  StyleSheet,
-  Text,
-} from 'react-native';
-import AddingExercise from './AddingExercise';
+import React, {useContext} from 'react';
+import {Pressable, Text} from 'react-native';
 import {Plus, Prev} from 'src/assets/images';
 import {colors} from 'src/constants/colors';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
-import {ExerciseJournal} from './ExerciseJournal';
-import DetailedCourse from './DetailedCourse';
+import {
+  AddingExercise,
+  DetailedCourse,
+  ExerciseJournal,
+} from 'src/screens/Journal';
 
 type JournalStackParamList = {
   '운동 일지': undefined;
@@ -27,7 +21,7 @@ type JournalStackParamList = {
 const Stack = createNativeStackNavigator<JournalStackParamList>();
 export type Props = NativeStackNavigationProp<JournalStackParamList>;
 
-const MainJournal = () => {
+export default function JournalNavigator() {
   // const navigation = useNavigation<Props>(); // 운동 추가일 때, 뒤로가면 home으로
   const safeInsets = useContext(SafeAreaInsetsContext); // stack의 header style은 background밖에 안되네..?
   const renderHeaderRight = (
@@ -82,6 +76,4 @@ const MainJournal = () => {
       <Stack.Screen name="수업 상세" component={DetailedCourse} />
     </Stack.Navigator>
   );
-};
-
-export default MainJournal;
+}

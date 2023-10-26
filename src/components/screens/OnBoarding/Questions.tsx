@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {colors} from 'src/constants/colors';
-import data from 'src/constants/survey';
 
 interface Props {
   index: number;
