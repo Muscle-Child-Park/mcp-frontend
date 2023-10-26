@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {AddIcon} from 'src/assets/images';
@@ -14,6 +15,11 @@ import ExerciseForm, {
 import HorizonLine from 'src/components/system/HorizonLine';
 import {colors} from 'src/constants/colors';
 import {exerciseTags} from 'src/constants/common';
+import ko from 'date-fns/esm/locale/ko/index.js';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {format} from 'date-fns';
+
+type ModalType = 'date' | 'startTime' | 'endTime';
 
 // TODO: 추후 component화하기
 const AddingExercise = () => {
@@ -24,6 +30,12 @@ const AddingExercise = () => {
       info: '',
     },
   ]);
+  // useState Hook를 사용하여 날짜와 모달 유형, 노출 여부를 설정할 변수를 생성
+  const [date, onChangeDate] = useState(new Date()); // 선택 날짜
+  const [startDate, setStartDate] = useState(new Date()); // 시작 시간
+  const [endDate, setEndDate] = useState(new Date()); // 종료 시간
+  const [mode, setMode] = useState<ModalType>('date'); // 모달 유형
+  const [visible, setVisible] = useState(false); // 모달 노출 여부
 
   const handleAddExericse = (exerciseData: ExerciseDataType) => {
     // 새로운 운동 객체 생성 (ID는 현재 시간으로 설정)
@@ -45,6 +57,44 @@ const AddingExercise = () => {
     setExercises(updatedExercises);
   };
 
+  const onPressDate = () => {
+    setMode('date');
+    setVisible(true);
+  };
+
+  const onPressStartTime = () => {
+    setMode('startTime');
+    setVisible(true);
+  };
+
+  const onPressEndTime = () => {
+    setMode('endTime');
+    setVisible(true);
+  };
+
+  const onConfirm = (selectedDate: Date) => {
+    // 날짜 또는 시간 선택 시
+    switch (mode) {
+      case 'date':
+        onChangeDate(selectedDate); // 선택한 날짜 변경
+        break;
+      case 'startTime':
+        setStartDate(selectedDate); // 시작 시간 변경
+        break;
+      case 'endTime':
+        setEndDate(selectedDate); // 종료 시간 변경
+        break;
+      default:
+        break;
+    }
+    setVisible(false); // 모달 close
+  };
+
+  const onCancel = () => {
+    // 취소 시
+    setVisible(false); // 모달 close
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView style={styles.container}>
@@ -57,21 +107,27 @@ const AddingExercise = () => {
         {/* <HorizonLine /> */}
         <View style={styles.line} />
         <View style={styles.rowWrapper}>
-          <View style={styles.row}>
+          <TouchableOpacity style={styles.row} onPress={onPressDate}>
             <Text style={styles.title}>날짜</Text>
-            <Text style={styles.details}>2023. 8. 25.</Text>
-          </View>
+            <Text style={styles.details}>
+              {format(new Date(date), 'YYY. M. d.', {locale: ko})}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.line} />
         <View style={styles.rowWrapper}>
-          <View style={styles.row}>
+          <TouchableOpacity style={styles.row} onPress={onPressStartTime}>
             <Text style={styles.title}>시작시간</Text>
-            <Text style={styles.details}>10:00</Text>
-          </View>
-          <View style={styles.row}>
+            <Text style={styles.details}>
+              {format(new Date(startDate), 'p', {locale: ko})}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.row} onPress={onPressEndTime}>
             <Text style={styles.title}>종료시간</Text>
-            <Text style={styles.details}>11:00</Text>
-          </View>
+            <Text style={styles.details}>
+              {format(new Date(endDate), 'p', {locale: ko})}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.line} />
         {exercises.map((exercise, idx) => (
@@ -111,6 +167,13 @@ const AddingExercise = () => {
             운동 추가하기
           </Text>
         </Pressable>
+        <DateTimePickerModal
+          isVisible={visible}
+          mode={mode.includes('Time') ? 'time' : 'date'}
+          onConfirm={onConfirm}
+          onCancel={onCancel}
+          date={date}
+        />
       </ScrollView>
     </SafeAreaView>
   );

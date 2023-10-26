@@ -9,11 +9,18 @@
         to be a light color (false) or a dark color (true) -->
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">@color/app_bg</item>
+        <!-- How to change the default theme color -->
+        <item name="android:datePickerDialogTheme">@style/Dialog.Theme</item>
+        <item name="android:timePickerDialogTheme">@style/Dialog.Theme</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@drawable/background_splash</item>
         <item name="android:statusBarColor">@color/splashscreen_bg</item>
+    </style>
+    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#4263F6</item>
+        <item name="android:textColorPrimary">#000000</item>
     </style>
 
 </resources>
