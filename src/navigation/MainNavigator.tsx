@@ -8,7 +8,7 @@ import {
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from 'src/screens/Home';
 import My from 'src/screens/My';
-import Chatting from 'src/screens/Chatting';
+import Chat from 'src/screens/Chat';
 import Reservation from 'src/screens/Reservation';
 import {HomeIcon, ScheduleIcon, ChatIcon, UserIcon} from 'src/assets/images';
 import {Button, View} from 'react-native';
@@ -77,7 +77,8 @@ const MyTabs = () => {
           // borderWidth: 1,
           // borderColor: 'red',
           height: 62 + (safeInsets?.top ?? 0),
-          borderBottomWidth: route.name === '마이' ? 0.33 : 0,
+          borderBottomWidth:
+            route.name === '마이' || route.name === '채팅' ? 0.33 : 0,
         },
         headerTitle: route.name === '마이' ? '마이페이지' : route.name,
         headerTitleStyle: {
@@ -90,7 +91,7 @@ const MyTabs = () => {
       })}>
       <Tab.Screen name="홈" component={Home} />
       <Tab.Screen name="예약" component={Reservation} />
-      <Tab.Screen name="채팅" component={Chatting} />
+      <Tab.Screen name="채팅" component={Chat} />
       <Tab.Screen name="마이" component={My} />
     </Tab.Navigator>
   );
