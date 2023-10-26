@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 // import type {PropsWithChildren} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import CustomSwitch from 'src/components/system/CustomSwitch';
 import ListButton from 'src/components/system/ListButton';
 import {colors} from 'src/constants/colors';
 
 const My = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.mainBackground}>
@@ -18,7 +21,7 @@ const My = () => {
         <View style={styles.divider} />
         <View style={styles.pushRowContainer}>
           <Text style={styles.pushText}>앱 PUSH 동의</Text>
-          {/* TODO: 토글 버튼 */}
+          <CustomSwitch isEnabled={isEnabled} setIsEnabled={setIsEnabled} />
         </View>
         <View style={styles.divider} />
         <ListButton title="로그아웃" handlePress={() => {}} hasBorderBottom />
@@ -64,7 +67,13 @@ const styles = StyleSheet.create({
     height: 8,
     backgroundColor: colors.background,
   },
-  pushRowContainer: {paddingVertical: 16, paddingHorizontal: 20},
+  pushRowContainer: {
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   pushText: {
     fontSize: 16,
     fontWeight: '500',
