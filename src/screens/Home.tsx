@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
 import {
@@ -29,6 +29,8 @@ import CustomButton from 'src/components/system/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {BasicProps, HomeTabProps} from 'src/navigation/MainNavigator';
+import BottomSheet from 'src/components/system/BottomSheet';
+import BottomSheetModal from 'src/components/system/BottomSheetModal';
 
 /**
 background: linear-gradient(180deg, #57AEFF -30.67%, rgba(255, 255, 255, 0.0885417) 40.64%),
@@ -40,6 +42,8 @@ const Home = () => {
   const {width} = useWindowDimensions();
   const safeInsets = useContext(SafeAreaInsetsContext);
   const navigation = useNavigation<HomeScreenProp>();
+  const [modalVisible, setModalVisible] = useState(true);
+
   return (
     <SafeAreaView>
       <StatusBar
@@ -102,6 +106,10 @@ const Home = () => {
               </View>
             </MainCard>
           </Pressable>
+          <BottomSheetModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+          />
         </LinearGradient>
       </ScrollView>
     </SafeAreaView>
