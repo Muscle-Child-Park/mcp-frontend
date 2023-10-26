@@ -1,13 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 // import type {PropsWithChildren} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import CustomSwitch from 'src/components/system/CustomSwitch';
 import ListButton from 'src/components/system/ListButton';
 import {colors} from 'src/constants/colors';
+import {BasicProps} from 'src/navigation/MainNavigator';
 
-const My = () => {
+export default function My() {
   const [isEnabled, setIsEnabled] = useState(false);
-
+  const navigation = useNavigation<BasicProps>();
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.mainBackground}>
@@ -17,21 +19,30 @@ const My = () => {
         </View>
         {/* TODO: 수강권 이미지 */}
         <View style={styles.courseImage} />
-        <ListButton title="회원정보 수정" handlePress={() => {}} />
+        <ListButton
+          title="회원정보 수정"
+          handlePress={() => {
+            navigation.navigate('UserProfileScreen');
+          }}
+        />
         <View style={styles.divider} />
         <View style={styles.pushRowContainer}>
           <Text style={styles.pushText}>앱 PUSH 동의</Text>
           <CustomSwitch isEnabled={isEnabled} setIsEnabled={setIsEnabled} />
         </View>
         <View style={styles.divider} />
-        <ListButton title="로그아웃" handlePress={() => {}} hasBorderBottom />
+        <ListButton
+          title="로그아웃"
+          handlePress={() => {
+            // TODO: API 연결
+          }}
+          hasBorderBottom
+        />
         <Text style={styles.exitText}>회원탈퇴</Text>
       </View>
     </SafeAreaView>
   );
-};
-
-export default My;
+}
 
 const styles = StyleSheet.create({
   mainBackground: {

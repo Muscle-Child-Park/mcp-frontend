@@ -10,13 +10,20 @@ import Home from 'src/screens/Home';
 import My from 'src/screens/My';
 import Chat from 'src/screens/Chat';
 import Reservation from 'src/screens/Reservation';
-import {HomeIcon, ScheduleIcon, ChatIcon, UserIcon} from 'src/assets/images';
-import {Button, View} from 'react-native';
+import {
+  HomeIcon,
+  ScheduleIcon,
+  ChatIcon,
+  UserIcon,
+  Prev,
+} from 'src/assets/images';
+import {Button, View, Pressable} from 'react-native';
 import FirstOnBoarding from 'src/screens/onBoarding/FirstOnBoarding';
 import {colors} from 'src/constants/colors';
 import ReservationSuccess from 'src/screens/Result/ReservationSuccess';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
 import MainJournal from 'src/screens/journal/MainJournal';
+import UserProfile from 'src/screens/My/UserProfile';
 
 const iconMap = {
   홈: HomeIcon,
@@ -33,6 +40,7 @@ export type RootStackParamList = {
   Onboarding1: undefined;
   ReservationResult: undefined;
   JournalScreen: undefined;
+  UserProfileScreen: undefined;
 };
 
 type BottomTabNavigatorParamList = {
@@ -45,7 +53,11 @@ type BottomTabNavigatorParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
-type Props = NativeStackScreenProps<RootStackParamList, 'TestScreen'>;
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  'TestScreen',
+  'UserProfile'
+>;
 export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
 
 export type HomeTabProps =
@@ -131,12 +143,33 @@ const MainStackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="TestScreen"
-        screenOptions={{headerShown: false}}>
+        screenOptions={({route}) => {
+          if (route.name === 'UserProfileScreen') {
+            return {headerShown: true};
+          }
+          return {headerShown: false};
+        }}>
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="OnboardingScreen" component={MyScreen} />
         <Stack.Screen name="HomeScreen" component={MyTabs} />
         <Stack.Screen name="ReservationResult" component={ReservationSuccess} />
         <Stack.Screen name="JournalScreen" component={MainJournal} />
+        <Stack.Screen
+          name="UserProfileScreen"
+          component={UserProfile}
+          options={({navigation}) => {
+            return {
+              headerTitle: '회원정보 수정',
+              headerTitleAlign: 'center',
+              // headerRight: () => <Button title="완료" onPress={() => {}} />,
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.pop()}>
+                  <Prev style={{width: 24, height: 24}} fill={colors.gray100} />
+                </Pressable>
+              ),
+            };
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
