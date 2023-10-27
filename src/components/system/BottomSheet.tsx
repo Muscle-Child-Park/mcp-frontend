@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import DropdownBox from './DropdownBox';
 import {sortTypes} from 'src/constants/common';
-import useToggleBottomSheet from 'src/assets/hooks/useToggleBottomSheet';
+import useToggleBottomSheet from 'src/hooks/useToggleBottomSheet';
 
 interface Props {
   modalVisible: boolean;

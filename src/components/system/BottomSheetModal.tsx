@@ -8,7 +8,7 @@ import {
   Pressable,
 } from 'react-native';
 import CustomButton from './CustomButton';
-import useToggleBottomSheet from 'src/assets/hooks/useToggleBottomSheet';
+import useToggleBottomSheet from 'src/hooks/useToggleBottomSheet';
 import {colors} from 'src/constants/colors';
 
 interface Props {
