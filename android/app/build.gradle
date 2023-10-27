@@ -76,8 +76,10 @@ android {
     namespace "com.mcp_client"
     defaultConfig {
         applicationId "com.mcp_client"
+        resValue "string", "build_config_package", "com.mcp_client" // 추가
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        // manifestPlaceholders = [NATIVE_APP_KEY: "${System.getenv("NATIVE_APP_KEY")}"]
         versionCode 1
         versionName "1.0"
     }
@@ -121,3 +123,4 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle" // 추가
