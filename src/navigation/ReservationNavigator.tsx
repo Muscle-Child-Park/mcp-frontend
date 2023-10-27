@@ -17,7 +17,10 @@ type ReservationStackParamList = {
   SuccessScreen: undefined;
 };
 const Stack = createNativeStackNavigator<ReservationStackParamList>();
-type Props = NativeStackScreenProps<ReservationStackParamList, 'MainScreen'>;
+type ReservationStackProps = NativeStackScreenProps<
+  ReservationStackParamList,
+  'MainScreen'
+>;
 // export type NextProps = NativeStackScreenProps<
 //   ReservationStackParamList,
 //   'NextScreen'
@@ -38,7 +41,7 @@ export default function ReservationNavigator() {
   );
 }
 
-const Reservation = ({navigation}: Props) => {
+const Reservation = ({navigation}: ReservationStackProps) => {
   // Context로 만들기
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);

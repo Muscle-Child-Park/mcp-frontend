@@ -19,7 +19,8 @@ type JournalStackParamList = {
   '수업 상세': undefined;
 };
 const Stack = createNativeStackNavigator<JournalStackParamList>();
-export type Props = NativeStackNavigationProp<JournalStackParamList>;
+export type JournalStackProps =
+  NativeStackNavigationProp<JournalStackParamList>;
 
 export default function JournalNavigator() {
   // const navigation = useNavigation<Props>(); // 운동 추가일 때, 뒤로가면 home으로

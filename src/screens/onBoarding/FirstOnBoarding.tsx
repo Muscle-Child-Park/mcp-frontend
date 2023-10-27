@@ -11,13 +11,13 @@ import {
 import data from 'src/constants/survey';
 import ProgressBar from 'src/components/screens/OnBoarding/ProgressBar';
 import Questions from 'src/components/screens/OnBoarding/Questions';
-import {Props} from 'src/navigation/MainNavigator';
+import {MainStackProps} from 'src/navigation/MainNavigator';
 import CustomButton from 'src/components/system/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from 'src/constants/colors';
 import {Next, Prev} from 'src/assets/images';
 
-export default function FirstOnBoarding({navigation}: Props) {
+export default function FirstOnBoarding({navigation}: MainStackProps) {
   const allQuestions = data;
   const progress = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;

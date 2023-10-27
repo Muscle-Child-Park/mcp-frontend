@@ -15,7 +15,7 @@ import {
   Pressable,
 } from 'react-native';
 import {colors} from 'src/constants/colors';
-import {Props} from '../../navigation/JournalNavigator';
+import {JournalStackProps} from '../../navigation/JournalNavigator';
 
 export default function ExerciseJournal() {
   const [selectedTab, isSelectedTab] = useState<0 | 1>(0);
@@ -60,7 +60,7 @@ export default function ExerciseJournal() {
       id: idx,
       date: log,
     }));
-  const navigation = useNavigation<Props>();
+  const navigation = useNavigation<JournalStackProps>();
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar

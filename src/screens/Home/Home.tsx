@@ -28,9 +28,9 @@ import MainCard from 'src/components/system/MainCard';
 import CustomButton from 'src/components/system/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {BasicProps, HomeTabProps} from 'src/navigation/MainNavigator';
-import BottomSheet from 'src/components/system/BottomSheet';
+import {BasicProps} from 'src/navigation/MainNavigator';
 import BottomSheetModal from 'src/components/system/BottomSheetModal';
+import {HomeTabProps} from 'src/navigation/HomeNavigator';
 
 /**
 background: linear-gradient(180deg, #57AEFF -30.67%, rgba(255, 255, 255, 0.0885417) 40.64%),

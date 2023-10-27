@@ -27,13 +27,13 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export type Props = NativeStackScreenProps<
+export type MainStackProps = NativeStackScreenProps<
   RootStackParamList,
   'TestScreen' | 'UserProfileScreen' | 'OnboardingScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
 >;
 export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
 
-const TestScreen = ({navigation}: Props) => {
+const TestScreen = ({navigation}: MainStackProps) => {
   return (
     <View
       style={{
