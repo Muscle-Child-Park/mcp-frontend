@@ -5,7 +5,7 @@ interface Props {
   handleCloseModal: () => void;
   modalVisible: boolean;
 }
-
+// TODO: 객체로 만들기
 export default function useToggleBottomSheet({
   handleCloseModal,
   modalVisible,

@@ -11,3 +11,4 @@ export {default as SortDown} from './sort-down.svg';
 export {default as Plus} from './plus.svg';
 export {default as Smile} from './smile.svg';
 export {default as AddIcon} from './add.svg';
+export {default as Google} from './google.svg';
