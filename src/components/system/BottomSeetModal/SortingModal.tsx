@@ -5,23 +5,22 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from 'react-native';
-import DropdownBox from './DropdownBox';
+import DropdownBox from '../DropdownBox';
 import {sortTypes} from 'src/constants/common';
 import useToggleBottomSheet from 'src/hooks/useToggleBottomSheet';
+import {BottomSheetProps} from 'src/types/type';
 
-interface Props {
-  modalVisible: boolean;
-  setModalVisible: (visible: boolean) => void;
+interface Props extends BottomSheetProps {
   selected: number;
   setSelected: (selected: number) => void;
 }
 
-const BottomSheet = ({
+export default function SortingModal({
   modalVisible,
   setModalVisible,
   selected,
   setSelected,
-}: Props) => {
+}: Props) {
   const {closeModal, translateY, panResponders} = useToggleBottomSheet({
     handleCloseModal: () => {
       setModalVisible(false);
@@ -59,7 +58,7 @@ const BottomSheet = ({
       </View>
     </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
   overlay: {
@@ -83,5 +82,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 });
-
-export default BottomSheet;

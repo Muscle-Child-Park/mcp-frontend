@@ -7,19 +7,15 @@ import {
   Text,
   Pressable,
 } from 'react-native';
-import CustomButton from './CustomButton';
+import CustomButton from '../CustomButton';
 import useToggleBottomSheet from 'src/hooks/useToggleBottomSheet';
 import {colors} from 'src/constants/colors';
+import {BottomSheetProps} from 'src/types/type';
 
-interface Props {
-  modalVisible: boolean;
-  setModalVisible: (visible: boolean) => void;
-}
-
-export default function BottomSheetModal({
+export default function PushAlarmModal({
   modalVisible,
   setModalVisible,
-}: Props) {
+}: BottomSheetProps) {
   const {closeModal, translateY, panResponders} = useToggleBottomSheet({
     handleCloseModal: () => {
       setModalVisible(false);
