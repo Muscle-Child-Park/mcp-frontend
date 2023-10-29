@@ -14,8 +14,8 @@ interface Props {
 }
 
 const SIZE = {
-  small: {box: 18, check: 16, text: 16},
-  medium: {box: 24, check: 22, text: 16},
+  small: {box: 18, check: 17, text: 16},
+  medium: {box: 24, check: 23, text: 16},
   // large: 32,
 };
 
