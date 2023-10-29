@@ -21,6 +21,14 @@ export default function Login({navigation}: IntroStackProps) {
   const {width} = useWindowDimensions();
   const [loading, setLoading] = useState<boolean>(false);
   const {signInWithGoogle, signInWithKakao} = useSocialLogin();
+  const handlePress = async (signIn: () => Promise<boolean>) => {
+    setLoading(true);
+    const result = await signIn();
+    setLoading(false);
+    if (result) {
+      navigation.navigate('AgreementScreen');
+    }
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <StatusBar
@@ -31,14 +39,12 @@ export default function Login({navigation}: IntroStackProps) {
       <View style={[styles.container, {width: width - 40}]}>
         <SocialButton
           type="kakao"
-          handlePress={signInWithKakao}
+          handlePress={() => handlePress(signInWithKakao)}
           disabled={loading}
         />
         <SocialButton
           type="google"
-          handlePress={() => {
-            signInWithGoogle(setLoading);
-          }}
+          handlePress={() => handlePress(signInWithGoogle)}
           disabled={loading}
         />
       </View>

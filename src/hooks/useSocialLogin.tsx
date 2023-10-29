@@ -21,8 +21,7 @@ export default function useSocialLogin() {
     webClientId: Config.GOOGLE_WEB_CLIENT_ID,
   });
   // 구글 로그인
-  const signInWithGoogle = async (setLoading: (loading: boolean) => void) => {
-    setLoading(true);
+  const signInWithGoogle = async (): Promise<boolean> => {
     // Check if your device supports Google Play
     // await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     // Get the users ID token
@@ -36,10 +35,10 @@ export default function useSocialLogin() {
       const accessToekn = await (await GoogleSignin.getTokens()).accessToken;
       console.log(res);
       console.log(accessToekn);
+      return true;
     } catch (e) {
       // console.error(e);
-    } finally {
-      setLoading(false);
+      return false;
     }
   };
   // 구글 로그아웃
@@ -60,22 +59,16 @@ export default function useSocialLogin() {
     //  setState({user: null}); // Remember to remove the user from your app's state as well
   };
   // 카카오 로그인
-  const signInWithKakao = async (): Promise<void> => {
-    Alert.alert('로그인', '카카오톡으로 간편로그인', [
-      {text: '취소', style: 'cancel'},
-      {
-        text: '계속',
-        onPress: async () => {
-          try {
-            const token = await login();
-            const result = JSON.stringify(token);
-            console.log(result);
-          } catch (err) {
-            console.error('login err', err);
-          }
-        },
-      },
-    ]);
+  const signInWithKakao = async (): Promise<boolean> => {
+    try {
+      const token = await login();
+      const result = JSON.stringify(token);
+      console.log(result);
+      return true;
+    } catch (err) {
+      // console.error('login err', err);
+      return false;
+    }
   };
   // 카카오 로그아웃
   const signOutWithKakao = async (): Promise<void> => {

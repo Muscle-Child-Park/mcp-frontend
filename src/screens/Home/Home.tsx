@@ -29,7 +29,7 @@ import CustomButton from 'src/components/system/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {BasicProps} from 'src/navigation/MainNavigator';
-import BottomSheetModal from 'src/components/system/BottomSheetModal';
+import PushAlarmModal from 'src/components/system/BottomSeetModal/PushAlarmModal';
 import {HomeTabProps} from 'src/navigation/HomeNavigator';
 
 /**
@@ -106,7 +106,7 @@ const Home = () => {
               </View>
             </MainCard>
           </Pressable>
-          <BottomSheetModal
+          <PushAlarmModal
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
           />

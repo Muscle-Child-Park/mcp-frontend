@@ -8,15 +8,15 @@ interface Props {
   onValueChangeHandler?: (checked: boolean) => void;
   text: string;
   style?: ViewStyle;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium';
   textColor?: string;
   checkBoxColor?: string;
 }
 
 const SIZE = {
-  small: 18,
-  medium: 24,
-  large: 32,
+  small: {box: 18, check: 16, text: 16},
+  medium: {box: 24, check: 22, text: 16},
+  // large: 32,
 };
 
 const Checkbox = ({
@@ -48,21 +48,27 @@ const Checkbox = ({
         style={[
           styles.checkbox,
           {
-            width: SIZE[size],
-            height: SIZE[size],
+            width: SIZE[size].box,
+            height: SIZE[size].box,
           },
           isChecked && styles.checked,
           {borderColor: checkBoxColor},
           isChecked && {backgroundColor: checkBoxColor},
         ]}>
         <Check
-          width={16}
-          height={16}
+          style={{width: SIZE[size].check, height: SIZE[size].check}}
           fill={isChecked ? 'white' : 'transparent'}
         />
       </Pressable>
       <Pressable style={styles.textContainer} onPress={triggerCheckbox}>
-        <Text style={{color: textColor ?? '#555555'}}>{text}</Text>
+        <Text
+          style={[
+            styles.text,
+            {fontSize: SIZE[size].text},
+            {color: textColor ?? '#555555'},
+          ]}>
+          {text}
+        </Text>
       </Pressable>
     </View>
   );
@@ -88,8 +94,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     margin: 0,
+  },
+  text: {
     fontWeight: '500',
-    fontSize: 16,
     lineHeight: 19.2,
   },
 });

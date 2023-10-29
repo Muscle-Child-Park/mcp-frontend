@@ -9,7 +9,7 @@ import {
 import Tag from './Tag';
 import {colors} from 'src/constants/colors';
 import {SortDown} from 'src/assets/images';
-import BottomSheet from './BottomSheet';
+import SortingModal from './BottomSeetModal/SortingModal';
 import {sortTags, sortTypes} from 'src/constants/common';
 
 interface Props {
@@ -40,7 +40,7 @@ const SortingBar = ({currentTag, setCurrentTag}: Props) => {
         <Text style={styles.text}>{sortTypes[selected]}</Text>
         <SortDown style={{width: 24, height: 24}} fill={'black'} />
       </TouchableOpacity>
-      <BottomSheet
+      <SortingModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         selected={selected}
