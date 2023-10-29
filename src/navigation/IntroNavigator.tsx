@@ -51,6 +51,7 @@ export default function IntroNavigator() {
         headerTitle: title[route.name],
         headerTitleAlign: 'center',
         headerShown: route.name !== 'LoginScreen',
+        headerShadowVisible: false,
         headerLeft: () => (
           <Pressable onPress={() => navigation.pop()}>
             <Prev style={{width: 24, height: 24}} fill={colors.gray100} />
