@@ -1,4 +1,5 @@
 import {
+  NativeStackNavigationProp,
   NativeStackScreenProps,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
@@ -22,6 +23,7 @@ export type IntroStackParamList = {
 };
 
 const Stack = createNativeStackNavigator<IntroStackParamList>();
+export type IntroProps = NativeStackNavigationProp<IntroStackParamList>;
 export type IntroStackProps = NativeStackScreenProps<
   IntroStackParamList,
   | 'LoginScreen'
