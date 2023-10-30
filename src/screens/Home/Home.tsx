@@ -29,9 +29,10 @@ import CustomButton from 'src/components/system/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {BasicProps} from 'src/navigation/MainNavigator';
-import PushAlarmModal from 'src/components/system/BottomSeetModal/PushAlarmModal';
+import IntroductionModal from 'src/components/system/BottomSeetModal/IntroductionModal';
 import {HomeTabProps} from 'src/navigation/HomeNavigator';
 import {useUserContext} from 'src/context/UserContext';
+import {ModalStep} from 'src/types/type';
 
 /**
 background: linear-gradient(180deg, #57AEFF -30.67%, rgba(255, 255, 255, 0.0885417) 40.64%),
@@ -43,6 +44,7 @@ const Home = () => {
   const {width} = useWindowDimensions();
   const safeInsets = useContext(SafeAreaInsetsContext);
   const navigation = useNavigation<HomeScreenProp>();
+  const [modalStep, setModalStep] = useState<ModalStep>(1);
   const [modalVisible, setModalVisible] = useState(true);
   const {
     state: {username},
@@ -111,9 +113,12 @@ const Home = () => {
               </View>
             </MainCard>
           </Pressable>
-          <PushAlarmModal
+          <IntroductionModal
+            step={modalStep}
+            setStep={setModalStep}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
+            username={username}
           />
         </LinearGradient>
       </ScrollView>

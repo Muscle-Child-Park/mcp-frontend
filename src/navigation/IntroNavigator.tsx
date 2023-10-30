@@ -46,7 +46,7 @@ const title = {
 
 export default function IntroNavigator() {
   const safeInsets = useContext(SafeAreaInsetsContext);
-  console.log(safeInsets);
+  // console.log(safeInsets);
   return (
     <Stack.Navigator
       screenOptions={({route, navigation}) => ({

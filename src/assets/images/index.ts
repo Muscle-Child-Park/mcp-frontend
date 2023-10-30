@@ -12,3 +12,4 @@ export {default as Plus} from './plus.svg';
 export {default as Smile} from './smile.svg';
 export {default as AddIcon} from './add.svg';
 export {default as Google} from './google.svg';
+export {default as Copy} from './copy.svg';
