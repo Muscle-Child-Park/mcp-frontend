@@ -10,6 +10,7 @@ export const colors = {
   secondary: '#E25978',
   blueLighten: '#A0ADF8',
   blueLighten2: '#F2F4FE',
+  border: '#EBECEC',
   gray1: '#C4C4C4',
   gray2: '#A2A2A2',
   gray3: '#6C6C6C',
