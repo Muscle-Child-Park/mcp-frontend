@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Pressable} from 'react-native';
 import {exerciseTags} from 'src/constants/common';
 import Tag from './Tag';
 import {colors} from 'src/constants/colors';
@@ -8,6 +7,7 @@ interface Props {
   idx: number;
   exercise: ExerciseDataType;
   setExercise: (exercise: ExerciseDataType) => void;
+  deleteExercise: () => void;
 }
 
 export type ExerciseDataType = {
@@ -16,7 +16,7 @@ export type ExerciseDataType = {
   info: string;
 };
 
-const ExerciseForm = ({idx, exercise, setExercise}: Props) => {
+const ExerciseForm = ({idx, exercise, setExercise, deleteExercise}: Props) => {
   // const [exerciseTagType, setExerciseTagType] = useState(exercise.type);
 
   const handleInputChange = (value: string, name: keyof ExerciseDataType) => {
@@ -29,17 +29,25 @@ const ExerciseForm = ({idx, exercise, setExercise}: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{`운동${idx + 1}`}</Text>
-      <View style={styles.tagRow}>
-        {exerciseTags.map((exerciseName, idx) => (
-          <Tag
-            text={exerciseName}
-            isSelected={exerciseName === exercise.type}
-            onClick={() =>
-              handleInputChange(exerciseName as keyof ExerciseDataType, 'type')
-            }
-            key={idx}
-          />
-        ))}
+      <View style={styles.tagRowWrapper}>
+        <View style={styles.tagRow}>
+          {exerciseTags.map((exerciseName, idx) => (
+            <Tag
+              text={exerciseName}
+              isSelected={exerciseName === exercise.type}
+              onClick={() =>
+                handleInputChange(
+                  exerciseName as keyof ExerciseDataType,
+                  'type',
+                )
+              }
+              key={idx}
+            />
+          ))}
+        </View>
+        <Pressable onPress={deleteExercise}>
+          <Text style={styles.delete}>삭제</Text>
+        </Pressable>
       </View>
       <TextInput
         style={styles.inputForName}
@@ -72,10 +80,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 21.6,
   },
+  tagRowWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   tagRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  delete: {
+    fontSize: 16,
+    fontWeight: '500',
+    lineHeight: 19.2,
+    color: colors.warnning,
   },
   inputForName: {
     backgroundColor: colors.background,

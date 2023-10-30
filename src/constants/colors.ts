@@ -22,4 +22,5 @@ export const colors = {
   primaryLight: '#A0ADF8',
   primaryMoreLight: '#EEF3FF',
   primaryMoreLight2: '#EEF3FFCC', //primaryMoreLight > 80%
+  warnning: '#F23C47',
 };

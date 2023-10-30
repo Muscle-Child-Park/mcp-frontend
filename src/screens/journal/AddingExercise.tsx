@@ -37,7 +37,7 @@ const AddingExercise = () => {
   const [mode, setMode] = useState<ModalType>('date'); // 모달 유형
   const [visible, setVisible] = useState(false); // 모달 노출 여부
 
-  const handleAddExericse = (exerciseData: ExerciseDataType) => {
+  const handleAddExercise = (exerciseData: ExerciseDataType) => {
     // 새로운 운동 객체 생성 (ID는 현재 시간으로 설정)
     // const newExercise = {...exerciseData, id: Date.now()};
 
@@ -53,6 +53,14 @@ const AddingExercise = () => {
     // exercises 배열의 특정 인덱스에 대한 운동 데이터 업데이트
     const updatedExercises = [...exercises];
     updatedExercises[index] = updatedExercise;
+
+    setExercises(updatedExercises);
+  };
+
+  const handleDeleteExercise = (index: number) => {
+    // exercises 배열에서 특정 인덱스에 해당하는 운동 데이터 삭제
+    const updatedExercises = [...exercises];
+    updatedExercises.splice(index, 1);
 
     setExercises(updatedExercises);
   };
@@ -138,12 +146,13 @@ const AddingExercise = () => {
               setExercise={updatedExercise =>
                 handleSetExercise(idx, updatedExercise)
               }
+              deleteExercise={() => handleDeleteExercise(idx)}
             />
           </View>
         ))}
         <Pressable
           onPress={() =>
-            handleAddExericse({
+            handleAddExercise({
               type: exerciseTags[0],
               name: '',
               info: '',
