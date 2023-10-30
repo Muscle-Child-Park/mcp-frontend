@@ -31,6 +31,7 @@ import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {BasicProps} from 'src/navigation/MainNavigator';
 import PushAlarmModal from 'src/components/system/BottomSeetModal/PushAlarmModal';
 import {HomeTabProps} from 'src/navigation/HomeNavigator';
+import {useUserContext} from 'src/context/UserContext';
 
 /**
 background: linear-gradient(180deg, #57AEFF -30.67%, rgba(255, 255, 255, 0.0885417) 40.64%),
@@ -43,6 +44,9 @@ const Home = () => {
   const safeInsets = useContext(SafeAreaInsetsContext);
   const navigation = useNavigation<HomeScreenProp>();
   const [modalVisible, setModalVisible] = useState(true);
+  const {
+    state: {username},
+  } = useUserContext();
 
   return (
     <SafeAreaView>
@@ -62,7 +66,8 @@ const Home = () => {
             safeInsets && {paddingTop: safeInsets.top},
           ]}>
           <Text style={[styles.title, {width: width - 40}]}>
-            지현님, {'\n'}오늘도 힘내볼까요?
+            {`${username}님,
+오늘도 힘내볼까요?`}
           </Text>
           <MainCard>
             <View

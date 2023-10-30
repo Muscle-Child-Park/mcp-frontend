@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import CustomButton from 'src/components/system/CustomButton';
 import {colors} from 'src/constants/colors';
+import {useUserContext} from 'src/context/UserContext';
 import {IntroProps} from 'src/navigation/IntroNavigator';
 import {BasicProps} from 'src/navigation/MainNavigator';
 
@@ -11,13 +12,18 @@ type HomeScreenProp = CompositeNavigationProp<IntroProps, BasicProps>;
 
 export default function UserNameRegistration() {
   // 0: not selected, 1: selecte trainer , 2: select menti
-  const [username, setUsername] = useState('정지현');
+  const {
+    state: {username: currentUser},
+    actions: {changeUserName},
+  } = useUserContext();
+  const [username, setUsername] = useState(currentUser);
   const navigation = useNavigation<HomeScreenProp>();
   const onChangeText = (text: string) => {
     setUsername(text);
   };
   const handlePressButton = () => {
     if (isDisabled) return;
+    changeUserName(username);
     navigation.navigate('OnboardingScreen');
   };
   const isDisabled = username.length === 0;

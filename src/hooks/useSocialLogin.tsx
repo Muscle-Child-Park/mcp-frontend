@@ -15,13 +15,14 @@ import {
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
+import {User} from 'src/types/type';
 
 export default function useSocialLogin() {
   GoogleSignin.configure({
     webClientId: Config.GOOGLE_WEB_CLIENT_ID,
   });
   // 구글 로그인
-  const signInWithGoogle = async (): Promise<boolean> => {
+  const signInWithGoogle = async (): Promise<User> => {
     // Check if your device supports Google Play
     // await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     // Get the users ID token
@@ -35,10 +36,12 @@ export default function useSocialLogin() {
       const accessToekn = await (await GoogleSignin.getTokens()).accessToken;
       console.log(res);
       console.log(accessToekn);
-      return true;
+      return {username: res.user.displayName ?? '', uid: res.user.uid};
     } catch (e) {
-      // console.error(e);
-      return false;
+      // if (e instanceof Error) {
+      //   throw new Error(e.message);
+      // }
+      return {username: '', uid: ''};
     }
   };
   // 구글 로그아웃
@@ -59,15 +62,15 @@ export default function useSocialLogin() {
     //  setState({user: null}); // Remember to remove the user from your app's state as well
   };
   // 카카오 로그인
-  const signInWithKakao = async (): Promise<boolean> => {
+  const signInWithKakao = async (): Promise<User> => {
     try {
       const token = await login();
       const result = JSON.stringify(token);
-      console.log(result);
-      return true;
+      const profile = await getKakaoProfile();
+      return {username: profile.nickname, uid: profile.id};
     } catch (err) {
       // console.error('login err', err);
-      return false;
+      return {username: '', uid: ''};
     }
   };
   // 카카오 로그아웃
@@ -79,7 +82,7 @@ export default function useSocialLogin() {
     }
   };
   // 프로필 조회
-  const getProfile = async (): Promise<void> => {
+  const getProfileWithKaKao = async (): Promise<void> => {
     try {
       const profile = await getKakaoProfile();
     } catch (err) {
@@ -108,7 +111,7 @@ export default function useSocialLogin() {
     signInWithKakao,
     signOutWithKakao,
     singOutWithGoogle,
-    getProfile,
+    getProfileWithKaKao,
     getShippingAddresses,
     unlinkKakao,
   };

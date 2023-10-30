@@ -76,7 +76,7 @@ export default function FirstOnBoarding({navigation}: MainStackProps) {
     if (currentQuestionIndex == allQuestions.length - 1) {
       // TODO: 선택한 이전 값(items)들을 한꺼번에 서버에 보내기 > 마지막 값은 따로 합쳐서 보내줘야할듯
       items.pop();
-      navigation.navigate('TestScreen');
+      navigation.navigate('HomeScreen');
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setCurrentAnswerSelected(items[currentQuestionIndex + 1]);

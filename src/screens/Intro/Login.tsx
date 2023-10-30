@@ -12,6 +12,8 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {IntroStackProps} from 'src/navigation/IntroNavigator';
 import SocialButton from 'src/components/system/SocialButton';
 import useSocialLogin from 'src/hooks/useSocialLogin';
+import {useUserContext} from 'src/context/UserContext';
+import {User} from 'src/types/type';
 
 export default function Login({navigation}: IntroStackProps) {
   const isDarkMode = useColorScheme() === 'dark';
@@ -21,13 +23,18 @@ export default function Login({navigation}: IntroStackProps) {
   const {width} = useWindowDimensions();
   const [loading, setLoading] = useState<boolean>(false);
   const {signInWithGoogle, signInWithKakao} = useSocialLogin();
-  const handlePress = async (signIn: () => Promise<boolean>) => {
+  const {actions} = useUserContext();
+  const handlePress = async (signIn: () => Promise<User>) => {
+    // TODO: 로딩 스피너 넣어주기
     setLoading(true);
-    const result = await signIn();
+    const {username, uid} = await signIn();
+    console.log(username, uid);
+    actions.setUser({username, uid});
     setLoading(false);
-    if (result) {
+    if (uid) {
       navigation.navigate('AgreementScreen');
     }
+    // TODO: uid가 없을 경우 오류처리 // toast ?
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
