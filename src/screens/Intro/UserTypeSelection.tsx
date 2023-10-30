@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Pressable} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import CustomButton from 'src/components/system/CustomButton';
 import SelectableCard from 'src/components/system/SelectableCard';
 import {colors} from 'src/constants/colors';
+import {useUserContext} from 'src/context/UserContext';
 import {IntroStackProps} from 'src/navigation/IntroNavigator';
 
 export default function UserTypeSelection({navigation}: IntroStackProps) {
-  // 0: not selected, 1: selecte trainer , 2: select menti
+  // 0: not selected, 1: selecte trainer , 2: select mentee
   const [isSelected, setIsSelected] = useState(0);
   const isDisabled = isSelected === 0;
+  const {actions} = useUserContext();
   const handlePressButton = () => {
     if (isDisabled) return;
+    actions.setUserType(isSelected === 1 ? 'mentor' : 'mentee');
     navigation.navigate('UserNameRegistrationScreen');
   };
   const handleSelect = (i: number) => {

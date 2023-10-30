@@ -24,12 +24,14 @@ export default function Login({navigation}: IntroStackProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const {signInWithGoogle, signInWithKakao} = useSocialLogin();
   const {actions} = useUserContext();
-  const handlePress = async (signIn: () => Promise<User>) => {
+  const handlePress = async (
+    signIn: () => Promise<Pick<User, 'username' | 'uid'>>,
+  ) => {
     // TODO: 로딩 스피너 넣어주기
     setLoading(true);
     const {username, uid} = await signIn();
     console.log(username, uid);
-    actions.setUser({username, uid});
+    actions.InitUserInfo(username, uid);
     setLoading(false);
     if (uid) {
       navigation.navigate('AgreementScreen');

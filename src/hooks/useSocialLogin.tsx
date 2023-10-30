@@ -22,7 +22,9 @@ export default function useSocialLogin() {
     webClientId: Config.GOOGLE_WEB_CLIENT_ID,
   });
   // 구글 로그인
-  const signInWithGoogle = async (): Promise<User> => {
+  const signInWithGoogle = async (): Promise<
+    Pick<User, 'username' | 'uid'>
+  > => {
     // Check if your device supports Google Play
     // await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     // Get the users ID token
@@ -62,7 +64,7 @@ export default function useSocialLogin() {
     //  setState({user: null}); // Remember to remove the user from your app's state as well
   };
   // 카카오 로그인
-  const signInWithKakao = async (): Promise<User> => {
+  const signInWithKakao = async (): Promise<Pick<User, 'username' | 'uid'>> => {
     try {
       const token = await login();
       const result = JSON.stringify(token);

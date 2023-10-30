@@ -11,7 +11,7 @@ import {BasicProps} from 'src/navigation/MainNavigator';
 type HomeScreenProp = CompositeNavigationProp<IntroProps, BasicProps>;
 
 export default function UserNameRegistration() {
-  // 0: not selected, 1: selecte trainer , 2: select menti
+  // 0: not selected, 1: selecte trainer , 2: select mentee
   const {
     state: {username: currentUser},
     actions: {changeUserName},

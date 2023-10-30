@@ -1,9 +1,11 @@
 import {useState, createContext, useContext, useMemo} from 'react';
-import {User} from 'src/types/type';
+import {User, UserType} from 'src/types/type';
 
 interface UserContextActions {
+  InitUserInfo: (name: string, uid: string) => void;
   changeUserName: (name: string) => void;
   setUser: (user: User) => void;
+  setUserType: (type: UserType) => void;
   logout: () => void;
 }
 
@@ -15,6 +17,8 @@ interface UserContextType {
 const initialUser = {
   username: '',
   uid: '',
+  type: 'mentee' as UserType,
+  code: '00000',
 };
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -23,11 +27,17 @@ export function UserContextProvider({children}: {children: React.ReactNode}) {
   const [state, setState] = useState<User>(initialUser);
   const actions: UserContextActions = useMemo(
     () => ({
+      InitUserInfo(name: string, uid: string) {
+        setState({...state, username: name, uid: uid});
+      },
       changeUserName(name: string) {
         setState({...state, username: name});
       },
       setUser: (user: User) => {
         setState(user);
+      },
+      setUserType: (type: UserType) => {
+        setState({...state, type: type});
       },
       // TODO: 수정하기
       logout: () => {
