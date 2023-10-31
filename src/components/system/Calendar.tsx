@@ -75,23 +75,22 @@ const Calendar = ({onSelectDate, selected}: Props) => {
           <Next style={{width: 24, height: 24}} fill={colors.dark1} />
         </TouchableOpacity>
       </View>
-      <View style={styles.dateSection}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-          onScroll={e => setScrollPosition(e.nativeEvent.contentOffset.x)}
-          ref={scrollViewRef}>
-          {dates.map((date, index) => (
-            <DateButton
-              key={index}
-              date={date}
-              onSelectDate={onSelectDate}
-              selected={selected}
-            />
-          ))}
-        </ScrollView>
-      </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={16}
+        onScroll={e => setScrollPosition(e.nativeEvent.contentOffset.x)}
+        style={styles.dateSection}
+        ref={scrollViewRef}>
+        {dates.map((date, index) => (
+          <DateButton
+            key={index}
+            date={date}
+            onSelectDate={onSelectDate}
+            selected={selected}
+          />
+        ))}
+      </ScrollView>
     </>
   );
 };
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
   },
   dateSection: {
     width: '100%',
-    // height: 150,
+    height: 86, // 초기 달력 데이터 지연 렌더링 고려
     paddingTop: 20,
     paddingBottom: 0,
   },
