@@ -24,7 +24,8 @@ export default function UserTypeSelection({navigation}: IntroStackProps) {
       <View style={styles.main}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>
-            메이브에 오신 걸 환영해요! 어떤 회원이신가요?
+            {`메이브에 오신 걸 환영해요!
+어떤 회원이신가요?`}
           </Text>
           <Text style={styles.description}>
             {`회원 유형에 따라 필요한 온보딩 절차를 
