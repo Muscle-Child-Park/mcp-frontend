@@ -5,17 +5,21 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import CustomSwitch from 'src/components/system/CustomSwitch';
 import ListButton from 'src/components/system/ListButton';
 import {colors} from 'src/constants/colors';
+import {useUserContext} from 'src/context/UserContext';
 import {BasicProps} from 'src/navigation/MainNavigator';
 
 export default function My() {
+  const {
+    state: {username: currentUser, code},
+  } = useUserContext();
   const [isEnabled, setIsEnabled] = useState(false);
   const navigation = useNavigation<BasicProps>();
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.mainBackground}>
         <View style={styles.header}>
-          <Text style={styles.name}>정지현</Text>
-          <Text style={styles.uniqueNumber}>#20214</Text>
+          <Text style={styles.name}>{currentUser}</Text>
+          <Text style={styles.uniqueNumber}>{`#${code}`}</Text>
         </View>
         {/* TODO: 수강권 이미지 */}
         <View style={styles.courseImage} />

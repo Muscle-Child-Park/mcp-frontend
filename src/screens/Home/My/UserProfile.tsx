@@ -8,9 +8,13 @@ import {
   View,
 } from 'react-native';
 import {colors} from 'src/constants/colors';
+import {useUserContext} from 'src/context/UserContext';
 
 export default function UserProfile() {
-  const [username, setUsername] = useState('정지현');
+  const {
+    state: {username: currentUser},
+  } = useUserContext();
+  const [username, setUsername] = useState(currentUser);
   const onChangeText = (text: string) => setUsername(text);
   return (
     <SafeAreaView style={{flex: 1}}>

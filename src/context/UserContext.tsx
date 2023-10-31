@@ -28,16 +28,16 @@ export function UserContextProvider({children}: {children: React.ReactNode}) {
   const actions: UserContextActions = useMemo(
     () => ({
       InitUserInfo(name: string, uid: string) {
-        setState({...state, username: name, uid: uid});
+        setState(prev => ({...prev, username: name, uid: uid}));
       },
       changeUserName(name: string) {
-        setState({...state, username: name});
+        setState(prev => ({...prev, username: name}));
       },
       setUser: (user: User) => {
         setState(user);
       },
       setUserType: (type: UserType) => {
-        setState({...state, type: type});
+        setState(prev => ({...prev, type: type}));
       },
       // TODO: 수정하기
       logout: () => {
