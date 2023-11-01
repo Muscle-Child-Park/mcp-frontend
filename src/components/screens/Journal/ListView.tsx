@@ -42,6 +42,7 @@ export default function ListView({onTabPress}: Props) {
           </Text>
         </View>
         <ReservationCard
+          hasRightIcon
           text="하체, 유산소 운동"
           time="09:00 - 10:00"
           mode="pt"
@@ -62,6 +63,7 @@ export default function ListView({onTabPress}: Props) {
             // flex: 0,
           }}></View>
         <ReservationCard
+          hasRightIcon
           text="유산소"
           time="10:30 - 11:00"
           mode="personalExercise"
@@ -93,7 +95,12 @@ export default function ListView({onTabPress}: Props) {
             화요일
           </Text>
         </View>
-        <ReservationCard text="코어" time="09:00 - 10:00" mode="pt" />
+        <ReservationCard
+          hasRightIcon
+          text="코어"
+          time="09:00 - 10:00"
+          mode="pt"
+        />
       </View>
     </View>
   );

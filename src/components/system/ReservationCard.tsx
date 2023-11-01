@@ -3,15 +3,23 @@ import MainCard from './MainCard';
 import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {colors} from 'src/constants/colors';
 import ExcerciseChips, {ExcerciseChipsType} from './ExcerciseChips';
+import {RightArrow} from 'src/assets/images';
 
 interface Props {
   text: string;
   time: string;
   mode: ExcerciseChipsType;
   handlePress?: () => void;
+  hasRightIcon?: boolean;
 }
 
-const ReservationCard = ({text, time, mode, handlePress}: Props) => {
+const ReservationCard = ({
+  text,
+  time,
+  mode,
+  handlePress,
+  hasRightIcon = false,
+}: Props) => {
   return (
     <Pressable style={styles.pressableContainer} onPress={handlePress}>
       <MainCard>
@@ -26,6 +34,9 @@ const ReservationCard = ({text, time, mode, handlePress}: Props) => {
               <Text style={styles.cancelText}>예약 취소</Text>
             </Pressable>
           )}
+          {hasRightIcon && (
+            <RightArrow style={{width: 24, height: 24}} fill={colors.dark1} />
+          )}
         </View>
       </MainCard>
     </Pressable>
@@ -34,9 +45,8 @@ const ReservationCard = ({text, time, mode, handlePress}: Props) => {
 
 const styles = StyleSheet.create({
   pressableContainer: {
+    flex: 1,
     maxHeight: 120,
-    // paddingTop: 20,
-    // paddingBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

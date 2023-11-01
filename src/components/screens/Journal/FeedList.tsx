@@ -39,6 +39,7 @@ export default function FeedList({logs, markedDates}: Props) {
               ? 'pt'
               : 'pt'
           }
+          hasRightIcon
           key={idx}
         />
       ))}
@@ -54,6 +55,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    gap: 8,
+    gap: 10,
   },
 });
