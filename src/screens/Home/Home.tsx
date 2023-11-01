@@ -72,10 +72,7 @@ const Home = () => {
 오늘도 힘내볼까요?`}
           </Text>
           <MainCard>
-            <View
-              style={{
-                gap: 5,
-              }}>
+            <View style={styles.trainerBoxContainer}>
               <Text style={styles.trainerInfo}>
                 김민재 트레이너님 (빌리프짐)
               </Text>
@@ -84,19 +81,21 @@ const Home = () => {
             <ProgressBar percent={30} />
           </MainCard>
           <MainCard>
-            <CustomHeader headerSize="h4" headerText="이번주 예약" />
-            <View style={{gap: 6}}>
-              <SmallBox header="하체, 유산소" body="5일 (토) 오전 10:00" />
-              <SmallBox header="코어" body="5일 (토) 오전 10:00" />
-            </View>
-            <View style={styles.buttonContainer}>
-              <CustomButton
-                text="수업 예약하기"
-                onPress={() => {
-                  navigation.navigate('예약');
-                }}
-                variant="fillPrimary"
-              />
+            <View style={styles.reservationContainer}>
+              <CustomHeader headerSize="h4" headerText="이번주 예약" />
+              <View style={styles.smallBoxContainer}>
+                <SmallBox header="하체, 유산소" body="5일 (토) 오전 10:00" />
+                <SmallBox header="코어" body="5일 (토) 오전 10:00" />
+              </View>
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  text="수업 예약하기"
+                  onPress={() => {
+                    navigation.navigate('예약');
+                  }}
+                  variant="fillPrimary"
+                />
+              </View>
             </View>
           </MainCard>
           {/* TODO: button 으로 만들어야할듯.. > onPress(() => {navigation.navigate('JournalScreen')}) */}
@@ -105,7 +104,7 @@ const Home = () => {
               navigation.navigate('JournalScreen');
             }}>
             <MainCard>
-              <View style={{gap: 8}}>
+              <View style={styles.exerciseJournalContainer}>
                 <CustomHeader headerSize="h4" headerText="운동일지" />
                 <Text style={styles.text}>
                   PT 수업부터 개인운동까지 운동기록을 확인해보세요
@@ -143,11 +142,12 @@ const styles = StyleSheet.create({
     marginTop: 52,
     marginBottom: 16,
   },
+  trainerBoxContainer: {
+    gap: 5,
+  },
+  smallBoxContainer: {gap: 6},
   buttonContainer: {
     width: '100%',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // gap: 20,
   },
   text: {
     color: '#8B8B8B',
@@ -166,6 +166,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     lineHeight: 21.6,
+  },
+  reservationContainer: {
+    width: '100%',
+    gap: 12,
+    marginVertical: 4,
+  },
+  exerciseJournalContainer: {
+    gap: 8,
+    marginVertical: 4,
   },
 });
 

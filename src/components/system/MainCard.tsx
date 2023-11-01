@@ -8,9 +8,9 @@ interface Props {
   style?: ViewStyle;
 }
 
-const MainCard = ({children, style}: Props) => {
+export default function MainCard({children, style}: Props) {
   return <View style={[styles.card, style]}>{children}</View>;
-};
+}
 
 // const deviceWidth = Math.round(Dimensions.get('window').width);
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     // width: deviceWidth - 40,
     // marginHorizontal: 20,
     width: '100%',
-    paddingVertical: 24,
+    paddingVertical: 20,
     paddingHorizontal: 16,
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -28,5 +28,3 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 });
-
-export default MainCard;

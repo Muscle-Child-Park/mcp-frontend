@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   textWrapper: {
     width: '100%',
     flexDirection: 'column',
-    gap: 8,
+    gap: 3,
   },
   header: {
     color: colors.gray100,
