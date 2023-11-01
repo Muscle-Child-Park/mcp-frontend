@@ -15,16 +15,18 @@ const ReservationCard = ({text, time, mode, handlePress}: Props) => {
   return (
     <Pressable style={styles.pressableContainer} onPress={handlePress}>
       <MainCard>
-        <View style={styles.innerWrapper}>
-          <ExcerciseChips mode={mode} />
-          <Text style={styles.title}>{text}</Text>
-          <Text style={styles.time}>{time}</Text>
+        <View style={styles.body}>
+          <View style={styles.left}>
+            <ExcerciseChips mode={mode} />
+            <Text style={styles.title}>{text}</Text>
+            <Text style={styles.time}>{time}</Text>
+          </View>
+          {mode === 'reservationSuccess' && (
+            <Pressable style={styles.right} onPress={() => {}}>
+              <Text style={styles.cancelText}>예약 취소</Text>
+            </Pressable>
+          )}
         </View>
-        {mode === 'reservationSuccess' && (
-          <Pressable onPress={() => {}}>
-            <Text style={styles.cancelText}>예약 취소</Text>
-          </Pressable>
-        )}
       </MainCard>
     </Pressable>
   );
@@ -32,19 +34,24 @@ const ReservationCard = ({text, time, mode, handlePress}: Props) => {
 
 const styles = StyleSheet.create({
   pressableContainer: {
-    flex: 1,
-    maxHeight: 108,
-    paddingTop: 20,
-    paddingBottom: 20,
+    maxHeight: 120,
+    // paddingTop: 20,
+    // paddingBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  innerWrapper: {
-    flexDirection: 'column',
+  body: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  left: {
     alignItems: 'flex-start',
     gap: 4,
   },
+  right: {},
   title: {
     color: colors.gray100,
     fontWeight: '500',
