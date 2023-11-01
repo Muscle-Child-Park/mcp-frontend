@@ -1,4 +1,10 @@
 export type UserType = 'mentee' | 'mentor';
+export type ModalStep = 1 | 2; // 1(alarm) -> 2(start)
+export type LogType = {
+  id: number;
+  date: string;
+};
+export type CalendarHeaderType = 'calendar' | 'list';
 
 export interface BottomSheetProps {
   modalVisible: boolean;
@@ -11,5 +17,3 @@ export interface User {
   type: UserType;
   code: string;
 }
-
-export type ModalStep = 1 | 2; // 1(alarm) -> 2(start)

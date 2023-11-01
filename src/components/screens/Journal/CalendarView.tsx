@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {MarkingProps} from 'react-native-calendars/src/calendar/day/marking';
 import {colors} from 'src/constants/colors';
@@ -8,14 +8,11 @@ import {
   TouchableOpacity,
   type TextStyle,
   type StyleProp,
+  StyleSheet,
 } from 'react-native';
-import {Check, Smile} from 'src/assets/images';
-
-interface Props {
-  selectDate: string;
-  onSelectDate: (date: string) => void;
-  markedDates: Record<string, MarkingProps>;
-}
+import {LogType} from 'src/types/type';
+import CustomHeader from './CustomHeader';
+import FeedList from './FeedList';
 
 LocaleConfig.locales['fr'] = {
   monthNames: [
@@ -61,7 +58,21 @@ LocaleConfig.locales['fr'] = {
 
 LocaleConfig.defaultLocale = 'fr';
 
-const CalendarView = ({selectDate, onSelectDate, markedDates}: Props) => {
+interface Props {
+  selectDate: string;
+  onSelectDate: (date: string) => void;
+  markedDates: Record<string, MarkingProps>;
+  logs: LogType[];
+  onTabPress: () => void;
+}
+
+export default function CalendarView({
+  selectDate,
+  onSelectDate,
+  markedDates,
+  logs,
+  onTabPress,
+}: Props) {
   const markedSelectedDate = {
     ...markedDates,
     [selectDate]: {
@@ -69,10 +80,24 @@ const CalendarView = ({selectDate, onSelectDate, markedDates}: Props) => {
       marked: markedDates[selectDate]?.marked,
     },
   };
+  const currentMonth = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+  const [currentTitle, setCurrentTitle] = useState(
+    `${currentMonth}월 ${currentYear}`,
+  );
 
   return (
-    <View>
+    <View style={styles.container}>
       <Calendar
+        style={styles.calendar}
+        enableSwipeMonths
+        hideArrows
+        onMonthChange={date => {
+          setCurrentTitle(`${date.month}월 ${date.year}`);
+        }}
+        customHeaderTitle={
+          <CustomHeader onPress={onTabPress} title={currentTitle} type="list" />
+        }
         markingType="multi-dot"
         markedDates={markedSelectedDate}
         onDayPress={day => {
@@ -101,11 +126,18 @@ const CalendarView = ({selectDate, onSelectDate, markedDates}: Props) => {
             };
 
             if (state === 'today') {
+              console.log('today');
+              style.text.color = colors.primary;
+              style.content.backgroundColor = '#fff';
+              // style.content.borderRadius = 50;
+            } else if (state === 'disabled') {
+              style.text.color = '#d9e1e8';
+            } else if (state === 'selected') {
+              console.log('selected');
               style.text.color = '#fff';
               style.content.backgroundColor = colors.primary;
               style.content.borderRadius = 50;
-            } else if (state === 'disabled') {
-              style.text.color = '#d9e1e8';
+              console.log(style);
             }
             return style;
           };
@@ -130,12 +162,12 @@ const CalendarView = ({selectDate, onSelectDate, markedDates}: Props) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  {marking?.dots?.length && (
+                  {/* {marking?.dots?.length && (
                     <Smile
                       style={{width: 15, height: 15}}
                       fill={colors.primary}
                     />
-                  )}
+                  )} */}
                   <Text style={contentStyle.text as StyleProp<TextStyle>}>
                     {date.day}
                   </Text>
@@ -164,26 +196,37 @@ const CalendarView = ({selectDate, onSelectDate, markedDates}: Props) => {
           );
         }}
       />
-      <View
-        style={{
-          marginVertical: 20,
-          height: 8,
-          backgroundColor: colors.background,
-        }}
-      />
-      <Text
-        style={{
-          marginHorizontal: 20,
-          marginBottom: 12,
-          fontSize: 18,
-          fontWeight: '600',
-          lineHeight: 21.6,
-          color: colors.gray100,
-        }}>
-        나의 운동
-      </Text>
+      <View style={styles.separator} />
+      <View style={styles.listContainer}>
+        <Text style={styles.listTitle}>나의 운동</Text>
+        <FeedList logs={logs} markedDates={markedDates} />
+      </View>
     </View>
   );
-};
+}
 
-export default CalendarView;
+const styles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  calendar: {
+    borderWidth: 1,
+    borderColor: 'red',
+    margin: 20,
+  },
+  separator: {
+    height: 8,
+    backgroundColor: colors.background,
+  },
+  listContainer: {
+    margin: 20,
+  },
+  listTitle: {
+    marginBottom: 12,
+    fontSize: 18,
+    fontWeight: '600',
+    lineHeight: 21.6,
+    color: colors.gray100,
+  },
+});
