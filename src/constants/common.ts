@@ -7,3 +7,17 @@ export const checkList = [
   '[필수] 개인정보 수집 및 이용 동의',
   '[필수] 개인정보 제3자 제공 동의',
 ];
+export const slides = [
+  {
+    id: '1',
+    image: require('src/assets/images/onboarding1.png'),
+  },
+  {
+    id: '2',
+    image: require('src/assets/images/onboarding2.png'),
+  },
+  {
+    id: '3',
+    image: require('src/assets/images/onboarding3.png'),
+  },
+];

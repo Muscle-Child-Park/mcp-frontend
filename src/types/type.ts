@@ -5,7 +5,10 @@ export type LogType = {
   date: string;
 };
 export type CalendarHeaderType = 'calendar' | 'list';
-
+export interface SlideProps {
+  id: string;
+  image: any;
+}
 export interface BottomSheetProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;

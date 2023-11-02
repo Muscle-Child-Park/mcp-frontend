@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {
-  Text,
   StatusBar,
   StyleSheet,
   View,
   useColorScheme,
-  useWindowDimensions,
+  Dimensions,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -14,14 +15,19 @@ import SocialButton from 'src/components/system/SocialButton';
 import useSocialLogin from 'src/hooks/useSocialLogin';
 import {useUserContext} from 'src/context/UserContext';
 import {User} from 'src/types/type';
+import Indicator from 'src/components/screens/Intro/Login/Indicator';
+import ImageSlider from 'src/components/screens/Intro/Login/ImageSlider';
+import {slides} from 'src/constants/common';
+
+const {width} = Dimensions.get('window');
 
 export default function Login({navigation}: IntroStackProps) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.lighter : Colors.darker,
   };
-  const {width} = useWindowDimensions();
   const [loading, setLoading] = useState<boolean>(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const {signInWithGoogle, signInWithKakao} = useSocialLogin();
   const {actions} = useUserContext();
   const handlePress = async (
@@ -38,14 +44,26 @@ export default function Login({navigation}: IntroStackProps) {
     }
     // TODO: uid가 없을 경우 오류처리 // toast ?
   };
+  const updateCurrentSlideIndex = (
+    e: NativeSyntheticEvent<NativeScrollEvent>,
+  ) => {
+    const contentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(contentOffsetX / width);
+    setCurrentSlide(currentIndex);
+  };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+    <SafeAreaView style={styles.container}>
       <StatusBar
         translucent
         barStyle="dark-content"
         backgroundColor="transparent"
       />
-      <View style={[styles.container, {width: width - 40}]}>
+      <ImageSlider
+        data={slides}
+        updateCurrentSlideIndex={updateCurrentSlideIndex}
+      />
+      <Indicator data={slides} currentIndex={currentSlide} />
+      <View style={[styles.buttonContainer, {width: width - 40}]}>
         <SocialButton
           type="kakao"
           handlePress={() => handlePress(signInWithKakao)}
@@ -62,10 +80,9 @@ export default function Login({navigation}: IntroStackProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: {flex: 1, backgroundColor: 'white'},
+  buttonContainer: {
     flex: 1,
-    // borderWidth: 1,
-    // borderColor: 'red',
     marginHorizontal: 20,
     marginBottom: 57,
     justifyContent: 'flex-end',
