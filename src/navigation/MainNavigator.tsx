@@ -5,7 +5,7 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import {Prev} from 'src/assets/images';
-import {Button, View, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import FirstOnBoarding from 'src/screens/OnBoarding/FirstOnBoarding';
 import {colors} from 'src/constants/colors';
 import ReservationSuccess from 'src/screens/Result/ReservationSuccess';
@@ -15,7 +15,6 @@ import HomeNavigator from './HomeNavigator';
 import IntroNavigator from './IntroNavigator';
 
 export type RootStackParamList = {
-  TestScreen: undefined;
   HomeScreen: undefined;
   OnboardingScreen: undefined;
   Onboarding1: undefined;
@@ -29,47 +28,21 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type MainStackProps = NativeStackScreenProps<
   RootStackParamList,
-  'TestScreen' | 'UserProfileScreen' | 'OnboardingScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
+  'UserProfileScreen' | 'OnboardingScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
 >;
 export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
 
-const TestScreen = ({navigation}: MainStackProps) => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 10,
-      }}>
-      <Button
-        title="Go to Login"
-        onPress={() => navigation.navigate('IntroScreen')}
-      />
-      <Button
-        title="Go to Onboarding"
-        onPress={() => navigation.navigate('OnboardingScreen')}
-      />
-      <Button
-        title="Go to Home"
-        onPress={() => navigation.navigate('HomeScreen')}
-      />
-    </View>
-  );
-};
-
-const MainStackNavigator = () => {
+export default function MainStackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="TestScreen"
+        initialRouteName="IntroScreen"
         screenOptions={({route}) => {
           if (route.name === 'UserProfileScreen') {
             return {headerShown: true};
           }
           return {headerShown: false};
         }}>
-        <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="OnboardingScreen" component={FirstOnBoarding} />
         <Stack.Screen name="HomeScreen" component={HomeNavigator} />
         <Stack.Screen
@@ -97,6 +70,4 @@ const MainStackNavigator = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
-
-export default MainStackNavigator;
+}
