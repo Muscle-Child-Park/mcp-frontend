@@ -13,6 +13,7 @@ import JournalNavigator from 'src/navigation/JournalNavigator';
 import UserProfile from 'src/screens/Home/My/UserProfile';
 import HomeNavigator from './HomeNavigator';
 import IntroNavigator from './IntroNavigator';
+import MentorRegistration from 'src/screens/Home/My/MentorRegistration';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   ReservationResultScreen: undefined;
   JournalScreen: undefined;
   UserProfileScreen: undefined;
+  MentorRegistrationScreen: undefined;
   IntroScreen: undefined;
 };
 
@@ -28,7 +30,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type MainStackProps = NativeStackScreenProps<
   RootStackParamList,
-  'UserProfileScreen' | 'OnboardingScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
+  'UserProfileScreen' | 'OnboardingScreen' | 'MentorRegistrationScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
 >;
 export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -38,7 +40,10 @@ export default function MainStackNavigator() {
       <Stack.Navigator
         initialRouteName="IntroScreen"
         screenOptions={({route}) => {
-          if (route.name === 'UserProfileScreen') {
+          if (
+            route.name === 'UserProfileScreen' ||
+            route.name === 'MentorRegistrationScreen'
+          ) {
             return {headerShown: true};
           }
           return {headerShown: false};
@@ -59,6 +64,21 @@ export default function MainStackNavigator() {
               headerTitle: '회원정보 수정',
               headerTitleAlign: 'center',
               // headerRight: () => <Button title="완료" onPress={() => {}} />,
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.pop()}>
+                  <Prev style={{width: 24, height: 24}} fill={colors.gray100} />
+                </Pressable>
+              ),
+            };
+          }}
+        />
+        <Stack.Screen
+          name="MentorRegistrationScreen"
+          component={MentorRegistration}
+          options={({navigation}) => {
+            return {
+              headerTitle: '멘토 등록',
+              headerTitleAlign: 'center',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.pop()}>
                   <Prev style={{width: 24, height: 24}} fill={colors.gray100} />

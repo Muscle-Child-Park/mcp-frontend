@@ -17,26 +17,24 @@ export default function UserProfile() {
   const [username, setUsername] = useState(currentUser);
   const onChangeText = (text: string) => setUsername(text);
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.mainBackground}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>회원 이름</Text>
-          <Pressable
-            onPress={() => {
-              // TODO: API 연결
-            }}>
-            <Text style={styles.button}>변경</Text>
-          </Pressable>
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            value={username}
-            onChangeText={onChangeText}
-            placeholder="이름을 입력해주세요."
-            placeholderTextColor={colors.gray50}
-            style={styles.input}
-          />
-        </View>
+    <SafeAreaView style={styles.mainBackground}>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>회원 이름</Text>
+        <Pressable
+          onPress={() => {
+            // TODO: API 연결
+          }}>
+          <Text style={styles.button}>변경</Text>
+        </Pressable>
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          value={username}
+          onChangeText={onChangeText}
+          placeholder="이름을 입력해주세요."
+          placeholderTextColor={colors.gray50}
+          style={styles.input}
+        />
       </View>
     </SafeAreaView>
   );

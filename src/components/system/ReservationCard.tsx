@@ -7,7 +7,7 @@ import {RightArrow} from 'src/assets/images';
 
 interface Props {
   text: string;
-  time: string;
+  time?: string;
   mode: ExcerciseChipsType;
   handlePress?: () => void;
   hasRightIcon?: boolean;
@@ -27,7 +27,7 @@ const ReservationCard = ({
           <View style={styles.left}>
             <ExcerciseChips mode={mode} />
             <Text style={styles.title}>{text}</Text>
-            <Text style={styles.time}>{time}</Text>
+            {time && <Text style={styles.time}>{time}</Text>}
           </View>
           {mode === 'reservationSuccess' && (
             <Pressable style={styles.right} onPress={() => {}}>
@@ -46,7 +46,7 @@ const ReservationCard = ({
 const styles = StyleSheet.create({
   pressableContainer: {
     flex: 1,
-    maxHeight: 120,
+    minHeight: 90,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
