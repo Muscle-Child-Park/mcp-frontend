@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MainCard from './MainCard';
 import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {colors} from 'src/constants/colors';
@@ -10,6 +10,7 @@ interface Props {
   time?: string;
   mode: ExcerciseChipsType;
   handlePress?: () => void;
+  handleCancel?: () => void;
   hasRightIcon?: boolean;
 }
 
@@ -18,6 +19,7 @@ const ReservationCard = ({
   time,
   mode,
   handlePress,
+  handleCancel,
   hasRightIcon = false,
 }: Props) => {
   return (
@@ -30,7 +32,7 @@ const ReservationCard = ({
             {time && <Text style={styles.time}>{time}</Text>}
           </View>
           {mode === 'reservationSuccess' && (
-            <Pressable style={styles.right} onPress={() => {}}>
+            <Pressable style={styles.right} onPress={handleCancel}>
               <Text style={styles.cancelText}>예약 취소</Text>
             </Pressable>
           )}

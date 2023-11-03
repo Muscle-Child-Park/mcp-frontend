@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import {
   NativeStackScreenProps,
   createNativeStackNavigator,
@@ -5,11 +6,13 @@ import {
 import {useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, SafeAreaView} from 'react-native';
 import Calendar from 'src/components/system/Calendar';
+import ConfirmModal from 'src/components/system/CenterModal/ConfirmModal';
 import CustomButton from 'src/components/system/CustomButton';
 import HorizonLine from 'src/components/system/HorizonLine';
 import TimeSelection from 'src/components/system/TimeSelector';
 import {colors} from 'src/constants/colors';
 import {NextReservationStep} from 'src/screens/Reservations';
+import {BasicProps} from './MainNavigator';
 
 type ReservationStackParamList = {
   MainScreen: undefined;
@@ -41,11 +44,20 @@ export default function ReservationNavigator() {
   );
 }
 
-const Reservation = ({navigation}: ReservationStackProps) => {
+const Reservation = () => {
   // Context로 만들기
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  console.log(!selectedDate || !selectedTime, selectedDate, selectedTime);
+  const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation<BasicProps>();
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+  const handleConfirm = () => {
+    // TODO: 화면 뮤테이션이 있는데, 이는 잠깐의 로딩을 주어서 처리하자
+    setModalVisible(false);
+    navigation.navigate('ReservationResultScreen');
+  };
   return (
     <SafeAreaView style={styles.wrapper}>
       <ScrollView style={styles.box}>
@@ -73,12 +85,22 @@ const Reservation = ({navigation}: ReservationStackProps) => {
               onPress={() => {
                 // TODO: disabled가 안먹히는 버그 해결하기
                 if (!selectedDate || !selectedTime) return;
-                navigation.navigate('NextScreen');
+                setModalVisible(true);
               }}
             />
           </View>
         </View>
       </ScrollView>
+      <ConfirmModal
+        modalVisible={modalVisible}
+        handleCancel={handleCancel}
+        handleConfirm={handleConfirm}
+        title={`8월 9일 오후 9:00시
+수업을 예약하시겠어요?`}
+        description="수업 취소는 전날까지 가능해요"
+        confirmText="예약하기"
+        isCancel
+      />
     </SafeAreaView>
   );
 };

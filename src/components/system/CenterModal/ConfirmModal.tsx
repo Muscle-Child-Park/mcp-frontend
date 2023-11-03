@@ -7,7 +7,7 @@ interface Props {
   handleCancel: () => void;
   handleConfirm: () => void;
   title: string;
-  description: string;
+  description?: string;
   isCancel?: boolean;
   confirmText?: string;
 }
@@ -34,7 +34,9 @@ export default function ConfirmModal({
           <View style={styles.modalView}>
             <View style={styles.textWrapper}>
               <Text style={styles.title}>{title}</Text>
-              <Text style={styles.description}>{description}</Text>
+              {description && (
+                <Text style={styles.description}>{description}</Text>
+              )}
             </View>
             <View style={styles.buttonWrapper}>
               {isCancel && (
