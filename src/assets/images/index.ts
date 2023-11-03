@@ -13,3 +13,4 @@ export {default as Smile} from './smile.svg';
 export {default as AddIcon} from './add.svg';
 export {default as Google} from './google.svg';
 export {default as Copy} from './copy.svg';
+export {default as Kakao} from './kakao.svg';

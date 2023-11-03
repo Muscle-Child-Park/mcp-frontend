@@ -1,0 +1,15 @@
+<svg width="27" height="25" viewBox="0 0 27 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1818_6194)">
+<mask id="mask0_1818_6194" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="27" height="25">
+<path d="M27 0H0V25H27V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_1818_6194)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.5 -0.0351562C6.04376 -0.0351562 0 4.5669 0 10.2427C0 13.7727 2.33761 16.8845 5.89729 18.7354L4.39954 24.1278C4.26721 24.6042 4.82012 24.984 5.2447 24.7079L11.81 20.4374C12.364 20.4901 12.9271 20.5208 13.5 20.5208C20.9557 20.5208 26.9999 15.9189 26.9999 10.2427C26.9999 4.5669 20.9557 -0.0351562 13.5 -0.0351562Z" fill="black"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1818_6194">
+<rect width="27" height="25" fill="white"/>
+</clipPath>
+</defs>
+</svg>

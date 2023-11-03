@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {Google} from 'src/assets/images';
+import {Google, Kakao} from 'src/assets/images';
 
 interface Props {
   type: 'kakao' | 'google';
@@ -34,8 +34,7 @@ export default function SocialButton({
       ]}
       onPress={handlePress}
       disabled={disabled}>
-      {/* TODO: 카카오 svg 받으면 View를 변경하기 */}
-      {type === 'google' ? <Google /> : <View />}
+      {type === 'google' ? <Google /> : <Kakao />}
       <Text
         style={[
           styles.text,
@@ -49,7 +48,7 @@ export default function SocialButton({
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: 46,
+    height: 56,
     backgroundColor: '#F2F2F2',
     borderRadius: 8,
     paddingHorizontal: 17,
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '700',
     textAlign: 'center',
   },
