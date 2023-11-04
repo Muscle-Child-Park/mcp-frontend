@@ -14,7 +14,7 @@ import {LogType} from 'src/types/type';
 import CustomHeader from './CustomHeader';
 import FeedList from './FeedList';
 
-LocaleConfig.locales['fr'] = {
+LocaleConfig.locales['ko'] = {
   monthNames: [
     '1월',
     '2월',
@@ -53,10 +53,10 @@ LocaleConfig.locales['fr'] = {
     '토요일',
   ],
   dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-  today: "Aujourd'hui",
+  today: '오늘',
 };
 
-LocaleConfig.defaultLocale = 'fr';
+LocaleConfig.defaultLocale = 'ko';
 
 interface Props {
   selectDate: string;
@@ -85,7 +85,7 @@ export default function CalendarView({
   const [currentTitle, setCurrentTitle] = useState(
     `${currentMonth}월 ${currentYear}`,
   );
-
+  // console.log(markedDates, markedSelectedDate, selectDate);
   return (
     <View style={styles.container}>
       <Calendar
@@ -109,92 +109,6 @@ export default function CalendarView({
           dotColor: colors.primary,
           todayTextColor: colors.primary,
         }}
-        dayComponent={({date, state, theme, onPress, marking}) => {
-          const getContentStyle = () => {
-            const style = {
-              content: {
-                backgroundColor: 'transparent',
-                borderRadius: 0,
-                marginTop: 4,
-              },
-              text: {
-                textAlign: 'center',
-                color: '#2d4150', // 현재 달과 아닌 달의 날짜 색 차이
-                fontSize: 14, // 16
-                fontWeight: '400',
-              },
-            };
-
-            if (state === 'today') {
-              console.log('today');
-              style.text.color = colors.primary;
-              style.content.backgroundColor = '#fff';
-              // style.content.borderRadius = 50;
-            } else if (state === 'disabled') {
-              style.text.color = '#d9e1e8';
-            } else if (state === 'selected') {
-              console.log('selected');
-              style.text.color = '#fff';
-              style.content.backgroundColor = colors.primary;
-              style.content.borderRadius = 50;
-              console.log(style);
-            }
-            return style;
-          };
-
-          const contentStyle = getContentStyle();
-          // console.log(marking, theme);
-          if (!date) return;
-          return (
-            <View>
-              <TouchableOpacity
-                style={contentStyle.content}
-                onPress={() => {
-                  // click > onDayPress 동작
-                  if (!onPress) return;
-                  onPress(date);
-                }}>
-                <View
-                  style={{
-                    width: 32,
-                    height: 32,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  {/* {marking?.dots?.length && (
-                    <Smile
-                      style={{width: 15, height: 15}}
-                      fill={colors.primary}
-                    />
-                  )} */}
-                  <Text style={contentStyle.text as StyleProp<TextStyle>}>
-                    {date.day}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                {marking?.dots?.map(({color, key}) => (
-                  <View
-                    key={key}
-                    style={{
-                      backgroundColor: color,
-                      width: 4,
-                      height: 4,
-                      borderRadius: 10,
-                      marginHorizontal: 1,
-                    }}
-                  />
-                ))}
-              </View>
-            </View>
-          );
-        }}
       />
       <View style={styles.separator} />
       <View style={styles.listContainer}>
@@ -207,13 +121,12 @@ export default function CalendarView({
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: colors.primary,
+    // borderWidth: 1,
+    // borderColor: colors.primary,
   },
   calendar: {
-    borderWidth: 1,
-    borderColor: 'red',
-    margin: 20,
+    marginVertical: 13.5,
+    margin: 4.5,
   },
   separator: {
     height: 8,

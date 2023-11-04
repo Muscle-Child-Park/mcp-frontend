@@ -10,8 +10,8 @@ interface Props {
 }
 
 const buttonText = {
-  calendar: '리스트로 보기',
-  list: '캘린더로 보기',
+  calendar: '캘린더로 보기',
+  list: '리스트로 보기',
 };
 
 export default function CustomHeader({onPress, title, type}: Props) {

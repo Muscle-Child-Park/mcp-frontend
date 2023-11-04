@@ -24,7 +24,7 @@ export default function ExerciseJournal() {
   //   },
   // };
   // const logs = ['2023-10-29', '2023-10-30', '2023-10-31'];
-  const logs = ['2023-11-01', '2023-11-02', '2023-11-03'];
+  const logs = ['2023-11-01', '2023-11-02', '2023-11-03', '2023-11-05'];
   const running = {key: 'running', color: 'blue'};
   const cycling = {key: 'cycling', color: 'green'};
   const walking = {key: 'walking', color: 'orange'};
@@ -36,7 +36,7 @@ export default function ExerciseJournal() {
         acc[formattedDate] = {
           marked: true,
           dots:
-            cur === '2023-10-30'
+            cur === '2023-11-02'
               ? [running, walking]
               : [running, cycling, walking],
         };
@@ -68,7 +68,10 @@ export default function ExerciseJournal() {
             onTabPress={() => handleTabPress('list')}
           />
         ) : (
-          <ListView onTabPress={() => handleTabPress('calendar')} />
+          <ListView
+            onTabPress={() => handleTabPress('calendar')}
+            listData={markedDates}
+          />
         )}
       </ScrollView>
     </SafeAreaView>
