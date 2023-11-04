@@ -9,25 +9,22 @@ import {
   View,
 } from 'react-native';
 import {AddIcon} from 'src/assets/images';
-import ExerciseForm, {
-  ExerciseDataType,
-} from 'src/components/system/ExerciseForm';
-import HorizonLine from 'src/components/system/HorizonLine';
 import {colors} from 'src/constants/colors';
-import {exerciseTags} from 'src/constants/common';
+import {exerciseTags, initialExerciseInfo} from 'src/constants/common';
 import ko from 'date-fns/esm/locale/ko/index.js';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {format} from 'date-fns';
+import {ExerciseDataType, ExerciseType, ModalType} from 'src/types/type';
+import ExerciseForm from 'src/components/system/ExerciseForm';
 
-type ModalType = 'date' | 'startTime' | 'endTime';
-
+const initialExerciseType: ExerciseType = exerciseTags[0];
 // TODO: 추후 component화하기
 const AddingExercise = () => {
   const [exercises, setExercises] = useState<ExerciseDataType[]>([
     {
-      type: exerciseTags[0],
+      type: initialExerciseType,
       name: '',
-      info: '',
+      info: initialExerciseInfo[initialExerciseType],
     },
   ]);
   // useState Hook를 사용하여 날짜와 모달 유형, 노출 여부를 설정할 변수를 생성
@@ -103,6 +100,7 @@ const AddingExercise = () => {
     setVisible(false); // 모달 close
   };
 
+  console.log(exercises);
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView style={styles.container}>
@@ -153,9 +151,9 @@ const AddingExercise = () => {
         <Pressable
           onPress={() =>
             handleAddExercise({
-              type: exerciseTags[0],
+              type: initialExerciseType,
               name: '',
-              info: '',
+              info: initialExerciseInfo[initialExerciseType],
             })
           }
           style={{

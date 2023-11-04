@@ -1,6 +1,12 @@
 export const sortTags = ['전체', '수업내용', '취소내용'];
 export const sortTypes = ['최근 추가순', '최근 수업순', '가나다순'];
-export const exerciseTags = ['근력', '유산소'];
+export const exerciseTags = ['근력', '유산소'] as const;
+export const initialExerciseInfo = {
+  근력: {kg: '', num: '', set: ''},
+  유산소: {
+    time: '',
+  },
+};
 export const checkList = [
   '모두 동의',
   '[필수] 서비스 이용 약관 동의',

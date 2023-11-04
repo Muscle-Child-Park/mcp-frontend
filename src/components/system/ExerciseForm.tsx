@@ -1,7 +1,13 @@
 import {StyleSheet, Text, View, TextInput, Pressable} from 'react-native';
-import {exerciseTags} from 'src/constants/common';
+import {exerciseTags, initialExerciseInfo} from 'src/constants/common';
 import Tag from './Tag';
 import {colors} from 'src/constants/colors';
+import {
+  CardioExerciseInfo,
+  ExerciseDataType,
+  ExerciseType,
+  StrengthExerciseInfo,
+} from 'src/types/type';
 
 interface Props {
   idx: number;
@@ -10,18 +16,29 @@ interface Props {
   deleteExercise: () => void;
 }
 
-export type ExerciseDataType = {
-  type: string; // '근력', '유산소'
-  name: string;
-  info: string;
-};
-
 const ExerciseForm = ({idx, exercise, setExercise, deleteExercise}: Props) => {
   // const [exerciseTagType, setExerciseTagType] = useState(exercise.type);
 
-  const handleInputChange = (value: string, name: keyof ExerciseDataType) => {
+  const handleInputChange = (
+    value: string,
+    name: keyof ExerciseDataType,
+    infoKey?: string,
+  ) => {
     const updatedExerciseData = {...exercise};
-    updatedExerciseData[name] = value;
+    if (name === 'info' && infoKey) {
+      updatedExerciseData[name] = {
+        ...updatedExerciseData[name],
+        [infoKey]: value,
+      };
+      setExercise(updatedExerciseData);
+      return;
+    } else if (name === 'type') {
+      updatedExerciseData[name] = value as ExerciseType;
+      updatedExerciseData.info = initialExerciseInfo[value as ExerciseType];
+    } else if (name === 'name') {
+      updatedExerciseData[name] = value;
+    }
+    // 다시 생각해보자;
 
     setExercise(updatedExerciseData);
   };
@@ -57,17 +74,58 @@ const ExerciseForm = ({idx, exercise, setExercise, deleteExercise}: Props) => {
         placeholderTextColor={colors.gray50}
         keyboardType="default"
       />
-      <TextInput
-        editable
-        multiline
-        numberOfLines={1}
-        maxLength={100}
-        placeholder="추가적으로 남기고 싶은 내용을 적어주세요"
-        placeholderTextColor={colors.gray50}
-        onChangeText={text => handleInputChange(text, 'info')}
-        value={exercise.info}
-        style={styles.inputForInfo}
-      />
+      {exercise.type === '근력' ? (
+        <View
+          style={[
+            styles.inputForInfo,
+            {
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            },
+          ]}>
+          <View style={[styles.strengthInputContainer, {width: 92}]}>
+            <TextInput
+              editable
+              style={styles.strengthInput}
+              value={(exercise.info as StrengthExerciseInfo).kg}
+              onChangeText={text => handleInputChange(text, 'info', 'kg')}
+              textAlign="right"
+              // verticalAlign="middle"
+            />
+            <Text style={styles.subText}>kg</Text>
+          </View>
+          <View style={[styles.strengthInputContainer, {width: 89}]}>
+            <TextInput
+              style={styles.strengthInput}
+              value={(exercise.info as StrengthExerciseInfo).num}
+              onChangeText={text => handleInputChange(text, 'info', 'num')}
+              textAlign="right"
+            />
+            <Text style={styles.subText}>회</Text>
+          </View>
+          <View style={[styles.strengthInputContainer, {width: 65}]}>
+            <TextInput
+              style={styles.strengthInput}
+              value={(exercise.info as StrengthExerciseInfo).set}
+              onChangeText={text => handleInputChange(text, 'info', 'set')}
+              textAlign="right"
+            />
+            <Text style={styles.subText}>세트</Text>
+          </View>
+        </View>
+      ) : (
+        <TextInput
+          editable
+          multiline
+          numberOfLines={1}
+          maxLength={100}
+          placeholder="시간"
+          placeholderTextColor={colors.gray50}
+          onChangeText={text => handleInputChange(text, 'info', 'time')}
+          value={(exercise.info as CardioExerciseInfo).time}
+          style={styles.inputForInfo}
+        />
+      )}
     </View>
   );
 };
@@ -109,6 +167,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     color: colors.gray100,
     borderRadius: 8,
+  },
+  strengthInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    height: 36,
+  },
+  strengthInput: {
+    flex: 1,
+    paddingHorizontal: 8,
+    backgroundColor: 'white',
+    borderRadius: 8,
+  },
+  subText: {
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 16.8,
+    color: 'black',
   },
 });
 
