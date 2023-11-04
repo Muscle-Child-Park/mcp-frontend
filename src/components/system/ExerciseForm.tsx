@@ -8,6 +8,7 @@ import {
   ExerciseType,
   StrengthExerciseInfo,
 } from 'src/types/type';
+import CustomTextInput from './CustomTextInput';
 
 interface Props {
   idx: number;
@@ -66,13 +67,10 @@ const ExerciseForm = ({idx, exercise, setExercise, deleteExercise}: Props) => {
           <Text style={styles.delete}>삭제</Text>
         </Pressable>
       </View>
-      <TextInput
-        style={styles.inputForName}
+      <CustomTextInput
         onChangeText={text => handleInputChange(text, 'name')}
         value={exercise.name}
         placeholder="운동명"
-        placeholderTextColor={colors.gray50}
-        keyboardType="default"
       />
       {exercise.type === '근력' ? (
         <View
@@ -114,16 +112,10 @@ const ExerciseForm = ({idx, exercise, setExercise, deleteExercise}: Props) => {
           </View>
         </View>
       ) : (
-        <TextInput
-          editable
-          multiline
-          numberOfLines={1}
-          maxLength={100}
+        <CustomTextInput
           placeholder="시간"
-          placeholderTextColor={colors.gray50}
           onChangeText={text => handleInputChange(text, 'info', 'time')}
           value={(exercise.info as CardioExerciseInfo).time}
-          style={styles.inputForInfo}
         />
       )}
     </View>
@@ -153,13 +145,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 19.2,
     color: colors.warnning,
-  },
-  inputForName: {
-    backgroundColor: colors.background,
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-    color: colors.gray100,
-    borderRadius: 8,
   },
   inputForInfo: {
     backgroundColor: colors.background,

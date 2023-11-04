@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
-import {
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import CustomTextInput from 'src/components/system/CustomTextInput';
 import {colors} from 'src/constants/colors';
 import {useUserContext} from 'src/context/UserContext';
 
@@ -27,15 +21,11 @@ export default function UserProfile() {
           <Text style={styles.button}>변경</Text>
         </Pressable>
       </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          value={username}
-          onChangeText={onChangeText}
-          placeholder="이름을 입력해주세요."
-          placeholderTextColor={colors.gray50}
-          style={styles.input}
-        />
-      </View>
+      <CustomTextInput
+        value={username}
+        onChangeText={onChangeText}
+        placeholder="이름을 입력해주세요."
+      />
     </SafeAreaView>
   );
 }
@@ -63,18 +53,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 27,
-  },
-  inputContainer: {
-    borderRadius: 8,
-    backgroundColor: colors.background,
-    paddingVertical: 5,
-    paddingHorizontal: 16,
-    justifyContent: 'center',
-  },
-  input: {
-    color: colors.gray100,
-    fontSize: 14,
-    fontWeight: '400',
-    lineHeight: 16.8,
   },
 });
