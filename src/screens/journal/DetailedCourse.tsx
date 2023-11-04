@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import CourseCard from 'src/components/system/CourseCard';
 import CustomButton from 'src/components/system/CustomButton';
-import MainCard from 'src/components/system/MainCard';
 import {colors} from 'src/constants/colors';
 
 export default function DetailedCourse() {

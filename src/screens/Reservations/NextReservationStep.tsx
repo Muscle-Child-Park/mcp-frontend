@@ -35,7 +35,6 @@ export default function NextReservationStep() {
         disabled={!isChecked}
         onPress={() => {
           if (!isChecked) return;
-          // 이걸로 화면 뮤테이션이 있는데, 이는 잠깐의 로딩을 주어서 처리하자
           navigation.popToTop();
           navigation.navigate('ReservationResultScreen');
         }}

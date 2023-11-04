@@ -44,7 +44,7 @@ export function UserContextProvider({children}: {children: React.ReactNode}) {
         setState(initialUser);
       },
     }),
-    [],
+    [], // if use setState({...state, ~~~}) > [state]
   );
   const contextValue = {state, actions};
   return <UserContext.Provider children={children} value={contextValue} />;
