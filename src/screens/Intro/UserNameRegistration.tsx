@@ -13,18 +13,20 @@ type HomeScreenProp = CompositeNavigationProp<IntroProps, BasicProps>;
 export default function UserNameRegistration() {
   // 0: not selected, 1: selecte trainer , 2: select mentee
   const {
-    state: {username: currentUser},
+    state: {username: currentUser, type},
     actions: {changeUserName},
   } = useUserContext();
   const [username, setUsername] = useState(currentUser);
   const navigation = useNavigation<HomeScreenProp>();
+  const isMentee = type === 'mentee';
   const onChangeText = (text: string) => {
     setUsername(text);
   };
   const handlePressButton = () => {
+    const route = isMentee ? 'OnboardingScreen' : 'HomeScreen';
     if (isDisabled) return;
     changeUserName(username);
-    navigation.navigate('OnboardingScreen');
+    navigation.navigate(route);
   };
   const isDisabled = username.length === 0;
   return (

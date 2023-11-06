@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Pressable,
-  TextInput,
-} from 'react-native';
+import {Text, StyleSheet, SafeAreaView, View, TextInput} from 'react-native';
 import CustomButton from 'src/components/system/CustomButton';
 import ReservationCard from 'src/components/system/ReservationCard';
 import {colors} from 'src/constants/colors';
+import {useUserContext} from 'src/context/UserContext';
 
-export default function MentorRegistration() {
+export default function UserRegistration() {
   const [uniqueNumber, setUniqueNumber] = useState('');
+  const {
+    state: {type},
+  } = useUserContext();
+  const isMentee = type === 'mentee';
+  const subText = isMentee ? '선생님' : '회원님';
   const onChangeUniqueNumber = (text: string) => setUniqueNumber(text);
   // TODO: 텍스트인풋 컴포넌트 화
+  console.log(type);
   return (
     <SafeAreaView style={styles.mainBackground}>
       <View style={styles.inputContainer}>
@@ -27,28 +27,34 @@ export default function MentorRegistration() {
           style={styles.input}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.title}>수강 횟수</Text>
-        <TextInput
-          value={uniqueNumber}
-          onChangeText={onChangeUniqueNumber}
-          placeholder="0회"
-          placeholderTextColor={colors.gray50}
-          style={styles.input}
-        />
+      {!isMentee && (
+        <View style={[styles.inputContainer, styles.divider]}>
+          <Text style={styles.title}>수강 횟수</Text>
+          <TextInput
+            value={uniqueNumber}
+            onChangeText={onChangeUniqueNumber}
+            placeholder="0"
+            placeholderTextColor={colors.gray50}
+            style={styles.input}
+          />
+        </View>
+      )}
+      <View style={styles.buttonContainer}>
+        <CustomButton text="등록하기" variant="fillPrimary" />
       </View>
-      <CustomButton text="등록하기" variant="fillPrimary" />
       <View style={styles.listContainer}>
-        <Text style={styles.title}>멘토 리스트</Text>
+        <Text style={styles.title}>
+          {type === 'mentee' ? '멘토 리스트' : '등록 대기 리스트'}
+        </Text>
         <View style={styles.list}>
           <ReservationCard
-            mode="classSuccess"
-            text="신현석 선생님"
+            mode="YY/MM/DD"
+            text={`홍길동 ${subText}`}
             hasRightIcon
           />
           <ReservationCard
-            mode="classSuccess"
-            text="석현신 선생님"
+            mode="YY/MM/DD"
+            text={`김차박 ${subText}`}
             hasRightIcon
           />
         </View>
@@ -60,13 +66,13 @@ export default function MentorRegistration() {
 const styles = StyleSheet.create({
   mainBackground: {
     flex: 1,
-    padding: 20,
     backgroundColor: 'white',
   },
-  textContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  divider: {borderTopWidth: 0.33, borderColor: colors.gray25},
+  inputContainer: {
+    justifyContent: 'center',
+    padding: 20,
+    gap: 20,
   },
   title: {
     color: colors.gray75,
@@ -80,11 +86,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 27,
   },
-  inputContainer: {
-    justifyContent: 'center',
-    marginBottom: 20,
-    gap: 22.5,
-  },
   input: {
     color: colors.gray100,
     fontSize: 14,
@@ -97,7 +98,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.primary,
   },
-  listContainer: {gap: 20, marginTop: 38, flex: 1},
+  buttonContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+  },
+  listContainer: {gap: 20, padding: 20, flex: 1},
   list: {
     // flex: 1,
     gap: 11,

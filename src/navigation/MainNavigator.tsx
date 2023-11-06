@@ -13,7 +13,8 @@ import JournalNavigator from 'src/navigation/JournalNavigator';
 import UserProfile from 'src/screens/Home/My/UserProfile';
 import HomeNavigator from './HomeNavigator';
 import IntroNavigator from './IntroNavigator';
-import MentorRegistration from 'src/screens/Home/My/MentorRegistration';
+import UserRegistration from 'src/screens/Home/My/UserRegistration';
+import {useUserContext} from 'src/context/UserContext';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
@@ -22,7 +23,7 @@ export type RootStackParamList = {
   ReservationResultScreen: undefined;
   JournalScreen: undefined;
   UserProfileScreen: undefined;
-  MentorRegistrationScreen: undefined;
+  UserRegistrationScreen: undefined;
   IntroScreen: undefined;
 };
 
@@ -30,11 +31,15 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type MainStackProps = NativeStackScreenProps<
   RootStackParamList,
-  'UserProfileScreen' | 'OnboardingScreen' | 'MentorRegistrationScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
+  'UserProfileScreen' | 'OnboardingScreen' | 'UserRegistrationScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
 >;
 export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
 
 export default function MainStackNavigator() {
+  const {
+    state: {type},
+  } = useUserContext();
+  const isMentee = type === 'mentee';
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -42,7 +47,7 @@ export default function MainStackNavigator() {
         screenOptions={({route}) => {
           if (
             route.name === 'UserProfileScreen' ||
-            route.name === 'MentorRegistrationScreen'
+            route.name === 'UserRegistrationScreen'
           ) {
             return {headerShown: true};
           }
@@ -73,11 +78,12 @@ export default function MainStackNavigator() {
           }}
         />
         <Stack.Screen
-          name="MentorRegistrationScreen"
-          component={MentorRegistration}
+          name="UserRegistrationScreen"
+          component={UserRegistration}
           options={({navigation}) => {
+            const title = isMentee ? '멘토 등록' : '회원 등록';
             return {
-              headerTitle: '멘토 등록',
+              headerTitle: title,
               headerTitleAlign: 'center',
               headerLeft: () => (
                 <Pressable onPress={() => navigation.pop()}>

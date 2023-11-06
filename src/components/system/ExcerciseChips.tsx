@@ -8,8 +8,8 @@ export type ExcerciseChipsType =
   | 'cancelSuccess'
   | 'classSuccess'
   | 'reservationSuccess'
-  | 'personalExercise';
-
+  | 'personalExercise'
+  | 'YY/MM/DD';
 interface Props {
   mode: ExcerciseChipsType;
 }
@@ -21,6 +21,7 @@ const text = {
   classSuccess: '수업완료',
   reservationSuccess: '예약완료',
   personalExercise: '개인운동',
+  'YY/MM/DD': 'YY/MM/DD',
 };
 
 const ExcerciseChips = ({mode}: Props) => {
@@ -36,6 +37,7 @@ const ExcerciseChips = ({mode}: Props) => {
         },
         mode === 'classSuccess' && {backgroundColor: '#FAFBFF'},
         mode === 'cancelSuccess' && {backgroundColor: '#F3F3F3'},
+        mode === 'YY/MM/DD' && {backgroundColor: '#F1F5FF'},
       ]}>
       <Text
         style={[
@@ -46,6 +48,7 @@ const ExcerciseChips = ({mode}: Props) => {
           mode === 'reservationSuccess' && {color: colors.primary},
           mode === 'classSuccess' && {color: colors.blueLighten},
           mode === 'cancelSuccess' && {color: colors.gray50},
+          mode === 'YY/MM/DD' && {color: colors.primary},
         ]}>
         {text[mode]}
       </Text>

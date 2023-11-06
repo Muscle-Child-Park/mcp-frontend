@@ -10,9 +10,20 @@ import {colors} from 'src/constants/colors';
 import {useUserContext} from 'src/context/UserContext';
 import {BasicProps} from 'src/navigation/MainNavigator';
 
+const text = {
+  mentee: {
+    subName: '회원님',
+    registrationTitle: '멘토 등록',
+  },
+  mentor: {
+    subName: '트레이너님',
+    registrationTitle: '회원 등록',
+  },
+};
+
 export default function My() {
   const {
-    state: {username: currentUser, code},
+    state: {username: currentUser, code, type},
   } = useUserContext();
   const [isEnabled, setIsEnabled] = useState(false);
   const navigation = useNavigation<BasicProps>();
@@ -24,7 +35,8 @@ export default function My() {
   return (
     <SafeAreaView style={styles.mainBackground}>
       <View style={styles.header}>
-        <Text style={styles.name}>{`${currentUser} 회원님`}</Text>
+        <Text
+          style={styles.name}>{`${currentUser} ${text[type].subName}`}</Text>
         <Pressable style={styles.copyContainer} onPress={copyToClipboard}>
           <Text style={styles.uniqueNumber}>{`고유코드: #${code}`}</Text>
           <Copy />
@@ -39,9 +51,9 @@ export default function My() {
         hasBorderBottom
       />
       <ListButton
-        title="멘토 등록"
+        title={`${text[type].registrationTitle}`}
         handlePress={() => {
-          navigation.navigate('MentorRegistrationScreen');
+          navigation.navigate('UserRegistrationScreen');
         }}
       />
       <View style={styles.divider} />
