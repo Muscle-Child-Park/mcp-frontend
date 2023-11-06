@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Text, StyleSheet, SafeAreaView, View, TextInput} from 'react-native';
+import ConfirmModal from 'src/components/system/CenterModal/ConfirmModal';
 import CustomButton from 'src/components/system/CustomButton';
 import ReservationCard from 'src/components/system/ReservationCard';
 import {colors} from 'src/constants/colors';
@@ -7,6 +8,7 @@ import {useUserContext} from 'src/context/UserContext';
 
 export default function UserRegistration() {
   const [uniqueNumber, setUniqueNumber] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
   const {
     state: {type},
   } = useUserContext();
@@ -14,7 +16,16 @@ export default function UserRegistration() {
   const subText = isMentee ? '선생님' : '회원님';
   const onChangeUniqueNumber = (text: string) => setUniqueNumber(text);
   // TODO: 텍스트인풋 컴포넌트 화
-  console.log(type);
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+  const handleConfirm = () => {
+    // TODO: 화면 뮤테이션이 있는데, 이는 잠깐의 로딩을 주어서 처리하자
+    setModalVisible(false);
+  };
+  const registration = () => {
+    setModalVisible(true);
+  };
   return (
     <SafeAreaView style={styles.mainBackground}>
       <View style={styles.inputContainer}>
@@ -40,7 +51,11 @@ export default function UserRegistration() {
         </View>
       )}
       <View style={styles.buttonContainer}>
-        <CustomButton text="등록하기" variant="fillPrimary" />
+        <CustomButton
+          text="등록하기"
+          variant="fillPrimary"
+          onPress={registration}
+        />
       </View>
       <View style={styles.listContainer}>
         <Text style={styles.title}>
@@ -59,6 +74,16 @@ export default function UserRegistration() {
           />
         </View>
       </View>
+      <ConfirmModal
+        modalVisible={modalVisible}
+        handleCancel={handleCancel}
+        handleConfirm={handleConfirm}
+        title={`전창준 선생님에게
+멘토를 신청하시겠어요?`}
+        description="선생님이 신청을 수락하시면 알려드릴게요"
+        confirmText="신청"
+        isCancel
+      />
     </SafeAreaView>
   );
 }

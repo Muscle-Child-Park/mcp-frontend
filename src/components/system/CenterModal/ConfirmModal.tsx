@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Modal, Text, Pressable, Alert} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Modal,
+  Text,
+  Pressable,
+  useWindowDimensions,
+} from 'react-native';
 import {colors} from 'src/constants/colors';
 
 interface Props {
@@ -22,7 +29,7 @@ export default function ConfirmModal({
   confirmText = '완료',
 }: Props) {
   // TODO: step === 1 일때, 모달을 드래그로 내리는 것 방지
-
+  const {width} = useWindowDimensions();
   return (
     <Modal
       animationType="fade"
@@ -31,7 +38,7 @@ export default function ConfirmModal({
       onRequestClose={handleCancel}>
       <View style={styles.overlay}>
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+          <View style={[styles.modalView, {width: width - 90}]}>
             <View style={styles.textWrapper}>
               <Text style={styles.title}>{title}</Text>
               {description && (
@@ -75,7 +82,7 @@ const styles = StyleSheet.create({
   modalView: {
     paddingTop: 32,
     paddingBottom: 24,
-    paddingHorizontal: 50,
+    paddingHorizontal: 8,
     backgroundColor: 'white',
     gap: 32,
     borderRadius: 8,
