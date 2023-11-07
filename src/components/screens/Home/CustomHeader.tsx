@@ -6,7 +6,7 @@ import {colors} from 'src/constants/colors';
 interface Props {
   hasLeftIcon?: boolean;
   hasRightIcon?: boolean;
-  headerSize: 'h2' | 'h3' | 'h4';
+  headerSize: 'h2' | 'h3' | 'h4' | 'body4';
   headerText: string;
 }
 
@@ -28,12 +28,17 @@ const CustomHeader = ({
             headerSize === 'h2' && {fontSize: 22},
             headerSize === 'h3' && {fontSize: 20},
             headerSize === 'h4' && {fontSize: 18},
+            headerSize === 'body4' && {
+              fontSize: 14,
+              fontWeight: '400',
+              lineHeight: 16.8,
+            },
           ]}>
           {headerText}
         </Text>
       </View>
       {hasRightIcon && (
-        <RightArrow style={{width: 24, height: 24}} fill="#404040" />
+        <RightArrow style={{width: 24, height: 24}} fill={colors.dark1} />
       )}
     </View>
   );
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gray1,
   },
   text: {
-    color: colors.gray5,
+    color: colors.gray100,
     fontWeight: '600',
     lineHeight: 22,
   },

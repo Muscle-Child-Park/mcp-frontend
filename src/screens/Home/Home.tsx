@@ -1,17 +1,7 @@
 import React, {useContext, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  useWindowDimensions,
-  StatusBar,
-  View,
-  Pressable,
-} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, StatusBar} from 'react-native';
 
 import {
   Colors,
@@ -20,35 +10,27 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import SmallBox from 'src/components/system/SmallBox';
 import {colors} from 'src/constants/colors';
-import CustomHeader from 'src/components/system/CustomHeader';
-import ProgressBar from 'src/components/system/ProgressBar';
-import MainCard from 'src/components/system/MainCard';
-import CustomButton from 'src/components/system/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
-import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {BasicProps} from 'src/navigation/MainNavigator';
 import IntroductionModal from 'src/components/system/BottomSeetModal/IntroductionModal';
-import {HomeTabProps} from 'src/navigation/HomeNavigator';
 import {useUserContext} from 'src/context/UserContext';
 import {ModalStep} from 'src/types/type';
+import Mentee from 'src/components/screens/Home/Mentee';
+import Mentor from 'src/components/screens/Home/Mentor';
 
 /**
 background: linear-gradient(180deg, #57AEFF -30.67%, rgba(255, 255, 255, 0.0885417) 40.64%),
 linear-gradient(0deg, #F2F3F5, #F2F3F5);
 */
-type HomeScreenProp = CompositeNavigationProp<HomeTabProps, BasicProps>;
 
 const Home = () => {
-  const {width} = useWindowDimensions();
   const safeInsets = useContext(SafeAreaInsetsContext);
-  const navigation = useNavigation<HomeScreenProp>();
   const [modalStep, setModalStep] = useState<ModalStep>(1);
   const [modalVisible, setModalVisible] = useState(true);
   const {
-    state: {username},
+    state: {username, type},
   } = useUserContext();
+  const isMentee = type === 'mentee';
 
   return (
     <SafeAreaView>
@@ -67,51 +49,11 @@ const Home = () => {
             styles.mainBackground,
             safeInsets && {paddingTop: safeInsets.top},
           ]}>
-          <Text style={[styles.title, {width: width - 40}]}>
-            {`${username}님,
-오늘도 힘내볼까요?`}
-          </Text>
-          <MainCard>
-            <View style={styles.trainerBoxContainer}>
-              <Text style={styles.trainerInfo}>
-                김민재 트레이너님 (빌리프짐)
-              </Text>
-              <Text style={styles.remainCount}>3 / 10 회 남았어요!</Text>
-            </View>
-            <ProgressBar percent={30} />
-          </MainCard>
-          <MainCard>
-            <View style={styles.reservationContainer}>
-              <CustomHeader headerSize="h4" headerText="이번주 예약" />
-              <View style={styles.smallBoxContainer}>
-                <SmallBox header="하체, 유산소" body="5일 (토) 오전 10:00" />
-                <SmallBox header="코어" body="5일 (토) 오전 10:00" />
-              </View>
-              <View style={styles.buttonContainer}>
-                <CustomButton
-                  text="수업 예약하기"
-                  onPress={() => {
-                    navigation.navigate('예약');
-                  }}
-                  variant="fillPrimary"
-                />
-              </View>
-            </View>
-          </MainCard>
-          {/* TODO: button 으로 만들어야할듯.. > onPress(() => {navigation.navigate('JournalScreen')}) */}
-          <Pressable
-            onPress={() => {
-              navigation.navigate('JournalScreen');
-            }}>
-            <MainCard>
-              <View style={styles.exerciseJournalContainer}>
-                <CustomHeader headerSize="h4" headerText="운동일지" />
-                <Text style={styles.text}>
-                  PT 수업부터 개인운동까지 운동기록을 확인해보세요
-                </Text>
-              </View>
-            </MainCard>
-          </Pressable>
+          {isMentee ? (
+            <Mentee username={username} />
+          ) : (
+            <Mentor username={username} />
+          )}
           <IntroductionModal
             step={modalStep}
             setStep={setModalStep}
@@ -132,49 +74,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 32,
     gap: 8,
-  },
-  title: {
-    height: 68,
-    fontSize: 28,
-    fontWeight: '300',
-    lineHeight: 33.6,
-    color: colors.gray100,
-    marginTop: 52,
-    marginBottom: 16,
-  },
-  trainerBoxContainer: {
-    gap: 5,
-  },
-  smallBoxContainer: {gap: 6},
-  buttonContainer: {
-    width: '100%',
-  },
-  text: {
-    color: '#8B8B8B',
-    fontWeight: '400',
-    fontSize: 14,
-    lineHeight: 16.8,
-  },
-  trainerInfo: {
-    color: colors.gray100,
-    fontSize: 14,
-    fontWeight: '400',
-    lineHeight: 16.8,
-  },
-  remainCount: {
-    color: colors.gray100,
-    fontSize: 18,
-    fontWeight: '600',
-    lineHeight: 21.6,
-  },
-  reservationContainer: {
-    width: '100%',
-    gap: 12,
-    marginVertical: 4,
-  },
-  exerciseJournalContainer: {
-    gap: 8,
-    marginVertical: 4,
   },
 });
 
