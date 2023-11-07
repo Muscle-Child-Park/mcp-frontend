@@ -1,5 +1,4 @@
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import CustomButton from 'src/components/system/CustomButton';
@@ -8,7 +7,8 @@ import {useUserContext} from 'src/context/UserContext';
 import {IntroProps} from 'src/navigation/IntroNavigator';
 import {BasicProps} from 'src/navigation/MainNavigator';
 
-type HomeScreenProp = CompositeNavigationProp<IntroProps, BasicProps>;
+// BasicProps와 IntroProps의 순서에 따라 reset의 routes의 수용할 수 있는 name이 달라짐
+type HomeScreenProp = CompositeNavigationProp<BasicProps, IntroProps>;
 
 export default function UserNameRegistration() {
   // 0: not selected, 1: selecte trainer , 2: select mentee
@@ -23,10 +23,17 @@ export default function UserNameRegistration() {
     setUsername(text);
   };
   const handlePressButton = () => {
-    const route = isMentee ? 'OnboardingScreen' : 'HomeScreen';
     if (isDisabled) return;
     changeUserName(username);
-    navigation.navigate(route);
+    if (isMentee) {
+      navigation.navigate('OnboardingScreen');
+    } else {
+      // 로그인 과정(네비게이션) 리셋 후 홈으로 이동
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'HomeScreen'}],
+      });
+    }
   };
   const isDisabled = username.length === 0;
   return (

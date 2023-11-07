@@ -31,7 +31,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type MainStackProps = NativeStackScreenProps<
   RootStackParamList,
-  'UserProfileScreen' | 'OnboardingScreen' | 'UserRegistrationScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
+  | 'UserProfileScreen'
+  | 'OnboardingScreen'
+  | 'UserRegistrationScreen'
+  | 'HomeScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
 >;
 export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
 

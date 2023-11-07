@@ -16,17 +16,22 @@ import CustomButton from 'src/components/system/CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from 'src/constants/colors';
 import {Next, Prev} from 'src/assets/images';
+import {useUserContext} from 'src/context/UserContext';
 
 export default function FirstOnBoarding({navigation}: MainStackProps) {
   const allQuestions = data;
+  const {
+    state: {onboarding},
+    actions: {setMenteeOnboarding},
+  } = useUserContext();
   const progress = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentAnswerSelected, setCurrentAnswerSelected] = useState<number[]>(
-    [],
+    onboarding?.[0] ?? [],
   );
   const [items, setItems] = useState<number[][]>(
-    Array.from({length: data.length}, () => []),
+    onboarding ?? Array.from({length: data.length}, () => []),
   );
   // const safeInsets = useContext(SafeAreaInsetsContext);
   const validateAnswer = (buttonIndex: number) => {
@@ -76,7 +81,12 @@ export default function FirstOnBoarding({navigation}: MainStackProps) {
     if (currentQuestionIndex == allQuestions.length - 1) {
       // TODO: 선택한 이전 값(items)들을 한꺼번에 서버에 보내기 > 마지막 값은 따로 합쳐서 보내줘야할듯
       items.pop();
-      navigation.navigate('HomeScreen');
+      setMenteeOnboarding([...items, [...currentAnswerSelected]]);
+      // 로그인 과정(네비게이션) 리셋 후 홈으로 이동
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'HomeScreen'}],
+      });
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setCurrentAnswerSelected(items[currentQuestionIndex + 1]);

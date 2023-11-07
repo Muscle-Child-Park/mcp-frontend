@@ -7,6 +7,8 @@ interface UserContextActions {
   setUser: (user: User) => void;
   setUserType: (type: UserType) => void;
   logout: () => void;
+  setMenteeOnboarding: (data: number[][]) => void;
+  setAgenecy: (agency: string) => void;
 }
 
 interface UserContextType {
@@ -42,6 +44,12 @@ export function UserContextProvider({children}: {children: React.ReactNode}) {
       // TODO: 수정하기
       logout: () => {
         setState(initialUser);
+      },
+      setMenteeOnboarding: (data: number[][]) => {
+        setState(prev => ({...prev, onboarding: data}));
+      },
+      setAgenecy: (agency: string) => {
+        setState(prev => ({...prev, agency: agency}));
       },
     }),
     [], // if use setState({...state, ~~~}) > [state]

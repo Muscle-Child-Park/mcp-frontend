@@ -39,4 +39,6 @@ export interface User {
   uid: string;
   type: UserType;
   code: string;
+  onboarding?: number[][]; // for mentee
+  agency?: string; // for mentor
 }

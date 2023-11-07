@@ -1,16 +1,24 @@
 import React, {useState} from 'react';
-import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {RightArrow} from 'src/assets/images';
 import CustomButton from 'src/components/system/CustomButton';
 import CustomTextInput from 'src/components/system/CustomTextInput';
 import {colors} from 'src/constants/colors';
+import data from 'src/constants/survey';
 import {useUserContext} from 'src/context/UserContext';
 import {MainStackProps} from 'src/navigation/MainNavigator';
 
 export default function UserProfile({navigation}: MainStackProps) {
   const [hide, setHide] = useState(true);
   const {
-    state: {username: currentUser, type},
+    state: {username: currentUser, type, onboarding},
   } = useUserContext();
   const [username, setUsername] = useState(currentUser);
   const isMentee = type === 'mentee';
@@ -19,28 +27,13 @@ export default function UserProfile({navigation}: MainStackProps) {
   const onPressOnboardingButton = () => {
     navigation.navigate('OnboardingScreen');
   };
+  const allQuestions = data;
   return (
     <SafeAreaView style={styles.mainBackground}>
-      <View style={styles.inputContainer}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>회원 이름</Text>
-          <Pressable
-            onPress={() => {
-              // TODO: API 연결
-            }}>
-            <Text style={styles.button}>수정</Text>
-          </Pressable>
-        </View>
-        <CustomTextInput
-          value={username}
-          onChangeText={onChangeText}
-          placeholder="이름을 입력해주세요."
-        />
-      </View>
-      {!isMentee ? (
-        <View style={[styles.inputContainer, styles.divider]}>
+      <ScrollView>
+        <View style={styles.inputContainer}>
           <View style={styles.textContainer}>
-            <Text style={styles.title}>소속</Text>
+            <Text style={styles.title}>회원 이름</Text>
             <Pressable
               onPress={() => {
                 // TODO: API 연결
@@ -51,63 +44,67 @@ export default function UserProfile({navigation}: MainStackProps) {
           <CustomTextInput
             value={username}
             onChangeText={onChangeText}
-            placeholder="빌리프짐 성수점"
+            placeholder="이름을 입력해주세요."
           />
         </View>
-      ) : (
-        <View style={[styles.inputContainer, styles.divider]}>
-          <Pressable
-            style={styles.onboardingTab}
-            onPress={onPressOnboardingTab}>
-            <Text style={styles.title}>온보딩 내용</Text>
-            <RightArrow
-              style={[styles.arrow, !hide && {transform: [{rotate: '-90deg'}]}]}
-              fill="#404040"
-            />
-          </Pressable>
-          {!hide && (
-            <View style={styles.onboardingUl}>
-              <View style={styles.onboardingLi}>
-                <Text style={styles.onboardingTitle}>주요 운동 목적</Text>
-                <Text style={styles.onboardingSub}>
-                  체지방 감소, 근육량 증가
-                </Text>
-              </View>
-              <View style={styles.onboardingLi}>
-                <Text style={styles.onboardingTitle}>주요 운동 목적</Text>
-                <Text style={styles.onboardingSub}>
-                  체지방 감소, 근육량 증가
-                </Text>
-              </View>
-              <View style={styles.onboardingLi}>
-                <Text style={styles.onboardingTitle}>주요 운동 목적</Text>
-                <Text style={styles.onboardingSub}>
-                  체지방 감소, 근육량 증가
-                </Text>
-              </View>
-              <View style={styles.onboardingLi}>
-                <Text style={styles.onboardingTitle}>주요 운동 목적</Text>
-                <Text style={styles.onboardingSub}>
-                  체지방 감소, 근육량 증가
-                </Text>
-              </View>
-              <View style={styles.onboardingLi}>
-                <Text style={styles.onboardingTitle}>주요 운동 목적</Text>
-                <Text style={styles.onboardingSub}>
-                  체지방 감소, 근육량 증가
-                </Text>
-              </View>
-              <View style={styles.buttonContainer}>
-                <CustomButton
-                  text="온보딩 수정하기"
-                  variant="fillPrimary"
-                  onPress={onPressOnboardingButton}
-                />
-              </View>
+        {!isMentee ? (
+          <View style={[styles.inputContainer, styles.divider]}>
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>소속</Text>
+              <Pressable
+                onPress={() => {
+                  // TODO: API 연결
+                }}>
+                <Text style={styles.button}>수정</Text>
+              </Pressable>
             </View>
-          )}
-        </View>
-      )}
+            <CustomTextInput
+              value={username}
+              onChangeText={onChangeText}
+              placeholder="빌리프짐 성수점"
+            />
+          </View>
+        ) : (
+          <View style={[styles.inputContainer, styles.divider]}>
+            <Pressable
+              style={styles.onboardingTab}
+              onPress={onPressOnboardingTab}>
+              <Text style={styles.title}>온보딩 내용</Text>
+              <RightArrow
+                style={[
+                  styles.arrow,
+                  !hide && {transform: [{rotate: '-90deg'}]},
+                ]}
+                fill="#404040"
+              />
+            </Pressable>
+            {!hide && (
+              <View style={styles.onboardingUl}>
+                {onboarding &&
+                  onboarding.map((currentStep, index) => (
+                    <View style={styles.onboardingLi} key={index}>
+                      <Text style={styles.onboardingTitle}>
+                        {allQuestions[index].subject}
+                      </Text>
+                      {currentStep.map((value, i) => (
+                        <Text style={styles.onboardingSub} key={i}>
+                          {allQuestions[index].options[value]}
+                        </Text>
+                      ))}
+                    </View>
+                  ))}
+                <View style={styles.buttonContainer}>
+                  <CustomButton
+                    text="온보딩 수정하기"
+                    variant="fillPrimary"
+                    onPress={onPressOnboardingButton}
+                  />
+                </View>
+              </View>
+            )}
+          </View>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 }
