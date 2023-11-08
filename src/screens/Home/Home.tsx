@@ -1,7 +1,13 @@
 import React, {useContext, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
-import {SafeAreaView, ScrollView, StyleSheet, StatusBar} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  StatusBar,
+  View,
+} from 'react-native';
 
 import {
   Colors,
@@ -33,22 +39,22 @@ const Home = () => {
   const isMentee = type === 'mentee';
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <StatusBar
         translucent
         backgroundColor="transparent"
         barStyle={'dark-content'}
       />
-      <ScrollView>
-        <LinearGradient
-          start={{x: 0.5, y: -0.5067}}
-          end={{x: 0.5, y: 0.3064}}
-          // locations={[-0.367, 0.464]}
-          colors={['#57AEFF', '#FFFFFF17']}
-          style={[
-            styles.mainBackground,
-            safeInsets && {paddingTop: safeInsets.top},
-          ]}>
+      <LinearGradient
+        start={{x: 0.5, y: -0.5067}}
+        end={{x: 0.5, y: 0.3064}}
+        // locations={[-0.367, 0.464]}
+        colors={['#57AEFF', '#FFFFFF17']}
+        style={[
+          styles.mainBackground,
+          safeInsets && {paddingTop: safeInsets.top},
+        ]}>
+        <ScrollView contentContainerStyle={styles.container}>
           {isMentee ? (
             <Mentee username={username} />
           ) : (
@@ -61,8 +67,8 @@ const Home = () => {
             setModalVisible={setModalVisible}
             username={username}
           />
-        </LinearGradient>
-      </ScrollView>
+        </ScrollView>
+      </LinearGradient>
     </SafeAreaView>
   );
 };
@@ -71,6 +77,8 @@ const styles = StyleSheet.create({
   mainBackground: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  container: {
     paddingHorizontal: 20,
     paddingBottom: 32,
     gap: 8,
