@@ -18,11 +18,13 @@ import {MainStackProps} from 'src/navigation/MainNavigator';
 export default function UserProfile({navigation}: MainStackProps) {
   const [hide, setHide] = useState(true);
   const {
-    state: {username: currentUser, type, onboarding},
+    state: {username: currentUser, type, onboarding, agency: currentAgency},
   } = useUserContext();
   const [username, setUsername] = useState(currentUser);
+  const [agency, setAgency] = useState(currentAgency ?? '');
   const isMentee = type === 'mentee';
-  const onChangeText = (text: string) => setUsername(text);
+  const onChangeUsername = (text: string) => setUsername(text);
+  const onChangeAgency = (text: string) => setAgency(text);
   const onPressOnboardingTab = () => setHide(prev => !prev);
   const onPressOnboardingButton = () => {
     navigation.navigate('OnboardingScreen');
@@ -43,7 +45,7 @@ export default function UserProfile({navigation}: MainStackProps) {
           </View>
           <CustomTextInput
             value={username}
-            onChangeText={onChangeText}
+            onChangeText={onChangeUsername}
             placeholder="이름을 입력해주세요."
           />
         </View>
@@ -59,8 +61,8 @@ export default function UserProfile({navigation}: MainStackProps) {
               </Pressable>
             </View>
             <CustomTextInput
-              value={username}
-              onChangeText={onChangeText}
+              value={agency}
+              onChangeText={onChangeAgency}
               placeholder="빌리프짐 성수점"
             />
           </View>

@@ -54,7 +54,7 @@ export default function Mentee({username}: Props) {
                 <CustomButton
                   text="수업 예약하기"
                   onPress={() => {
-                    navigation.navigate('예약');
+                    navigation.navigate('ReservationTab');
                   }}
                   variant="fillPrimary"
                 />

@@ -6,20 +6,35 @@ import {
 } from '@react-navigation/material-top-tabs';
 import ReservationNavigator from 'src/navigation/ReservationNavigator';
 import {MyReservation} from '../Reservations';
+import {useUserContext} from 'src/context/UserContext';
+import {ExerciseJournal} from '../Journal';
 
 type TopTabNavigatorParamList = {
-  예약하기: undefined;
-  나의예약: undefined;
+  Reserve: undefined;
+  MyReservation: undefined;
 };
-
-const TopTab = createMaterialTopTabNavigator<TopTabNavigatorParamList>();
 export type TopTabProps =
   MaterialTopTabNavigationProp<TopTabNavigatorParamList>;
 
+const TopTab = createMaterialTopTabNavigator<TopTabNavigatorParamList>();
+const title = {
+  mentee: {
+    Reserve: '예약하기',
+    MyReservation: '나의예약',
+  },
+  mentor: {
+    Reserve: '예약관리',
+    MyReservation: '회원관리',
+  },
+} as const;
+
 const TopTabNavigator = () => {
+  const {
+    state: {type},
+  } = useUserContext();
   return (
     <TopTab.Navigator
-      screenOptions={{
+      screenOptions={({route}) => ({
         tabBarLabelStyle: {
           fontSize: 18,
           lineHeight: 21.6,
@@ -31,12 +46,16 @@ const TopTabNavigator = () => {
         tabBarStyle: {
           height: 48, // 초기 지연 렌더링 고려
         },
+        title: title[type][route.name],
         //lazy : 특정 탭으로 이동해야만 해당 탭을 렌더링 하도록 설정
         //lazyPreloadDistance : lazy 속성이 활성화된 상태에서 몇 칸 뒤 화면을 미리 불러올지 설정(default : 0)
         //lazyPlaceholder : lazy 속성이 활성화되어 있을 때 아직 보이지 않은 화면에서 보여줄 대체 컴포넌트
-      }}>
-      <TopTab.Screen name="예약하기" component={ReservationNavigator} />
-      <TopTab.Screen name="나의예약" component={MyReservation} />
+      })}>
+      <TopTab.Screen
+        name="Reserve"
+        component={type === 'mentee' ? ReservationNavigator : ExerciseJournal}
+      />
+      <TopTab.Screen name="MyReservation" component={MyReservation} />
     </TopTab.Navigator>
   );
 };

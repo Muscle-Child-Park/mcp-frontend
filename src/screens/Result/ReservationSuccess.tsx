@@ -52,7 +52,7 @@ export default function ReservationSuccess() {
               /* navigation.popToTop(); > MinaReservation에 Screen내부에 있을 때, 적용 
               현재, mainNavigator에 있으므로 ReservationSuccess 컴포넌트로 오기 전 적용
               */
-              navigation.navigate('홈');
+              navigation.navigate('HomeTab');
             }}
           />
           <CustomButton
@@ -61,7 +61,7 @@ export default function ReservationSuccess() {
             variant="stroke"
             onPress={() => {
               // navigation.popToTop();
-              navigation.navigate('나의예약');
+              navigation.navigate('MyReservation');
             }}
           />
         </View>

@@ -1,25 +1,37 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useContext} from 'react';
+import {useCallback, useContext} from 'react';
 import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
 import {HomeIcon, ScheduleIcon, ChatIcon, UserIcon} from 'src/assets/images';
 import {colors} from 'src/constants/colors';
+import {useUserContext} from 'src/context/UserContext';
 import {Chat, Home, My, Reservation} from 'src/screens/Home';
 
-const iconMap = {
-  홈: HomeIcon,
-  예약: ScheduleIcon,
-  채팅: ChatIcon,
-  마이: UserIcon,
-} as const;
-
-type TabIcons = keyof typeof iconMap;
-
 type BottomTabNavigatorParamList = {
-  홈: undefined;
-  예약: undefined;
-  채팅: undefined;
-  마이: undefined;
+  HomeTab: undefined;
+  ReservationTab: undefined;
+  ChatTab: undefined;
+  MyTab: undefined;
+};
+type TabType = keyof typeof tabMap;
+
+const tabMap = {
+  HomeTab: {
+    title: '홈',
+    icon: HomeIcon,
+  },
+  ReservationTab: {
+    title: '예약',
+    icon: ScheduleIcon,
+  },
+  ChatTab: {
+    title: '채팅',
+    icon: ChatIcon,
+  },
+  MyTab: {
+    title: '마이',
+    icon: UserIcon,
+  },
 };
 
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
@@ -28,12 +40,24 @@ export type HomeTabProps =
 
 export default function HomeNavigator() {
   const safeInsets = useContext(SafeAreaInsetsContext);
+  const {
+    state: {type},
+  } = useUserContext();
+
+  const getTitle = useCallback(
+    (currentTab: TabType) => {
+      const title = tabMap[currentTab].title;
+      if (currentTab === 'ReservationTab')
+        return type === 'mentee' ? title : '수업';
+      return title;
+    },
+    [type],
+  );
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
+      screenOptions={({route: {name}}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          const iconKey = route.name as TabIcons;
-          const IconComponent = iconMap[iconKey];
+          const IconComponent = tabMap[name].icon;
           return (
             <IconComponent style={{width: size, height: size}} fill={color} />
           );
@@ -46,27 +70,23 @@ export default function HomeNavigator() {
           paddingTop: 19,
           paddingBottom: 22,
         },
-        // tabBarIconStyle: {},
         headerStyle: {
-          // borderWidth: 1,
-          // borderColor: 'red',
           height: 62 + (safeInsets?.top ?? 0),
-          borderBottomWidth:
-            route.name === '마이' || route.name === '채팅' ? 0.33 : 0,
+          borderBottomWidth: name === 'MyTab' || name === 'ChatTab' ? 0.33 : 0,
         },
-        headerTitle: route.name === '마이' ? '마이페이지' : route.name,
+        headerTitle: name === 'MyTab' ? '마이페이지' : getTitle(name),
         headerTitleStyle: {
           fontSize: 22,
-          // fontWeight: 600,
           color: 'black',
         },
         headerTitleAlign: 'center',
-        headerShown: route.name !== '홈',
+        headerShown: name !== 'HomeTab',
+        title: getTitle(name),
       })}>
-      <Tab.Screen name="홈" component={Home} />
-      <Tab.Screen name="예약" component={Reservation} />
-      <Tab.Screen name="채팅" component={Chat} />
-      <Tab.Screen name="마이" component={My} />
+      <Tab.Screen name="HomeTab" component={Home} />
+      <Tab.Screen name="ReservationTab" component={Reservation} />
+      <Tab.Screen name="ChatTab" component={Chat} />
+      <Tab.Screen name="MyTab" component={My} />
     </Tab.Navigator>
   );
 }
