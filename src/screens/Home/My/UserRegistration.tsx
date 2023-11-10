@@ -59,20 +59,35 @@ export default function UserRegistration() {
       </View>
       <View style={styles.listContainer}>
         <Text style={styles.title}>
-          {type === 'mentee' ? '멘토 리스트' : '등록 대기 리스트'}
+          {isMentee ? '멘토 리스트' : '등록 대기 리스트'}
         </Text>
-        <View style={styles.list}>
-          <ReservationCard
-            mode="YY/MM/DD"
-            text={`홍길동 ${subText}`}
-            hasRightIcon
-          />
-          <ReservationCard
-            mode="YY/MM/DD"
-            text={`김차박 ${subText}`}
-            hasRightIcon
-          />
-        </View>
+        {isMentee ? (
+          <View style={styles.list}>
+            <ReservationCard
+              mode="waitingForApproval"
+              text={`홍길동 ${subText}`}
+              hasRightIcon
+            />
+            <ReservationCard
+              mode="approvalComplete"
+              text={`김차박 ${subText}`}
+              hasRightIcon
+            />
+          </View>
+        ) : (
+          <View style={styles.list}>
+            <ReservationCard
+              mode="registrationComplete"
+              text={`홍길동 ${subText}`}
+              hasRightIcon
+            />
+            <ReservationCard
+              mode="registrationComplete"
+              text={`김차박 ${subText}`}
+              hasRightIcon
+            />
+          </View>
+        )}
       </View>
       <ConfirmModal
         modalVisible={modalVisible}

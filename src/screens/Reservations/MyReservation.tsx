@@ -42,17 +42,17 @@ export default function MyReservation() {
           <ReservationCard
             text="하체, 유산소 운동"
             time="09:00 - 10:00"
-            mode="classSuccess"
+            mode="classCompletion"
           />
           <ReservationCard
             text="하체, 유산소 운동"
             time="09:00 - 10:00"
-            mode="cancelSuccess"
+            mode="classCompletion"
           />
           <ReservationCard
             text="하체, 유산소 운동"
             time="09:00 - 10:00"
-            mode="cancelSuccess"
+            mode="cancellationSuccess"
           />
         </View>
       </View>
