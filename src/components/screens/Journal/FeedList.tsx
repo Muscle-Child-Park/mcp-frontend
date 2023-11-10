@@ -19,30 +19,22 @@ export default function FeedList({logs, markedDates}: Props) {
         // <FeedListItem log={item.key!} key={idx} />
         <ReservationCard
           text={
-            item.key === 'walking'
-              ? '하체, 유산소 운동'
-              : item.key === 'running'
-              ? '런닝'
-              : '싸이클'
+            item.key === 'personalTraining' ? '하체, 유산소 운동' : '싸이클'
           }
           time={
-            item.key === 'walking'
-              ? '09:00 - 10:00'
-              : item.key === 'running'
-              ? '10:00 - 11:00'
-              : '14:00 - 16:00'
+            item.key === 'personalExercise' ? '09:00 - 10:00' : '14:00 - 16:00'
           }
-          mode={
-            item.key === 'walking'
-              ? 'personalExercise'
-              : item.key === 'running'
-              ? 'pt'
-              : 'pt'
-          }
+          mode={item.key! as 'personalTraining' | 'personalExercise'}
           hasRightIcon
           key={idx}
         />
       ))}
+      {/* <ReservationCard
+        text={'하체, 유산소 운동'}
+        time={'09:00 - 10:00'}
+        mode={'personalTraining'}
+        hasRightIcon
+      /> */}
     </View>
   );
 }

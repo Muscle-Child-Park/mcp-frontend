@@ -6,7 +6,9 @@ import {CalendarHeaderType} from 'src/types/type';
 interface Props {
   type: CalendarHeaderType;
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
+  hiddenButton?: boolean;
+  hiddenYear?: boolean;
 }
 
 const buttonText = {
@@ -14,20 +16,29 @@ const buttonText = {
   list: '리스트로 보기',
 };
 
-export default function CustomHeader({onPress, title, type}: Props) {
-  const [month, year] = title.split(' ');
-  return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.month}>{month}</Text>
-        <Text style={styles.year}>{year}</Text>
+const CustomHeader = React.forwardRef(
+  (
+    {onPress, title, type, hiddenButton = false, hiddenYear = false}: Props,
+    ref: React.Ref<View>,
+  ) => {
+    const [month, year] = title.split(' ');
+    return (
+      <View ref={ref} style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.month}>{month}</Text>
+          {!hiddenYear && <Text style={styles.year}>{year}</Text>}
+        </View>
+        {!hiddenButton && (
+          <Pressable onPress={onPress}>
+            <Text style={styles.button}>{buttonText[type]}</Text>
+          </Pressable>
+        )}
       </View>
-      <Pressable onPress={onPress}>
-        <Text style={styles.button}>{buttonText[type]}</Text>
-      </Pressable>
-    </View>
-  );
-}
+    );
+  },
+);
+
+export default CustomHeader;
 
 const styles = StyleSheet.create({
   container: {

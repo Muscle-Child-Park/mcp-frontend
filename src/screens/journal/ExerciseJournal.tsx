@@ -1,10 +1,17 @@
 import React, {useMemo, useState} from 'react';
 import {format} from 'date-fns';
 import {MarkingProps} from 'react-native-calendars/src/calendar/day/marking';
-import {SafeAreaView, StatusBar, StyleSheet, ScrollView} from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  ScrollView,
+  View,
+} from 'react-native';
 import ListView from 'src/components/screens/Journal/ListView';
 import CalendarView from 'src/components/screens/Journal/CalendarView';
 import {CalendarHeaderType} from 'src/types/type';
+import {colors} from 'src/constants/colors';
 
 export default function ExerciseJournal() {
   const [selectedTab, isSelectedTab] = useState<CalendarHeaderType>('calendar');
@@ -24,10 +31,27 @@ export default function ExerciseJournal() {
   //   },
   // };
   // const logs = ['2023-10-29', '2023-10-30', '2023-10-31'];
-  const logs = ['2023-11-01', '2023-11-02', '2023-11-03', '2023-11-05'];
-  const running = {key: 'running', color: 'blue'};
-  const cycling = {key: 'cycling', color: 'green'};
-  const walking = {key: 'walking', color: 'orange'};
+  const logs = [
+    '2023-09-26',
+    '2023-09-27',
+    '2023-09-29',
+    '2023-09-30',
+    '2023-10-26',
+    '2023-10-27',
+    '2023-10-29',
+    '2023-10-30',
+    '2023-11-01',
+    '2023-11-02',
+    '2023-11-03',
+    '2023-11-05',
+    '2023-11-06',
+    '2023-11-07',
+    '2023-11-08',
+    '2023-11-09',
+    '2023-11-10',
+  ].reverse();
+  const pt = {key: 'personalTraining', color: colors.primary};
+  const pe = {key: 'personalExercise', color: colors.red};
 
   const markedDates = useMemo(
     () =>
@@ -35,10 +59,7 @@ export default function ExerciseJournal() {
         const formattedDate = format(new Date(cur), 'yyyy-MM-dd');
         acc[formattedDate] = {
           marked: true,
-          dots:
-            cur === '2023-11-02'
-              ? [running, walking]
-              : [running, cycling, walking],
+          dots: cur === '2023-11-02' ? [pe] : [pt, pe],
         };
         return acc;
       }, {} as Record<string, MarkingProps>),
@@ -58,7 +79,7 @@ export default function ExerciseJournal() {
         backgroundColor="transparent"
         barStyle={'dark-content'}
       />
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         {selectedTab === 'calendar' ? (
           <CalendarView
             selectDate={selectedDate}
@@ -73,7 +94,7 @@ export default function ExerciseJournal() {
             listData={markedDates}
           />
         )}
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

@@ -5,7 +5,7 @@ import {colors} from 'src/constants/colors';
 import {
   View,
   Text,
-  TouchableOpacity,
+  ScrollView,
   type TextStyle,
   type StyleProp,
   StyleSheet,
@@ -85,9 +85,10 @@ export default function CalendarView({
   const [currentTitle, setCurrentTitle] = useState(
     `${currentMonth}월 ${currentYear}`,
   );
+  // console.log(markedDates);
   // console.log(markedDates, markedSelectedDate, selectDate);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Calendar
         style={styles.calendar}
         enableSwipeMonths
@@ -115,12 +116,13 @@ export default function CalendarView({
         <Text style={styles.listTitle}>나의 운동</Text>
         <FeedList logs={logs} markedDates={markedDates} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     // borderWidth: 1,
     // borderColor: colors.primary,
   },
