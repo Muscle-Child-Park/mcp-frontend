@@ -79,7 +79,7 @@ export default function Mentee({username}: Props) {
       )}
       <Pressable
         onPress={() => {
-          navigation.navigate('JournalScreen');
+          navigation.navigate('JournalScreen', {screen: '운동 일지'});
         }}>
         <MainCard>
           <View style={styles.exerciseJournalContainer}>

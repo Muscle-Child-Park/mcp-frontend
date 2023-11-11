@@ -21,7 +21,7 @@ export type RootStackParamList = {
   OnboardingScreen: undefined;
   Onboarding1: undefined;
   ReservationResultScreen: undefined;
-  JournalScreen: undefined;
+  JournalScreen: {screen: '운동 추가' | '수업 상세' | '운동 일지'}; // HomScreen 내부에 HomeTab에서 사용하기 위함
   UserProfileScreen: undefined;
   UserRegistrationScreen: undefined;
   IntroScreen: undefined;

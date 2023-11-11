@@ -1,25 +1,35 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {colors} from 'src/constants/colors';
+import {BasicProps} from 'src/navigation/MainNavigator';
 
 interface Props {
   mode?: 'success' | 'required';
 }
 
 export default function TodayReservation({mode = 'required'}: Props) {
+  const navigation = useNavigation<BasicProps>();
+  const handlePress = () => {
+    if (mode === 'success') return;
+    navigation.navigate('JournalScreen', {screen: '운동 추가'});
+  };
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.menteeName}>누구누구 회원님</Text>
         <Text style={styles.time}>오전 10:00</Text>
       </View>
-      <View
+      <Pressable
         style={[
           styles.buttonContainer,
           mode === 'required' && {backgroundColor: colors.primary},
-        ]}>
-        <Text style={styles.buttonText}>작성 완료</Text>
-      </View>
+        ]}
+        onPress={handlePress}>
+        <Text style={styles.buttonText}>
+          {mode === 'required' ? '작성 필요' : '작성 완료'}
+        </Text>
+      </Pressable>
     </View>
   );
 }

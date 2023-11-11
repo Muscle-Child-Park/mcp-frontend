@@ -22,7 +22,7 @@ interface Props {
 type HomeScreenProp = CompositeNavigationProp<HomeTabProps, BasicProps>;
 
 export default function Mentor({username}: Props) {
-  const [hasMentee, setHasMentee] = useState(false); // TODO: 학생 등록 여부
+  const [hasMentee, setHasMentee] = useState(true); // TODO: 학생 등록 여부
   const {width} = useWindowDimensions();
   const navigation = useNavigation<HomeScreenProp>();
   return (
@@ -52,7 +52,8 @@ export default function Mentor({username}: Props) {
           </Pressable>
           <Pressable
             onPress={() => {
-              navigation.navigate('ReservationTab');
+              // navigation.navigate('ReservationTab');
+              // TODO: 해당 카드는 단순 업데이트 알림용
             }}>
             <MainCard>
               <View style={styles.pressContainer}>
@@ -72,7 +73,9 @@ export default function Mentor({username}: Props) {
                 text="캘린더 전체보기"
                 layoutmode="basic"
                 variant="fillPrimary"
-                onPress={() => navigation.navigate('JournalScreen')}
+                onPress={() =>
+                  navigation.navigate('JournalScreen', {screen: '운동 일지'})
+                }
               />
             </View>
           </MainCard>
