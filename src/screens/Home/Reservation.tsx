@@ -5,7 +5,7 @@ import {
   MaterialTopTabNavigationProp,
 } from '@react-navigation/material-top-tabs';
 import ReservationNavigator from 'src/navigation/ReservationNavigator';
-import {MyReservation} from '../Reservations';
+import {MyReservation, UserManagement} from '../Reservations';
 import {useUserContext} from 'src/context/UserContext';
 import {ExerciseJournal} from '../Journal';
 
@@ -32,6 +32,7 @@ const TopTabNavigator = () => {
   const {
     state: {type},
   } = useUserContext();
+  const isMentee = type === 'mentee';
   return (
     <TopTab.Navigator
       screenOptions={({route}) => ({
@@ -53,13 +54,17 @@ const TopTabNavigator = () => {
       })}>
       <TopTab.Screen
         name="Reserve"
-        component={type === 'mentee' ? ReservationNavigator : ExerciseJournal}
+        component={isMentee ? ReservationNavigator : ExerciseJournal}
       />
-      <TopTab.Screen name="MyReservation" component={MyReservation} />
+      <TopTab.Screen
+        name="MyReservation"
+        component={isMentee ? MyReservation : UserManagement}
+      />
     </TopTab.Navigator>
   );
 };
 
+// 멘티 - 예약하기/나의예약 / 멘토 - 수업관리(예약관리/회원관리)
 const Reservation = () => {
   return <TopTabNavigator />;
   // return <Text>hi</Text>;

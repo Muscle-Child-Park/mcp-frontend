@@ -6,6 +6,7 @@ export type ExcerciseChipsType = keyof typeof text;
 
 interface Props {
   mode: ExcerciseChipsType;
+  chipText?: string;
 }
 
 const text = {
@@ -18,9 +19,11 @@ const text = {
   registrationComplete: '등록완료',
   approvalComplete: '승인완료',
   waitingForApproval: '승인대기중',
+  expired: '회원권 만료',
+  ticketCounting: '1/nn',
 };
 
-const ExerciseChips = ({mode}: Props) => {
+const ExerciseChips = ({mode, chipText}: Props) => {
   return (
     <View
       style={[
@@ -28,13 +31,16 @@ const ExerciseChips = ({mode}: Props) => {
         (mode === 'personalTraining' ||
           mode === 'reservationSuccess' ||
           mode === 'registrationComplete' ||
-          mode === 'approvalComplete') && {
+          mode === 'approvalComplete' ||
+          mode === 'ticketCounting') && {
           backgroundColor: colors.primaryMoreLight,
         },
         mode === 'personalExercise' && {backgroundColor: colors.redLighten},
         mode === 'today' && {backgroundColor: colors.primary},
         mode === 'classCompletion' && {backgroundColor: colors.blueLighten3},
-        (mode === 'cancellationSuccess' || mode === 'waitingForApproval') && {
+        (mode === 'cancellationSuccess' ||
+          mode === 'waitingForApproval' ||
+          mode === 'expired') && {
           backgroundColor: colors.grayLighten,
         },
       ]}>
@@ -44,15 +50,18 @@ const ExerciseChips = ({mode}: Props) => {
           (mode === 'personalTraining' ||
             mode === 'reservationSuccess' ||
             mode === 'registrationComplete' ||
-            mode === 'approvalComplete') && {color: colors.primary},
+            mode === 'approvalComplete' ||
+            mode === 'ticketCounting') && {color: colors.primary},
           mode === 'personalExercise' && {color: colors.red},
           mode === 'today' && {color: 'white'},
           mode === 'classCompletion' && {color: colors.blueLighten},
-          (mode === 'cancellationSuccess' || mode === 'waitingForApproval') && {
+          (mode === 'cancellationSuccess' ||
+            mode === 'waitingForApproval' ||
+            mode === 'expired') && {
             color: colors.gray50,
           },
         ]}>
-        {text[mode]}
+        {text[mode] === '1/nn' ? `${chipText}회` : text[mode]}
       </Text>
     </View>
   );

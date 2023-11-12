@@ -13,6 +13,7 @@ import {
 import {LogType} from 'src/types/type';
 import CustomHeader from './CustomHeader';
 import FeedList from './FeedList';
+import {useUserContext} from 'src/context/UserContext';
 
 LocaleConfig.locales['ko'] = {
   monthNames: [
@@ -85,6 +86,10 @@ export default function CalendarView({
   const [currentTitle, setCurrentTitle] = useState(
     `${currentMonth}월 ${currentYear}`,
   );
+  const {
+    state: {type},
+  } = useUserContext();
+  const isMentee = type === 'mentee';
   // console.log(markedDates);
   // console.log(markedDates, markedSelectedDate, selectDate);
   return (
@@ -97,7 +102,12 @@ export default function CalendarView({
           setCurrentTitle(`${date.month}월 ${date.year}`);
         }}
         customHeaderTitle={
-          <CustomHeader onPress={onTabPress} title={currentTitle} type="list" />
+          <CustomHeader
+            onPress={onTabPress}
+            title={currentTitle}
+            type="list"
+            hiddenButton={!isMentee}
+          />
         }
         markingType="multi-dot"
         markedDates={markedSelectedDate}

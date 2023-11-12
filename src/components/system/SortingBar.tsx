@@ -10,7 +10,12 @@ import Tag from './Tag';
 import {colors} from 'src/constants/colors';
 import {SortDown} from 'src/assets/images';
 import SortingModal from './BottomSeetModal/SortingModal';
-import {sortTags, sortTypes} from 'src/constants/common';
+import {
+  sortTagsForMentee,
+  sortTagsForMentor,
+  sortTypes,
+} from 'src/constants/common';
+import {useUserContext} from 'src/context/UserContext';
 
 interface Props {
   currentTag: string;
@@ -21,6 +26,11 @@ const SortingBar = ({currentTag, setCurrentTag}: Props) => {
   const {width} = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selected, setSelected] = useState(0); // [0, 1, 2]
+  const {
+    state: {type},
+  } = useUserContext();
+  const isMentee = type === 'mentee';
+  const sortTags = isMentee ? sortTagsForMentee : sortTagsForMentor;
   const pressButton = () => {
     setModalVisible(true);
   };

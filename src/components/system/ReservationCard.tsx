@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
 import MainCard from './MainCard';
 import {View, StyleSheet, Text, Pressable} from 'react-native';
 import {colors} from 'src/constants/colors';
-import ExcerciseChips, {ExcerciseChipsType} from './ExcerciseChips';
 import {RightArrow} from 'src/assets/images';
+import ExerciseChips, {ExcerciseChipsType} from './ExerciseChips';
 
 interface Props {
   text: string;
   time?: string;
   mode: ExcerciseChipsType;
+  modeText?: string;
   handlePress?: () => void;
   handleCancel?: () => void;
   hasRightIcon?: boolean;
@@ -18,6 +18,7 @@ const ReservationCard = ({
   text,
   time,
   mode,
+  modeText,
   handlePress,
   handleCancel,
   hasRightIcon = false,
@@ -27,7 +28,7 @@ const ReservationCard = ({
       <MainCard>
         <View style={styles.body}>
           <View style={styles.left}>
-            <ExcerciseChips mode={mode} />
+            <ExerciseChips mode={mode} chipText={modeText} />
             <Text style={styles.title}>{text}</Text>
             {time && <Text style={styles.time}>{time}</Text>}
           </View>

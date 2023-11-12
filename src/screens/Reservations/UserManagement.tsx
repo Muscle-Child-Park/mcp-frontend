@@ -5,7 +5,7 @@ import ReservationCard from 'src/components/system/ReservationCard';
 import SortingBar from 'src/components/system/SortingBar';
 import {sortTagsForMentee} from 'src/constants/common';
 
-export default function MyReservation() {
+export default function UserManagement() {
   const [currentTag, setCurrentTag] = useState(sortTagsForMentee[0]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isCancel, setIsCancel] = useState(false);
@@ -24,11 +24,6 @@ export default function MyReservation() {
   return (
     <ScrollView style={styles.containerWrapper}>
       <View style={styles.container}>
-        <ReservationCard
-          text="하체, 유산소 운동"
-          time="09:00 - 10:00"
-          mode="today"
-        />
         <View style={styles.sortingBar}>
           <SortingBar currentTag={currentTag} setCurrentTag={setCurrentTag} />
         </View>
@@ -36,23 +31,35 @@ export default function MyReservation() {
           <ReservationCard
             text="8월 28일 운동"
             time="09:00 - 10:00"
-            mode="reservationSuccess"
-            handleCancel={() => setModalVisible(true)}
+            mode="ticketCounting"
+            modeText="1/nn"
+            hasRightIcon
           />
           <ReservationCard
             text="하체, 유산소 운동"
             time="09:00 - 10:00"
-            mode="classCompletion"
+            mode="ticketCounting"
+            modeText="1/nn"
+            hasRightIcon
           />
           <ReservationCard
             text="하체, 유산소 운동"
             time="09:00 - 10:00"
-            mode="classCompletion"
+            mode="ticketCounting"
+            modeText="1/nn"
+            hasRightIcon
           />
           <ReservationCard
             text="하체, 유산소 운동"
             time="09:00 - 10:00"
-            mode="cancellationSuccess"
+            mode="expired"
+            hasRightIcon
+          />
+          <ReservationCard
+            text="하체, 유산소 운동"
+            time="09:00 - 10:00"
+            mode="expired"
+            hasRightIcon
           />
         </View>
       </View>
@@ -79,7 +86,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   sortingBar: {
-    marginVertical: 20,
+    marginBottom: 20,
   },
-  history: {flex: 1, gap: 24},
+  history: {flex: 1, gap: 20},
 });

@@ -8,6 +8,7 @@ import CustomHeader from './CustomHeader';
 import {MarkingProps} from 'react-native-calendars/src/calendar/day/marking';
 import {format} from 'date-fns';
 import {ko} from 'date-fns/locale';
+import {useUserContext} from 'src/context/UserContext';
 
 interface Props {
   onTabPress: () => void;
@@ -17,6 +18,10 @@ export default function ListView({onTabPress, listData}: Props) {
   const currentMonth = new Date().getMonth() + 1;
   const currentYear = new Date().getFullYear();
   const navigation = useNavigation<JournalStackProps>();
+  const {
+    state: {type},
+  } = useUserContext();
+  const isMentee = type === 'mentee';
   const [currentTitle, setCurrentTitle] = useState(
     `${currentMonth}월 ${currentYear}`,
   );
@@ -155,7 +160,12 @@ export default function ListView({onTabPress, listData}: Props) {
 
   return (
     <View style={styles.container}>
-      <CustomHeader onPress={onTabPress} title={currentTitle} type="calendar" />
+      <CustomHeader
+        onPress={onTabPress}
+        title={currentTitle}
+        type="calendar"
+        hiddenButton={!isMentee}
+      />
       <ScrollView
         ref={scrollViewRef}
         style={styles.listWrapper}
