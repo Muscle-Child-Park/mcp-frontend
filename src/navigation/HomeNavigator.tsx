@@ -5,6 +5,7 @@ import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
 import {HomeIcon, ScheduleIcon, ChatIcon, UserIcon} from 'src/assets/images';
 import {colors} from 'src/constants/colors';
 import {useUserContext} from 'src/context/UserContext';
+import {useAppSelector} from 'src/hooks/useReduxHooks';
 import {Chat, Home, My, Reservation} from 'src/screens/Home';
 
 type BottomTabNavigatorParamList = {
@@ -43,16 +44,32 @@ export default function HomeNavigator() {
   const {
     state: {type},
   } = useUserContext();
+  const {ReservationStackType} = useAppSelector(
+    state => state.reservationStackType,
+  );
 
   const getTitle = useCallback(
     (currentTab: TabType) => {
       const title = tabMap[currentTab].title;
-      if (currentTab === 'ReservationTab')
-        return type === 'mentee' ? title : '수업';
-      return title;
+      let header = title;
+      let bottom = title;
+      if (currentTab === 'ReservationTab' && type === 'mentor') {
+        header = '수업';
+        bottom = '수업';
+      }
+      if (currentTab === 'MyTab') {
+        header = '마이페이지';
+      }
+      return {header, bottom};
     },
     [type],
   );
+  const isShow = (currentTab: TabType) => {
+    if (ReservationStackType === 'UserScreen') {
+      return false;
+    }
+    return currentTab !== 'HomeTab';
+  };
   return (
     <Tab.Navigator
       screenOptions={({route: {name}}) => ({
@@ -74,14 +91,14 @@ export default function HomeNavigator() {
           height: 62 + (safeInsets?.top ?? 0),
           borderBottomWidth: name === 'MyTab' || name === 'ChatTab' ? 0.33 : 0,
         },
-        headerTitle: name === 'MyTab' ? '마이페이지' : getTitle(name),
+        headerTitle: getTitle(name).header,
         headerTitleStyle: {
           fontSize: 22,
           color: 'black',
         },
         headerTitleAlign: 'center',
-        headerShown: name !== 'HomeTab',
-        title: getTitle(name),
+        headerShown: isShow(name),
+        title: getTitle(name).bottom,
       })}>
       <Tab.Screen name="HomeTab" component={Home} />
       <Tab.Screen name="ReservationTab" component={Reservation} />

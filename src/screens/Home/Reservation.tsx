@@ -1,13 +1,25 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabNavigationProp,
 } from '@react-navigation/material-top-tabs';
-import ReservationNavigator from 'src/navigation/ReservationNavigator';
 import {MyReservation, UserManagement} from '../Reservations';
 import {useUserContext} from 'src/context/UserContext';
 import {ExerciseJournal} from '../Journal';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
+import UserScreen from '../Reservations/UserScreen';
+import MainReservation from '../Reservations/MainReservation';
+import {RouteProp} from '@react-navigation/native';
+import {useAppDispatch, useAppSelector} from 'src/hooks/useReduxHooks';
+import {setReservationStackType} from 'src/modules/redux/slice/ReservationTypeSlice';
+
+export type ReservationStackParamList = {
+  MainReservation: undefined;
+  UserScreen: {headerTitle: string};
+};
 
 type TopTabNavigatorParamList = {
   Reserve: undefined;
@@ -15,8 +27,17 @@ type TopTabNavigatorParamList = {
 };
 export type TopTabProps =
   MaterialTopTabNavigationProp<TopTabNavigatorParamList>;
+export type ReservationStackProps =
+  NativeStackNavigationProp<ReservationStackParamList>;
+
+export type UserScreenRouteProp = RouteProp<
+  ReservationStackParamList,
+  'UserScreen'
+>;
 
 const TopTab = createMaterialTopTabNavigator<TopTabNavigatorParamList>();
+const Stack = createNativeStackNavigator<ReservationStackParamList>();
+
 const title = {
   mentee: {
     Reserve: '예약하기',
@@ -54,7 +75,7 @@ const TopTabNavigator = () => {
       })}>
       <TopTab.Screen
         name="Reserve"
-        component={isMentee ? ReservationNavigator : ExerciseJournal}
+        component={isMentee ? MainReservation : ExerciseJournal}
       />
       <TopTab.Screen
         name="MyReservation"
@@ -66,14 +87,25 @@ const TopTabNavigator = () => {
 
 // 멘티 - 예약하기/나의예약 / 멘토 - 수업관리(예약관리/회원관리)
 const Reservation = () => {
-  return <TopTabNavigator />;
+  const dispatch = useAppDispatch();
+  return (
+    <Stack.Navigator
+      initialRouteName="MainReservation"
+      screenOptions={({route}) => {
+        if (route.name === 'MainReservation') {
+          dispatch(setReservationStackType('MainReservation'));
+          return {headerShown: false};
+        } else {
+          dispatch(setReservationStackType('UserScreen'));
+          return {headerShown: true};
+        }
+      }}>
+      <Stack.Screen name="MainReservation" component={TopTabNavigator} />
+      <Stack.Screen name="UserScreen" component={UserScreen} />
+    </Stack.Navigator>
+  );
+
   // return <Text>hi</Text>;
 };
-
-const styles = StyleSheet.create({
-  title: {
-    color: 'black',
-  },
-});
 
 export default Reservation;

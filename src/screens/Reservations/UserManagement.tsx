@@ -4,8 +4,13 @@ import ConfirmModal from 'src/components/system/CenterModal/ConfirmModal';
 import ReservationCard from 'src/components/system/ReservationCard';
 import SortingBar from 'src/components/system/SortingBar';
 import {sortTagsForMentee} from 'src/constants/common';
+import {ReservationStackProps} from '../Home/Reservation';
 
-export default function UserManagement() {
+export default function UserManagement({
+  navigation,
+}: {
+  navigation: ReservationStackProps;
+}) {
   const [currentTag, setCurrentTag] = useState(sortTagsForMentee[0]);
   const [modalVisible, setModalVisible] = useState(false);
   const [isCancel, setIsCancel] = useState(false);
@@ -29,11 +34,14 @@ export default function UserManagement() {
         </View>
         <View style={styles.history}>
           <ReservationCard
-            text="8월 28일 운동"
+            text="정지현 회원님"
             time="09:00 - 10:00"
             mode="ticketCounting"
             modeText="1/nn"
             hasRightIcon
+            handlePress={() => {
+              navigation.navigate('UserScreen', {headerTitle: '정지현 회원님'});
+            }}
           />
           <ReservationCard
             text="하체, 유산소 운동"

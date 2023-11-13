@@ -1,50 +1,15 @@
 import {useNavigation} from '@react-navigation/native';
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack';
-import {useState} from 'react';
-import {View, StyleSheet, Text, ScrollView, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {BasicProps} from 'src/navigation/MainNavigator';
+import {StyleSheet, SafeAreaView, ScrollView, View, Text} from 'react-native';
 import Calendar from 'src/components/system/Calendar';
-import ConfirmModal from 'src/components/system/CenterModal/ConfirmModal';
-import CustomButton from 'src/components/system/CustomButton';
 import HorizonLine from 'src/components/system/HorizonLine';
 import TimeSelection from 'src/components/system/TimeSelector';
+import CustomButton from 'src/components/system/CustomButton';
+import ConfirmModal from 'src/components/system/CenterModal/ConfirmModal';
 import {colors} from 'src/constants/colors';
-import {NextReservationStep} from 'src/screens/Reservations';
-import {BasicProps} from './MainNavigator';
 
-type ReservationStackParamList = {
-  MainScreen: undefined;
-  NextScreen: undefined;
-  SuccessScreen: undefined;
-};
-const Stack = createNativeStackNavigator<ReservationStackParamList>();
-type ReservationStackProps = NativeStackScreenProps<
-  ReservationStackParamList,
-  'MainScreen'
->;
-// export type NextProps = NativeStackScreenProps<
-//   ReservationStackParamList,
-//   'NextScreen'
-// >;
-// export type SuccessProps = NativeStackScreenProps<
-//   ReservationStackParamList,
-//   'SuccessScreen'
-// >;
-
-export default function ReservationNavigator() {
-  return (
-    <Stack.Navigator
-      initialRouteName="MainScreen"
-      screenOptions={{headerShown: false}}>
-      <Stack.Screen name="MainScreen" component={Reservation} />
-      <Stack.Screen name="NextScreen" component={NextReservationStep} />
-    </Stack.Navigator>
-  );
-}
-
-const Reservation = () => {
+export default function MainReservation() {
   // Context로 만들기
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -103,7 +68,7 @@ const Reservation = () => {
       />
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   wrapper: {
