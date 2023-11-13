@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {colors} from 'src/constants/colors';
 import {CalendarHeaderType} from 'src/types/type';
 
@@ -29,9 +29,9 @@ const CustomHeader = React.forwardRef(
           {!hiddenYear && <Text style={styles.year}>{year}</Text>}
         </View>
         {!hiddenButton && (
-          <Pressable onPress={onPress}>
+          <TouchableOpacity onPress={onPress}>
             <Text style={styles.button}>{buttonText[type]}</Text>
-          </Pressable>
+          </TouchableOpacity>
         )}
       </View>
     );

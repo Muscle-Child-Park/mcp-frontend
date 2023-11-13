@@ -52,7 +52,7 @@ export default function UserProfile({navigation}: MainStackProps) {
         {!isMentee ? (
           <View style={[styles.inputContainer, styles.divider]}>
             <View style={styles.textContainer}>
-              <Text style={styles.title}>소속</Text>
+              <Text style={styles.title}>소속 (선택입력)</Text>
               <Pressable
                 onPress={() => {
                   // TODO: API 연결
