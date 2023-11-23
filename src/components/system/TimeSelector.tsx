@@ -8,8 +8,8 @@ type timeType = '오전' | '오후';
 
 interface Props {
   title: timeType;
-  onSelectTime: (time: string) => void;
-  selected: string | null;
+  onSelectTime: (time: string[]) => void;
+  selected: string[] | null;
 }
 
 const TimeSelection = ({title, onSelectTime, selected}: Props) => {

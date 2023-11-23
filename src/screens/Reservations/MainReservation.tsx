@@ -60,7 +60,12 @@ const TrainerSelect = ({navigation}: ReservationStackProps) => {
 
 const DateSelect = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedMorningTime, setSelectedMorningTime] = useState<
+    string[] | null
+  >(null);
+  const [selectedAfternoonTime, setSelectedAfternoonTime] = useState<
+    string[] | null
+  >(null);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<BasicProps>();
   const handleCancel = () => {
@@ -80,24 +85,31 @@ const DateSelect = () => {
           <Text style={styles.semiTitle}>예약 가능한 시간</Text>
           <TimeSelection
             title="오전"
-            onSelectTime={setSelectedTime}
-            selected={selectedTime}
+            onSelectTime={setSelectedMorningTime}
+            selected={selectedMorningTime}
           />
           <View style={{height: 8}} />
           <TimeSelection
             title="오후"
-            onSelectTime={setSelectedTime}
-            selected={selectedTime}
+            onSelectTime={setSelectedAfternoonTime}
+            selected={selectedAfternoonTime}
           />
           <View style={styles.buttonContainer}>
             <CustomButton
               layoutmode="fullWidth"
               text="선택완료"
               variant="fillPrimary"
-              disabled={!selectedDate || !selectedTime}
+              disabled={
+                !selectedDate || !selectedMorningTime || !selectedAfternoonTime
+              }
               onPress={() => {
                 // TODO: disabled가 안먹히는 버그 해결하기
-                if (!selectedDate || !selectedTime) return;
+                if (
+                  !selectedDate ||
+                  !selectedMorningTime ||
+                  !selectedAfternoonTime
+                )
+                  return;
                 setModalVisible(true);
               }}
             />

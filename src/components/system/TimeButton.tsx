@@ -5,8 +5,8 @@ import {colors} from 'src/constants/colors';
 
 interface Props {
   time: string;
-  onSelectTime: (time: string) => void;
-  selected: string | null;
+  onSelectTime: (time: string[]) => void;
+  selected: string[] | null;
   isActive: boolean;
 }
 
@@ -22,7 +22,13 @@ const TimeButton = ({time, onSelectTime, selected, isActive}: Props) => {
       disabled={!isActive}
       // delayPressIn={0}
       onPress={() => {
-        onSelectTime(time);
+        if (selected?.includes(time)) {
+          const newArr = selected.filter(item => item !== time);
+          onSelectTime(newArr);
+          return;
+        }
+        const newArr = [...(selected ?? []), time];
+        onSelectTime(newArr);
       }}>
       <LinearGradient
         start={{x: 1, y: 0}}
@@ -30,13 +36,13 @@ const TimeButton = ({time, onSelectTime, selected, isActive}: Props) => {
         colors={
           !isActive
             ? backgroundColor.disable
-            : selected === time
+            : selected?.includes(time)
             ? backgroundColor.selected
             : backgroundColor.able
         }
         style={[
           styles.box,
-          isActive && selected === time && {borderColor: '#1F70FF'},
+          isActive && selected?.includes(time) && {borderColor: '#1F70FF'},
           !isActive && {borderColor: '#E4E4E4'},
         ]}>
         <Text
@@ -46,7 +52,7 @@ const TimeButton = ({time, onSelectTime, selected, isActive}: Props) => {
               color: '#989898',
             },
             isActive &&
-              selected === time && {
+              selected?.includes(time) && {
                 color: '#1F70FF',
               },
           ]}>
