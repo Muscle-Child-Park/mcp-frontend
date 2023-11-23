@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {BasicProps} from 'src/navigation/MainNavigator';
 import {StyleSheet, SafeAreaView, ScrollView, View, Text} from 'react-native';
@@ -8,9 +9,56 @@ import TimeSelection from 'src/components/system/TimeSelector';
 import CustomButton from 'src/components/system/CustomButton';
 import ConfirmModal from 'src/components/system/CenterModal/ConfirmModal';
 import {colors} from 'src/constants/colors';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ReservationCard from 'src/components/system/ReservationCard';
+
+type ReservationStackParamList = {
+  TrainerSelect: undefined;
+  DateSelect: undefined;
+};
+
+const Stack = createNativeStackNavigator<ReservationStackParamList>();
+type ReservationStackProps = NativeStackScreenProps<ReservationStackParamList>;
 
 export default function MainReservation() {
-  // Context로 만들기
+  return (
+    <Stack.Navigator
+      initialRouteName="TrainerSelect"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="TrainerSelect" component={TrainerSelect} />
+      <Stack.Screen name="DateSelect" component={DateSelect} />
+    </Stack.Navigator>
+  );
+}
+
+const TrainerSelect = ({navigation}: ReservationStackProps) => {
+  return (
+    <SafeAreaView style={styles.wrapper}>
+      <ScrollView style={styles.boxContainer}>
+        <View style={[styles.box, {gap: 20}]}>
+          <ReservationCard
+            hasRightIcon
+            text="정지현 트레이너님"
+            time="등록일: YY/MM/DD"
+            mode="ticketCounting"
+            modeText="1/7회"
+            handlePress={() => navigation.navigate('DateSelect')}
+          />
+          <ReservationCard
+            hasRightIcon
+            text="이호정 트레이너님"
+            time="등록일: YY/MM/DD"
+            mode="ticketCounting"
+            modeText="1/7회"
+            handlePress={() => navigation.navigate('DateSelect')}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const DateSelect = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,8 +73,8 @@ export default function MainReservation() {
   };
   return (
     <SafeAreaView style={styles.wrapper}>
-      <ScrollView style={styles.box}>
-        <View style={styles.boxContainer}>
+      <ScrollView style={styles.boxContainer}>
+        <View style={styles.box}>
           <Calendar onSelectDate={setSelectedDate} selected={selectedDate} />
           <HorizonLine isMarginVertical />
           <Text style={styles.semiTitle}>예약 가능한 시간</Text>
@@ -68,24 +116,24 @@ export default function MainReservation() {
       />
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
   },
   boxContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    // borderWidth: 1,
+    // borderColor: '#b6c1cd',
+  },
+  box: {
     marginTop: 20,
     marginRight: 20,
     marginLeft: 20,
     marginBottom: 22,
     flex: 1,
-  },
-  box: {
-    flex: 1,
-    backgroundColor: '#fff',
-    // borderWidth: 1,
-    // borderColor: '#b6c1cd',
   },
   semiTitle: {
     fontSize: 14,
