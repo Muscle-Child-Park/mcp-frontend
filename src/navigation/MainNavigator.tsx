@@ -15,6 +15,8 @@ import HomeNavigator from './HomeNavigator';
 import IntroNavigator from './IntroNavigator';
 import UserRegistration from 'src/screens/Home/My/UserRegistration';
 import {useUserContext} from 'src/context/UserContext';
+// import UserScreen from 'src/screens/Reservations/UserScreen';
+import ScheduleSetting from 'src/screens/Home/My/ScheduleSetting';
 
 export type RootStackParamList = {
   HomeScreen: undefined;
@@ -24,7 +26,9 @@ export type RootStackParamList = {
   JournalScreen: {screen: '운동 추가' | '수업 상세' | '운동 일지'}; // HomScreen 내부에 HomeTab에서 사용하기 위함
   UserProfileScreen: undefined;
   UserRegistrationScreen: undefined;
+  ScheduleSettingScreen: undefined;
   IntroScreen: undefined;
+  // UserScreen: {headerTitle: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +38,7 @@ export type MainStackProps = NativeStackScreenProps<
   | 'UserProfileScreen'
   | 'OnboardingScreen'
   | 'UserRegistrationScreen'
+  | 'ScheduleSettingScreen'
   | 'HomeScreen' // 쓰이는 곳에서 navigation의 type을 정해주기 위함
 >;
 export type BasicProps = NativeStackNavigationProp<RootStackParamList>;
@@ -50,7 +55,8 @@ export default function MainStackNavigator() {
         screenOptions={({route}) => {
           if (
             route.name === 'UserProfileScreen' ||
-            route.name === 'UserRegistrationScreen'
+            route.name === 'UserRegistrationScreen' ||
+            route.name === 'ScheduleSettingScreen'
           ) {
             return {headerShown: true};
           }
@@ -96,6 +102,36 @@ export default function MainStackNavigator() {
             };
           }}
         />
+        <Stack.Screen
+          name="ScheduleSettingScreen"
+          component={ScheduleSetting}
+          options={({navigation}) => {
+            return {
+              headerTitle: '일정 설정',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.pop()}>
+                  <Prev style={{width: 24, height: 24}} fill={colors.gray100} />
+                </Pressable>
+              ),
+            };
+          }}
+        />
+        {/* <Stack.Screen
+          name="UserScreen"
+          component={UserScreen}
+          options={({navigation}) => {
+            return {
+              headerTitle: `회원님`,
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.pop()}>
+                  <Prev style={{width: 24, height: 24}} fill={colors.gray100} />
+                </Pressable>
+              ),
+            };
+          }}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

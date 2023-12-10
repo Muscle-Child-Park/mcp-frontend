@@ -18,6 +18,7 @@ const text = {
   mentor: {
     subName: '트레이너님',
     registrationTitle: '회원 등록',
+    scheduleManagement: '일정 설정',
   },
 };
 
@@ -55,7 +56,16 @@ export default function My() {
         handlePress={() => {
           navigation.navigate('UserRegistrationScreen');
         }}
+        hasBorderBottom={type === 'mentor'}
       />
+      {type === 'mentor' && (
+        <ListButton
+          title={`${text[type].scheduleManagement}`}
+          handlePress={() => {
+            navigation.navigate('ScheduleSettingScreen');
+          }}
+        />
+      )}
       <View style={styles.divider} />
       <View style={styles.pushRowContainer}>
         <Text style={styles.pushText}>앱 PUSH 동의</Text>

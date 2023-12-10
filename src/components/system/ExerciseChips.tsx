@@ -21,6 +21,7 @@ const text = {
   waitingForApproval: '승인대기중',
   expired: '회원권 만료',
   ticketCounting: '1/nn',
+  empty: '',
 };
 
 const ExerciseChips = ({mode, chipText}: Props) => {
@@ -32,7 +33,8 @@ const ExerciseChips = ({mode, chipText}: Props) => {
           mode === 'reservationSuccess' ||
           mode === 'registrationComplete' ||
           mode === 'approvalComplete' ||
-          mode === 'ticketCounting') && {
+          mode === 'ticketCounting' ||
+          mode === 'empty') && {
           backgroundColor: colors.primaryMoreLight,
         },
         mode === 'personalExercise' && {backgroundColor: colors.redLighten},
@@ -51,7 +53,8 @@ const ExerciseChips = ({mode, chipText}: Props) => {
             mode === 'reservationSuccess' ||
             mode === 'registrationComplete' ||
             mode === 'approvalComplete' ||
-            mode === 'ticketCounting') && {color: colors.primary},
+            mode === 'ticketCounting' ||
+            mode === 'empty') && {color: colors.primary},
           mode === 'personalExercise' && {color: colors.red},
           mode === 'today' && {color: 'white'},
           mode === 'classCompletion' && {color: colors.blueLighten},
@@ -61,7 +64,11 @@ const ExerciseChips = ({mode, chipText}: Props) => {
             color: colors.gray50,
           },
         ]}>
-        {text[mode] === '1/nn' ? `${chipText}회` : text[mode]}
+        {text[mode] === '1/nn'
+          ? `${chipText}회`
+          : text[mode] === ''
+          ? chipText
+          : text[mode]}
       </Text>
     </View>
   );

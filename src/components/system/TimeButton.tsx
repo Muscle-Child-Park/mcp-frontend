@@ -8,6 +8,7 @@ interface Props {
   onSelectTime: (time: string[]) => void;
   selected: string[] | null;
   isActive: boolean;
+  isSmall?: boolean;
 }
 
 const backgroundColor = {
@@ -16,7 +17,13 @@ const backgroundColor = {
   selected: ['#1F70FF', '#EEF3FF'],
 };
 
-const TimeButton = ({time, onSelectTime, selected, isActive}: Props) => {
+const TimeButton = ({
+  time,
+  onSelectTime,
+  selected,
+  isActive,
+  isSmall,
+}: Props) => {
   return (
     <Pressable
       disabled={!isActive}
@@ -44,6 +51,7 @@ const TimeButton = ({time, onSelectTime, selected, isActive}: Props) => {
           styles.box,
           isActive && selected?.includes(time) && {borderColor: '#1F70FF'},
           !isActive && {borderColor: '#E4E4E4'},
+          isSmall && {width: 40},
         ]}>
         <Text
           style={[
