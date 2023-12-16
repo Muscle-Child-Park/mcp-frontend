@@ -42,3 +42,111 @@ export interface User {
   onboarding?: number[][]; // for mentee
   agency?: string; // for mentor
 }
+
+export interface UserBody {
+  name: string;
+  socialId: string;
+  socialType: string;
+}
+
+export interface Onboarding {
+  bodyPurpose: string;
+  exercisePurpose: string;
+  balance: string;
+  interest: string;
+  lifeStyle: string;
+  name: string;
+}
+
+export interface CommonResponse<T> {
+  status: number;
+  message: string;
+  data: T;
+}
+// Home Info Response
+export interface Home {
+  trainerReservations: TrainerReservation[];
+  flattenedList: FlattenedList[];
+}
+
+export interface FlattenedList {
+  id: number;
+  title: string;
+  lessonDate: string;
+  timeSlot: string;
+}
+
+export interface TrainerReservation {
+  trainerId: number;
+  name: string;
+  ticketGenerateInfo: string;
+  totalQuantity: number;
+  leftQuantity: number;
+}
+
+// Personal Exercise Info Response
+export interface PersonalExercise {
+  exercise: Exercise[];
+  title: string;
+  lessonDate: string;
+  timeSlot: string;
+  completionToggle: boolean;
+  logReflectionResponseDto: LogReflectionResponseDto;
+}
+
+export interface Exercise {
+  id: number;
+  exerciseType: string;
+  name: string;
+  weight: string;
+  reps: number;
+  sets: string;
+  runTime: number;
+}
+
+export interface LogReflectionResponseDto {
+  logId: number;
+  memo: string;
+}
+
+export interface PersonalExerciseList {
+  personalExerciseId: number;
+  title: string;
+  lessonDate: string;
+  timeSlot: string;
+  completionToggle: boolean;
+  classType: string;
+}
+
+export interface PersonalExerciseRequestBody {
+  personalExerciseRequest: PersonalExerciseRequest;
+  exerciseRequestDtos: ExerciseRequestDto[];
+}
+
+export interface ExerciseRequestDto {
+  exerciseType: string;
+  name: string;
+  sets: string;
+  weight: string;
+  reps: number;
+  runTime: number;
+}
+
+export interface PersonalExerciseRequest {
+  title: string;
+  lessonDate: string;
+  timeSlot: string;
+  classType: string;
+}
+
+export interface MemberExerciseReflectionCreateBody {
+  personalId: number;
+  memberId: number;
+  log: string;
+}
+
+export interface MemberExerciseReflectionEditBody {
+  personalId: number;
+  exerciseDiaryId: number;
+  log: string;
+}
